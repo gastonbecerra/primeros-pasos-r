@@ -1,0 +1,117 @@
+---
+title: "Módulo 2. Exploración y manipulación de datasets"
+---
+
+## Objetivo
+
+Conocer la estructura del dataset y usar los principales verbos de `dplyr` para transformarlo.
+
+## En este módulo
+
+Vamos a trabajar con:
+
+- `select()`;
+- `filter()`;
+- `rename()`;
+- `mutate()`;
+- `count()`;
+- `arrange()`.
+
+## Cargar datos
+
+```{r}
+library(tidyverse)
+
+encuesta_ia <- read_csv("data/encuesta_ia_subset.csv")
+```
+
+## Seleccionar columnas
+
+```{r}
+encuesta_ia %>%
+  select(edad, grupo_edad, area_trabajo_grupo)
+```
+
+## Filtrar casos
+
+```{r}
+encuesta_ia %>%
+  filter(area_trabajo_grupo == "Educación")
+```
+
+```{r}
+encuesta_ia %>%
+  filter(frecuencia_uso_ia == "frecuente")
+```
+
+## Contar categorías
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo)
+```
+
+```{r}
+encuesta_ia %>%
+  count(frecuencia_uso_ia)
+```
+
+```{r}
+encuesta_ia %>%
+  count(grupo_edad)
+```
+
+## Ordenar resultados
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo) %>%
+  arrange(desc(n))
+```
+
+## Crear nuevas variables
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    edad_mayor_45 = edad >= 45
+  )
+```
+
+```{r}
+encuesta_ia %>%
+  count(edad_mayor_45)
+```
+
+## Renombrar variables
+
+```{r}
+encuesta_ia %>%
+  rename(
+    area = area_trabajo_grupo,
+    frecuencia = frecuencia_uso_ia
+  )
+```
+
+## Idea metodológica
+
+Manipular datos no es una tarea meramente técnica.
+
+Cada vez que filtramos, agrupamos, recodificamos o creamos una variable, estamos tomando una decisión analítica.
+
+Por eso conviene preguntarnos:
+
+> ¿Esta transformación ayuda a responder mi pregunta de investigación?
+
+## Ejercicio breve
+
+Construí una tabla que muestre cuántas personas hay por área de trabajo y frecuencia de uso de IA.
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo, frecuencia_uso_ia)
+```
+
+## Cierre
+
+En este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación.

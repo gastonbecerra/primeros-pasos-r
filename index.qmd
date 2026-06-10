@@ -1,11 +1,61 @@
 ---
-title: "primeros-pasos-r"
+title: "Primeros pasos en análisis de datos para ciencias sociales con R"
 ---
 
-This is a Quarto website.
+Este taller introduce herramientas básicas de análisis de datos con R a partir de un ejercicio práctico con datos de encuesta sobre actitudes, creencias y usos de inteligencia artificial.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+El objetivo no es aprender comandos de manera aislada, sino usar R para formular preguntas, explorar datos, transformar tablas y construir respuestas interpretables desde las ciencias sociales.
 
-```{r}
-1 + 1
+## Organización del taller
+
+El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.
+
+| Módulo | Tema | Propósito |
+|---|---|---|
+| 1 | Introducción a R y Posit.Cloud | Preparar el entorno y cargar datos |
+| 2 | Exploración y manipulación de datasets | Conocer la tabla y transformarla |
+| 3 | Preguntas de investigación y construcción de variables | Pasar de columnas a indicadores |
+| 4 | Análisis descriptivo | Producir tablas, gráficos e interpretaciones |
+
+## Dataset de trabajo
+
+Trabajaremos con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.
+
+El dataset incluye información sobre:
+
+- edad;
+- área de trabajo;
+- frecuencia de uso de IA;
+- actitudes generales hacia la IA;
+- creencias sobre capacidades específicas de la IA.
+
+## Pregunta general
+
+¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+
+A partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos.
+
+## Materiales
+
+- [Módulo 1. Introducción a R y Posit.Cloud](modulo-1.qmd)
+- [Módulo 2. Exploración y manipulación de datasets](modulo-2.qmd)
+- [Módulo 3. Preguntas de investigación y construcción de variables](modulo-3.qmd)
+- [Módulo 4. Análisis descriptivo](modulo-4.qmd)
+
+## Archivos de trabajo
+
+Durante el taller vamos a usar:
+
+```text
+data/encuesta_ia_subset.csv
+data/diccionario_variables.csv
+scripts/
 ```
+
+## Idea metodológica
+
+Antes de analizar datos, necesitamos saber qué representa cada columna. Una tabla no es solamente un archivo: es una forma de organizar observaciones, variables y decisiones de investigación.
+
+En este taller vamos a insistir en una idea simple:
+
+> El código debe estar al servicio de la pregunta de investigación, no al revés.

@@ -143,3 +143,27 @@ encuesta_ia_subset %>%
   )
 
 write_csv(encuesta_ia_subset, "data/encuesta_ia_subset.csv")
+
+
+
+
+diccionario_variables <- tibble::tribble(
+  ~variable, ~descripcion, ~tipo, ~valores,
+  "id_caso", "Identificador anónimo del caso", "numérica", "1, 2, 3...",
+  "edad", "Edad de la persona encuestada", "numérica", "19 a 74",
+  "grupo_edad", "Edad agrupada", "categórica ordinal", "18-29; 30-44; 45-59; 60+",
+  "area_trabajo_grupo", "Área laboral recodificada", "categórica", "Educación; Salud y servicios sociales; Consultoría / servicios profesionales",
+  "frecuencia_uso_ia", "Frecuencia declarada de uso de herramientas de IA", "categórica ordinal", "nunca; esporadicamente; ocasional; frecuente",
+  "actitud_positiva", "Ítem de actitud general positiva hacia la IA", "Likert", "1 a 5",
+  "actitud_trabajo_estudio", "Ítem sobre valoración de la IA en trabajo o estudio", "Likert", "1 a 5",
+  "actitud_vida_cotidiana", "Ítem sobre valoración de la IA en la vida cotidiana", "Likert", "1 a 5",
+  "actitud_aprender_ia", "Ítem sobre disposición a aprender más sobre IA", "Likert", "1 a 5",
+  "creencia_decisiones_justas", "Creencia en que la IA puede tomar decisiones justas y objetivas", "Likert", "1 a 5",
+  "creencia_respuestas_certeras", "Creencia en que la IA puede dar respuestas certeras y sin prejuicios", "Likert", "1 a 5",
+  "creencia_orientacion_psicologica", "Creencia en que la IA puede ofrecer orientación psicológica", "Likert", "1 a 5",
+  "creencia_compania", "Creencia en que la IA puede brindar compañía o apoyo emocional", "Likert", "1 a 5",
+  "creencia_investigacion", "Creencia en que la IA puede hacer investigación científica", "Likert", "1 a 5",
+  "creencia_ensenanza", "Creencia en que la IA puede enseñar y guiar el aprendizaje", "Likert", "1 a 5"
+)
+
+write_csv(diccionario_variables, "data/diccionario_variables.csv")

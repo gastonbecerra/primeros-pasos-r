@@ -1,0 +1,105 @@
+---
+title: "Módulo 1. Introducción a R y Posit.Cloud"
+---
+
+## Objetivo
+
+Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset.
+
+## En este módulo
+
+Vamos a trabajar con:
+
+- R;
+- RStudio / Posit.Cloud;
+- consola y scripts;
+- objetos;
+- paquetes;
+- archivos CSV;
+- primeras inspecciones de una tabla.
+
+## Punto de partida
+
+R es un lenguaje de programación orientado al análisis estadístico y la visualización de datos.
+
+Para este taller no necesitamos aprender todo R. Necesitamos empezar a usarlo para una tarea concreta:
+
+> cargar una encuesta, mirar sus variables y preparar una primera exploración.
+
+## RStudio y Posit.Cloud
+
+R es el lenguaje.  
+RStudio es el entorno donde escribimos, ejecutamos y organizamos el código.  
+Posit.Cloud permite trabajar con RStudio desde el navegador, sin instalar nada en la computadora.
+
+## Consola y script
+
+En RStudio vamos a usar dos espacios principales:
+
+| Espacio | Uso |
+|---|---|
+| Consola | Ejecutar comandos sueltos |
+| Script | Guardar una secuencia de comandos |
+
+En el taller vamos a escribir el código en scripts para poder reutilizarlo.
+
+## Cargar paquetes
+
+```{r}
+library(tidyverse)
+```
+
+## Leer datos
+
+```{r}
+encuesta_ia <- read_csv("data/encuesta_ia_subset.csv")
+```
+
+## Mirar la tabla
+
+```{r}
+glimpse(encuesta_ia)
+```
+
+```{r}
+head(encuesta_ia)
+```
+
+```{r}
+names(encuesta_ia)
+```
+
+## Diccionario de variables
+
+```{r}
+diccionario <- read_csv("data/diccionario_variables.csv")
+
+diccionario
+```
+
+## Primera pregunta
+
+Antes de analizar, conviene preguntarnos:
+
+> ¿Qué representa cada fila? ¿Qué representa cada columna?
+
+En este dataset:
+
+- cada fila representa una persona encuestada;
+- cada columna representa una variable;
+- algunas variables describen características de las personas;
+- otras variables miden actitudes o creencias hacia la IA.
+
+## Ejercicio breve
+
+Explorá el dataset con estos comandos:
+
+```{r}
+nrow(encuesta_ia)
+ncol(encuesta_ia)
+dim(encuesta_ia)
+```
+
+## Cierre
+
+En este módulo preparamos el entorno y cargamos los datos. En el próximo módulo vamos a empezar a manipular la tabla para responder preguntas más precisas.

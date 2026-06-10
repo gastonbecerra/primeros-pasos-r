@@ -1,0 +1,401 @@
+[
+  {
+    "objectID": "modulo-4.html",
+    "href": "modulo-4.html",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "",
+    "text": "Producir tablas, gráficos e interpretaciones descriptivas."
+  },
+  {
+    "objectID": "modulo-4.html#objetivo",
+    "href": "modulo-4.html#objetivo",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "",
+    "text": "Producir tablas, gráficos e interpretaciones descriptivas."
+  },
+  {
+    "objectID": "modulo-4.html#cargar-datos",
+    "href": "modulo-4.html#cargar-datos",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Cargar datos",
+    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\") %&gt;%\n  mutate(\n    actitud_ia = rowMeans(\n      pick(\n        actitud_positiva,\n        actitud_trabajo_estudio,\n        actitud_vida_cotidiana,\n        actitud_aprender_ia\n      ),\n      na.rm = TRUE\n    ),\n    creencias_media = rowMeans(\n      pick(\n        creencia_decisiones_justas,\n        creencia_respuestas_certeras,\n        creencia_orientacion_psicologica,\n        creencia_compania,\n        creencia_investigacion,\n        creencia_ensenanza\n      ),\n      na.rm = TRUE\n    ),\n    brecha_actitud_creencias = actitud_ia - creencias_media\n  )\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "modulo-4.html#tabla-descriptiva-general",
+    "href": "modulo-4.html#tabla-descriptiva-general",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Tabla descriptiva general",
+    "text": "Tabla descriptiva general\n\nencuesta_ia %&gt;%\n  summarise(\n    casos = n(),\n    edad_media = mean(edad),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 1 × 5\n  casos edad_media actitud_media creencias_media brecha_media\n  &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1   139       45.3          3.77            2.58         1.19"
+  },
+  {
+    "objectID": "modulo-4.html#actitud-según-frecuencia-de-uso",
+    "href": "modulo-4.html#actitud-según-frecuencia-de-uso",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Actitud según frecuencia de uso",
+    "text": "Actitud según frecuencia de uso\n\ntabla_frecuencia &lt;- encuesta_ia %&gt;%\n  group_by(frecuencia_uso_ia) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\ntabla_frecuencia\n\n# A tibble: 4 × 5\n  frecuencia_uso_ia     n actitud_media creencias_media brecha_media\n  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 esporadicamente      25          3.42            2.33        1.09 \n2 frecuente            54          4.04            2.71        1.33 \n3 nunca                 6          2.67            2.03        0.639\n4 ocasional            54          3.80            2.63        1.17"
+  },
+  {
+    "objectID": "modulo-4.html#gráfico-de-actitud-según-frecuencia-de-uso",
+    "href": "modulo-4.html#gráfico-de-actitud-según-frecuencia-de-uso",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Gráfico de actitud según frecuencia de uso",
+    "text": "Gráfico de actitud según frecuencia de uso\n\ntabla_frecuencia %&gt;%\n  ggplot(aes(x = frecuencia_uso_ia, y = actitud_media)) +\n  geom_col() +\n  labs(\n    x = \"Frecuencia de uso de IA\",\n    y = \"Actitud media hacia la IA\",\n    title = \"Actitud hacia la IA según frecuencia de uso\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-4.html#comparación-entre-actitud-y-creencias",
+    "href": "modulo-4.html#comparación-entre-actitud-y-creencias",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Comparación entre actitud y creencias",
+    "text": "Comparación entre actitud y creencias\n\ntabla_comparacion &lt;- encuesta_ia %&gt;%\n  summarise(\n    actitud_ia = mean(actitud_ia),\n    creencias_media = mean(creencias_media)\n  ) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"variable\",\n    values_to = \"media\"\n  )\n\ntabla_comparacion\n\n# A tibble: 2 × 2\n  variable        media\n  &lt;chr&gt;           &lt;dbl&gt;\n1 actitud_ia       3.77\n2 creencias_media  2.58\n\n\n\ntabla_comparacion %&gt;%\n  ggplot(aes(x = variable, y = media)) +\n  geom_col() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Actitud general y creencias específicas hacia la IA\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-4.html#creencias-por-dimensión",
+    "href": "modulo-4.html#creencias-por-dimensión",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Creencias por dimensión",
+    "text": "Creencias por dimensión\n\ncreencias_largo &lt;- encuesta_ia %&gt;%\n  select(starts_with(\"creencia_\")) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"creencia\",\n    values_to = \"valor\"\n  )\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  arrange(desc(media))\n\n# A tibble: 6 × 2\n  creencia                         media\n  &lt;chr&gt;                            &lt;dbl&gt;\n1 creencia_ensenanza                3.50\n2 creencia_investigacion            2.95\n3 creencia_respuestas_certeras      2.53\n4 creencia_decisiones_justas        2.40\n5 creencia_compania                 2.27\n6 creencia_orientacion_psicologica  1.82\n\n\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  ggplot(aes(x = reorder(creencia, media), y = media)) +\n  geom_col() +\n  coord_flip() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Creencias sobre capacidades específicas de la IA\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-4.html#interpretación",
+    "href": "modulo-4.html#interpretación",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Interpretación",
+    "text": "Interpretación\nLos resultados descriptivos permiten discutir una tensión central:\n\nLa actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.\n\nEsto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella."
+  },
+  {
+    "objectID": "modulo-4.html#ejercicio-final",
+    "href": "modulo-4.html#ejercicio-final",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Ejercicio final",
+    "text": "Ejercicio final\nElegí una pregunta y respondela con una tabla y un gráfico.\nEjemplos:\n\n¿La actitud hacia la IA cambia según el área de trabajo?\n¿La brecha entre actitud y creencias cambia según frecuencia de uso?\n¿Qué grupo de edad muestra mayor actitud promedio?\n¿Qué creencia específica tiene el promedio más bajo?"
+  },
+  {
+    "objectID": "modulo-4.html#cierre",
+    "href": "modulo-4.html#cierre",
+    "title": "Módulo 4. Análisis descriptivo",
+    "section": "Cierre",
+    "text": "Cierre\nEl análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas."
+  },
+  {
+    "objectID": "modulo-2.html",
+    "href": "modulo-2.html",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "",
+    "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
+  },
+  {
+    "objectID": "modulo-2.html#objetivo",
+    "href": "modulo-2.html#objetivo",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "",
+    "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
+  },
+  {
+    "objectID": "modulo-2.html#en-este-módulo",
+    "href": "modulo-2.html#en-este-módulo",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "En este módulo",
+    "text": "En este módulo\nVamos a trabajar con:\n\nselect();\nfilter();\nrename();\nmutate();\ncount();\narrange()."
+  },
+  {
+    "objectID": "modulo-2.html#cargar-datos",
+    "href": "modulo-2.html#cargar-datos",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Cargar datos",
+    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "modulo-2.html#seleccionar-columnas",
+    "href": "modulo-2.html#seleccionar-columnas",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Seleccionar columnas",
+    "text": "Seleccionar columnas\n\nencuesta_ia %&gt;%\n  select(edad, grupo_edad, area_trabajo_grupo)\n\n# A tibble: 139 × 3\n    edad grupo_edad area_trabajo_grupo\n   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;             \n 1    45 45-59      Educación         \n 2    57 45-59      Educación         \n 3    45 45-59      Educación         \n 4    60 60+        Educación         \n 5    55 45-59      Educación         \n 6    30 30-44      Educación         \n 7    65 60+        Educación         \n 8    68 60+        Educación         \n 9    59 45-59      Educación         \n10    19 18-29      Educación         \n# ℹ 129 more rows"
+  },
+  {
+    "objectID": "modulo-2.html#filtrar-casos",
+    "href": "modulo-2.html#filtrar-casos",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Filtrar casos",
+    "text": "Filtrar casos\n\nencuesta_ia %&gt;%\n  filter(area_trabajo_grupo == \"Educación\")\n\n# A tibble: 50 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       1    45 45-59      Educación          ocasional        \n 2       2    57 45-59      Educación          frecuente        \n 3       3    45 45-59      Educación          esporadicamente  \n 4       4    60 60+        Educación          frecuente        \n 5       5    55 45-59      Educación          frecuente        \n 6       6    30 30-44      Educación          ocasional        \n 7       7    65 60+        Educación          ocasional        \n 8       8    68 60+        Educación          frecuente        \n 9       9    59 45-59      Educación          frecuente        \n10      10    19 18-29      Educación          ocasional        \n# ℹ 40 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\n\nencuesta_ia %&gt;%\n  filter(frecuencia_uso_ia == \"frecuente\")\n\n# A tibble: 54 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       2    57 45-59      Educación          frecuente        \n 2       4    60 60+        Educación          frecuente        \n 3       5    55 45-59      Educación          frecuente        \n 4       8    68 60+        Educación          frecuente        \n 5       9    59 45-59      Educación          frecuente        \n 6      11    45 45-59      Educación          frecuente        \n 7      13    43 30-44      Educación          frecuente        \n 8      17    39 30-44      Educación          frecuente        \n 9      18    61 60+        Educación          frecuente        \n10      19    65 60+        Educación          frecuente        \n# ℹ 44 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;"
+  },
+  {
+    "objectID": "modulo-2.html#contar-categorías",
+    "href": "modulo-2.html#contar-categorías",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Contar categorías",
+    "text": "Contar categorías\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo)\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Consultoría / servicios profesionales    39\n2 Educación                                50\n3 Salud y servicios sociales               50\n\n\n\nencuesta_ia %&gt;%\n  count(frecuencia_uso_ia)\n\n# A tibble: 4 × 2\n  frecuencia_uso_ia     n\n  &lt;chr&gt;             &lt;int&gt;\n1 esporadicamente      25\n2 frecuente            54\n3 nunca                 6\n4 ocasional            54\n\n\n\nencuesta_ia %&gt;%\n  count(grupo_edad)\n\n# A tibble: 4 × 2\n  grupo_edad     n\n  &lt;chr&gt;      &lt;int&gt;\n1 18-29         15\n2 30-44         54\n3 45-59         50\n4 60+           20"
+  },
+  {
+    "objectID": "modulo-2.html#ordenar-resultados",
+    "href": "modulo-2.html#ordenar-resultados",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Ordenar resultados",
+    "text": "Ordenar resultados\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo) %&gt;%\n  arrange(desc(n))\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Educación                                50\n2 Salud y servicios sociales               50\n3 Consultoría / servicios profesionales    39"
+  },
+  {
+    "objectID": "modulo-2.html#crear-nuevas-variables",
+    "href": "modulo-2.html#crear-nuevas-variables",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Crear nuevas variables",
+    "text": "Crear nuevas variables\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    edad_mayor_45 = edad &gt;= 45\n  )\n\n\nencuesta_ia %&gt;%\n  count(edad_mayor_45)\n\n# A tibble: 2 × 2\n  edad_mayor_45     n\n  &lt;lgl&gt;         &lt;int&gt;\n1 FALSE            69\n2 TRUE             70"
+  },
+  {
+    "objectID": "modulo-2.html#renombrar-variables",
+    "href": "modulo-2.html#renombrar-variables",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Renombrar variables",
+    "text": "Renombrar variables\n\nencuesta_ia %&gt;%\n  rename(\n    area = area_trabajo_grupo,\n    frecuencia = frecuencia_uso_ia\n  )\n\n# A tibble: 139 × 16\n   id_caso  edad grupo_edad area      frecuencia      actitud_positiva\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;\n 1       1    45 45-59      Educación ocasional                      3\n 2       2    57 45-59      Educación frecuente                      4\n 3       3    45 45-59      Educación esporadicamente                3\n 4       4    60 60+        Educación frecuente                      3\n 5       5    55 45-59      Educación frecuente                      3\n 6       6    30 30-44      Educación ocasional                      4\n 7       7    65 60+        Educación ocasional                      1\n 8       8    68 60+        Educación frecuente                      5\n 9       9    59 45-59      Educación frecuente                      5\n10      10    19 18-29      Educación ocasional                      4\n# ℹ 129 more rows\n# ℹ 10 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, edad_mayor_45 &lt;lgl&gt;"
+  },
+  {
+    "objectID": "modulo-2.html#idea-metodológica",
+    "href": "modulo-2.html#idea-metodológica",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Idea metodológica",
+    "text": "Idea metodológica\nManipular datos no es una tarea meramente técnica.\nCada vez que filtramos, agrupamos, recodificamos o creamos una variable, estamos tomando una decisión analítica.\nPor eso conviene preguntarnos:\n\n¿Esta transformación ayuda a responder mi pregunta de investigación?"
+  },
+  {
+    "objectID": "modulo-2.html#ejercicio-breve",
+    "href": "modulo-2.html#ejercicio-breve",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Ejercicio breve",
+    "text": "Ejercicio breve\nConstruí una tabla que muestre cuántas personas hay por área de trabajo y frecuencia de uso de IA.\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo, frecuencia_uso_ia)\n\n# A tibble: 12 × 3\n   area_trabajo_grupo                    frecuencia_uso_ia     n\n   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;\n 1 Consultoría / servicios profesionales esporadicamente       7\n 2 Consultoría / servicios profesionales frecuente            16\n 3 Consultoría / servicios profesionales nunca                 2\n 4 Consultoría / servicios profesionales ocasional            14\n 5 Educación                             esporadicamente       7\n 6 Educación                             frecuente            22\n 7 Educación                             nunca                 1\n 8 Educación                             ocasional            20\n 9 Salud y servicios sociales            esporadicamente      11\n10 Salud y servicios sociales            frecuente            16\n11 Salud y servicios sociales            nunca                 3\n12 Salud y servicios sociales            ocasional            20"
+  },
+  {
+    "objectID": "modulo-2.html#cierre",
+    "href": "modulo-2.html#cierre",
+    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "section": "Cierre",
+    "text": "Cierre\nEn este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "",
+    "text": "Este taller introduce herramientas básicas de análisis de datos con R a partir de un ejercicio práctico con datos de encuesta sobre actitudes, creencias y usos de inteligencia artificial.\nEl objetivo no es aprender comandos de manera aislada, sino usar R para formular preguntas, explorar datos, transformar tablas y construir respuestas interpretables desde las ciencias sociales."
+  },
+  {
+    "objectID": "index.html#organización-del-taller",
+    "href": "index.html#organización-del-taller",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Organización del taller",
+    "text": "Organización del taller\nEl taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.\n\n\n\n\n\n\n\n\nMódulo\nTema\nPropósito\n\n\n\n\n1\nIntroducción a R y Posit.Cloud\nPreparar el entorno y cargar datos\n\n\n2\nExploración y manipulación de datasets\nConocer la tabla y transformarla\n\n\n3\nPreguntas de investigación y construcción de variables\nPasar de columnas a indicadores\n\n\n4\nAnálisis descriptivo\nProducir tablas, gráficos e interpretaciones"
+  },
+  {
+    "objectID": "index.html#dataset-de-trabajo",
+    "href": "index.html#dataset-de-trabajo",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Dataset de trabajo",
+    "text": "Dataset de trabajo\nTrabajaremos con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.\nEl dataset incluye información sobre:\n\nedad;\nárea de trabajo;\nfrecuencia de uso de IA;\nactitudes generales hacia la IA;\ncreencias sobre capacidades específicas de la IA."
+  },
+  {
+    "objectID": "index.html#pregunta-general",
+    "href": "index.html#pregunta-general",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Pregunta general",
+    "text": "Pregunta general\n¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\nA partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos."
+  },
+  {
+    "objectID": "index.html#materiales",
+    "href": "index.html#materiales",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Materiales",
+    "text": "Materiales\n\nMódulo 1. Introducción a R y Posit.Cloud\nMódulo 2. Exploración y manipulación de datasets\nMódulo 3. Preguntas de investigación y construcción de variables\nMódulo 4. Análisis descriptivo"
+  },
+  {
+    "objectID": "index.html#archivos-de-trabajo",
+    "href": "index.html#archivos-de-trabajo",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Archivos de trabajo",
+    "text": "Archivos de trabajo\nDurante el taller vamos a usar:\ndata/encuesta_ia_subset.csv\ndata/diccionario_variables.csv\nscripts/"
+  },
+  {
+    "objectID": "index.html#idea-metodológica",
+    "href": "index.html#idea-metodológica",
+    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
+    "section": "Idea metodológica",
+    "text": "Idea metodológica\nAntes de analizar datos, necesitamos saber qué representa cada columna. Una tabla no es solamente un archivo: es una forma de organizar observaciones, variables y decisiones de investigación.\nEn este taller vamos a insistir en una idea simple:\n\nEl código debe estar al servicio de la pregunta de investigación, no al revés."
+  },
+  {
+    "objectID": "modulo-1.html",
+    "href": "modulo-1.html",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "",
+    "text": "Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset."
+  },
+  {
+    "objectID": "modulo-1.html#objetivo",
+    "href": "modulo-1.html#objetivo",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "",
+    "text": "Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset."
+  },
+  {
+    "objectID": "modulo-1.html#en-este-módulo",
+    "href": "modulo-1.html#en-este-módulo",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "En este módulo",
+    "text": "En este módulo\nVamos a trabajar con:\n\nR;\nRStudio / Posit.Cloud;\nconsola y scripts;\nobjetos;\npaquetes;\narchivos CSV;\nprimeras inspecciones de una tabla."
+  },
+  {
+    "objectID": "modulo-1.html#punto-de-partida",
+    "href": "modulo-1.html#punto-de-partida",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Punto de partida",
+    "text": "Punto de partida\nR es un lenguaje de programación orientado al análisis estadístico y la visualización de datos.\nPara este taller no necesitamos aprender todo R. Necesitamos empezar a usarlo para una tarea concreta:\n\ncargar una encuesta, mirar sus variables y preparar una primera exploración."
+  },
+  {
+    "objectID": "modulo-1.html#rstudio-y-posit.cloud",
+    "href": "modulo-1.html#rstudio-y-posit.cloud",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "RStudio y Posit.Cloud",
+    "text": "RStudio y Posit.Cloud\nR es el lenguaje.\nRStudio es el entorno donde escribimos, ejecutamos y organizamos el código.\nPosit.Cloud permite trabajar con RStudio desde el navegador, sin instalar nada en la computadora."
+  },
+  {
+    "objectID": "modulo-1.html#consola-y-script",
+    "href": "modulo-1.html#consola-y-script",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Consola y script",
+    "text": "Consola y script\nEn RStudio vamos a usar dos espacios principales:\n\n\n\nEspacio\nUso\n\n\n\n\nConsola\nEjecutar comandos sueltos\n\n\nScript\nGuardar una secuencia de comandos\n\n\n\nEn el taller vamos a escribir el código en scripts para poder reutilizarlo."
+  },
+  {
+    "objectID": "modulo-1.html#cargar-paquetes",
+    "href": "modulo-1.html#cargar-paquetes",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Cargar paquetes",
+    "text": "Cargar paquetes\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "modulo-1.html#leer-datos",
+    "href": "modulo-1.html#leer-datos",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Leer datos",
+    "text": "Leer datos\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "modulo-1.html#mirar-la-tabla",
+    "href": "modulo-1.html#mirar-la-tabla",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Mirar la tabla",
+    "text": "Mirar la tabla\n\nglimpse(encuesta_ia)\n\nRows: 139\nColumns: 15\n$ id_caso                          &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…\n$ edad                             &lt;dbl&gt; 45, 57, 45, 60, 55, 30, 65, 68, 59, 1…\n$ grupo_edad                       &lt;chr&gt; \"45-59\", \"45-59\", \"45-59\", \"60+\", \"45…\n$ area_trabajo_grupo               &lt;chr&gt; \"Educación\", \"Educación\", \"Educación\"…\n$ frecuencia_uso_ia                &lt;chr&gt; \"ocasional\", \"frecuente\", \"esporadica…\n$ actitud_positiva                 &lt;dbl&gt; 3, 4, 3, 3, 3, 4, 1, 5, 5, 4, 4, 2, 4…\n$ actitud_trabajo_estudio          &lt;dbl&gt; 3, 5, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4…\n$ actitud_vida_cotidiana           &lt;dbl&gt; 4, 5, 4, 1, 4, 5, 4, 5, 5, 4, 5, 4, 4…\n$ actitud_aprender_ia              &lt;dbl&gt; 4, 4, 4, 3, 3, 4, 4, 5, 5, 3, 3, 3, 4…\n$ creencia_decisiones_justas       &lt;dbl&gt; 1, 3, 3, 2, 2, 3, 4, 5, 1, 3, 1, 2, 2…\n$ creencia_respuestas_certeras     &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 5, 5, 2, 4, 4, 2, 1…\n$ creencia_orientacion_psicologica &lt;dbl&gt; 1, 2, 1, 2, 1, 3, 4, 3, 1, 1, 2, 2, 2…\n$ creencia_compania                &lt;dbl&gt; 3, 2, 1, 4, 1, 3, 4, 2, 1, 2, 4, 2, 2…\n$ creencia_investigacion           &lt;dbl&gt; 4, 3, 3, 1, 4, 4, 2, 5, 2, 4, 2, 2, 2…\n$ creencia_ensenanza               &lt;dbl&gt; 4, 5, 4, 4, 4, 1, 4, 5, 4, 4, 4, 4, 4…\n\n\n\nhead(encuesta_ia)\n\n# A tibble: 6 × 15\n  id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia actitud_positiva\n    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                        &lt;dbl&gt;\n1       1    45 45-59      Educación          ocasional                        3\n2       2    57 45-59      Educación          frecuente                        4\n3       3    45 45-59      Educación          esporadicamente                  3\n4       4    60 60+        Educación          frecuente                        3\n5       5    55 45-59      Educación          frecuente                        3\n6       6    30 30-44      Educación          ocasional                        4\n# ℹ 9 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\n\nnames(encuesta_ia)\n\n [1] \"id_caso\"                          \"edad\"                            \n [3] \"grupo_edad\"                       \"area_trabajo_grupo\"              \n [5] \"frecuencia_uso_ia\"                \"actitud_positiva\"                \n [7] \"actitud_trabajo_estudio\"          \"actitud_vida_cotidiana\"          \n [9] \"actitud_aprender_ia\"              \"creencia_decisiones_justas\"      \n[11] \"creencia_respuestas_certeras\"     \"creencia_orientacion_psicologica\"\n[13] \"creencia_compania\"                \"creencia_investigacion\"          \n[15] \"creencia_ensenanza\""
+  },
+  {
+    "objectID": "modulo-1.html#diccionario-de-variables",
+    "href": "modulo-1.html#diccionario-de-variables",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Diccionario de variables",
+    "text": "Diccionario de variables\n\ndiccionario &lt;- read_csv(\"data/diccionario_variables.csv\")\n\nRows: 15 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): variable, descripcion, tipo, valores\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndiccionario\n\n# A tibble: 15 × 4\n   variable                         descripcion                    tipo  valores\n   &lt;chr&gt;                            &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt;  \n 1 id_caso                          Identificador anónimo del caso numé… 1, 2, …\n 2 edad                             Edad de la persona encuestada  numé… 19 a 74\n 3 grupo_edad                       Edad agrupada                  cate… 18-29;…\n 4 area_trabajo_grupo               Área laboral recodificada      cate… Educac…\n 5 frecuencia_uso_ia                Frecuencia declarada de uso d… cate… nunca;…\n 6 actitud_positiva                 Ítem de actitud general posit… Like… 1 a 5  \n 7 actitud_trabajo_estudio          Ítem sobre valoración de la I… Like… 1 a 5  \n 8 actitud_vida_cotidiana           Ítem sobre valoración de la I… Like… 1 a 5  \n 9 actitud_aprender_ia              Ítem sobre disposición a apre… Like… 1 a 5  \n10 creencia_decisiones_justas       Creencia en que la IA puede t… Like… 1 a 5  \n11 creencia_respuestas_certeras     Creencia en que la IA puede d… Like… 1 a 5  \n12 creencia_orientacion_psicologica Creencia en que la IA puede o… Like… 1 a 5  \n13 creencia_compania                Creencia en que la IA puede b… Like… 1 a 5  \n14 creencia_investigacion           Creencia en que la IA puede h… Like… 1 a 5  \n15 creencia_ensenanza               Creencia en que la IA puede e… Like… 1 a 5"
+  },
+  {
+    "objectID": "modulo-1.html#primera-pregunta",
+    "href": "modulo-1.html#primera-pregunta",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Primera pregunta",
+    "text": "Primera pregunta\nAntes de analizar, conviene preguntarnos:\n\n¿Qué representa cada fila? ¿Qué representa cada columna?\n\nEn este dataset:\n\ncada fila representa una persona encuestada;\ncada columna representa una variable;\nalgunas variables describen características de las personas;\notras variables miden actitudes o creencias hacia la IA."
+  },
+  {
+    "objectID": "modulo-1.html#ejercicio-breve",
+    "href": "modulo-1.html#ejercicio-breve",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Ejercicio breve",
+    "text": "Ejercicio breve\nExplorá el dataset con estos comandos:\n\nnrow(encuesta_ia)\n\n[1] 139\n\nncol(encuesta_ia)\n\n[1] 15\n\ndim(encuesta_ia)\n\n[1] 139  15"
+  },
+  {
+    "objectID": "modulo-1.html#cierre",
+    "href": "modulo-1.html#cierre",
+    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "section": "Cierre",
+    "text": "Cierre\nEn este módulo preparamos el entorno y cargamos los datos. En el próximo módulo vamos a empezar a manipular la tabla para responder preguntas más precisas."
+  },
+  {
+    "objectID": "modulo-3.html",
+    "href": "modulo-3.html",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "",
+    "text": "Construir variables analíticas para responder preguntas de investigación."
+  },
+  {
+    "objectID": "modulo-3.html#objetivo",
+    "href": "modulo-3.html#objetivo",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "",
+    "text": "Construir variables analíticas para responder preguntas de investigación."
+  },
+  {
+    "objectID": "modulo-3.html#pregunta-general",
+    "href": "modulo-3.html#pregunta-general",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Pregunta general",
+    "text": "Pregunta general\n¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\nPara responder esta pregunta vamos a construir tres variables:\n\n\n\n\n\n\n\nVariable\nSignificado\n\n\n\n\nactitud_ia\npromedio de los ítems de actitud general\n\n\ncreencias_media\npromedio de las creencias sobre capacidades específicas\n\n\nbrecha_actitud_creencias\ndiferencia entre actitud general y creencias específicas"
+  },
+  {
+    "objectID": "modulo-3.html#cargar-datos",
+    "href": "modulo-3.html#cargar-datos",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Cargar datos",
+    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "modulo-3.html#calcular-actitud-general",
+    "href": "modulo-3.html#calcular-actitud-general",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Calcular actitud general",
+    "text": "Calcular actitud general\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    actitud_ia = rowMeans(\n      pick(\n        actitud_positiva,\n        actitud_trabajo_estudio,\n        actitud_vida_cotidiana,\n        actitud_aprender_ia\n      ),\n      na.rm = TRUE\n    )\n  )"
+  },
+  {
+    "objectID": "modulo-3.html#calcular-creencias-sobre-capacidades-específicas",
+    "href": "modulo-3.html#calcular-creencias-sobre-capacidades-específicas",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Calcular creencias sobre capacidades específicas",
+    "text": "Calcular creencias sobre capacidades específicas\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    creencias_media = rowMeans(\n      pick(\n        creencia_decisiones_justas,\n        creencia_respuestas_certeras,\n        creencia_orientacion_psicologica,\n        creencia_compania,\n        creencia_investigacion,\n        creencia_ensenanza\n      ),\n      na.rm = TRUE\n    )\n  )"
+  },
+  {
+    "objectID": "modulo-3.html#calcular-la-brecha",
+    "href": "modulo-3.html#calcular-la-brecha",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Calcular la brecha",
+    "text": "Calcular la brecha\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    brecha_actitud_creencias = actitud_ia - creencias_media\n  )"
+  },
+  {
+    "objectID": "modulo-3.html#explorar-las-nuevas-variables",
+    "href": "modulo-3.html#explorar-las-nuevas-variables",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Explorar las nuevas variables",
+    "text": "Explorar las nuevas variables\n\nencuesta_ia %&gt;%\n  summarise(\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 1 × 3\n  actitud_media creencias_media brecha_media\n          &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1          3.77            2.58         1.19"
+  },
+  {
+    "objectID": "modulo-3.html#comparar-por-frecuencia-de-uso",
+    "href": "modulo-3.html#comparar-por-frecuencia-de-uso",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Comparar por frecuencia de uso",
+    "text": "Comparar por frecuencia de uso\n\nencuesta_ia %&gt;%\n  group_by(frecuencia_uso_ia) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 4 × 5\n  frecuencia_uso_ia     n actitud_media creencias_media brecha_media\n  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 esporadicamente      25          3.42            2.33        1.09 \n2 frecuente            54          4.04            2.71        1.33 \n3 nunca                 6          2.67            2.03        0.639\n4 ocasional            54          3.80            2.63        1.17"
+  },
+  {
+    "objectID": "modulo-3.html#comparar-por-área-de-trabajo",
+    "href": "modulo-3.html#comparar-por-área-de-trabajo",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Comparar por área de trabajo",
+    "text": "Comparar por área de trabajo\n\nencuesta_ia %&gt;%\n  group_by(area_trabajo_grupo) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 3 × 5\n  area_trabajo_grupo                n actitud_media creencias_media brecha_media\n  &lt;chr&gt;                         &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 Consultoría / servicios prof…    39          3.75            2.60         1.15\n2 Educación                        50          3.81            2.57         1.24\n3 Salud y servicios sociales       50          3.76            2.57         1.18"
+  },
+  {
+    "objectID": "modulo-3.html#idea-metodológica",
+    "href": "modulo-3.html#idea-metodológica",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Idea metodológica",
+    "text": "Idea metodológica\nUna variable no siempre viene lista en el dataset.\nMuchas veces tenemos que construir indicadores a partir de varias columnas. Esa construcción requiere una decisión teórica y metodológica.\nEn este caso distinguimos entre:\n\nactitud general hacia la IA;\ncreencias sobre capacidades específicas;\ndistancia entre ambas dimensiones."
+  },
+  {
+    "objectID": "modulo-3.html#ejercicio-breve",
+    "href": "modulo-3.html#ejercicio-breve",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Ejercicio breve",
+    "text": "Ejercicio breve\nCalculá la actitud media por grupo de edad.\n\nencuesta_ia %&gt;%\n  group_by(grupo_edad) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 4 × 5\n  grupo_edad     n actitud_media creencias_media brecha_media\n  &lt;chr&gt;      &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 18-29         15          3.7             2.87        0.833\n2 30-44         54          3.82            2.49        1.33 \n3 45-59         50          3.74            2.55        1.20 \n4 60+           20          3.78            2.69        1.08"
+  },
+  {
+    "objectID": "modulo-3.html#cierre",
+    "href": "modulo-3.html#cierre",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Cierre",
+    "text": "Cierre\nEn este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos."
+  }
+]

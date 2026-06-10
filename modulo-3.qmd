@@ -1,0 +1,140 @@
+---
+title: "Módulo 3. Preguntas de investigación y construcción de variables"
+---
+
+## Objetivo
+
+Construir variables analíticas para responder preguntas de investigación.
+
+## Pregunta general
+
+¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+
+Para responder esta pregunta vamos a construir tres variables:
+
+| Variable | Significado |
+|---|---|
+| `actitud_ia` | promedio de los ítems de actitud general |
+| `creencias_media` | promedio de las creencias sobre capacidades específicas |
+| `brecha_actitud_creencias` | diferencia entre actitud general y creencias específicas |
+
+## Cargar datos
+
+```{r}
+library(tidyverse)
+
+encuesta_ia <- read_csv("data/encuesta_ia_subset.csv")
+```
+
+## Calcular actitud general
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    actitud_ia = rowMeans(
+      pick(
+        actitud_positiva,
+        actitud_trabajo_estudio,
+        actitud_vida_cotidiana,
+        actitud_aprender_ia
+      ),
+      na.rm = TRUE
+    )
+  )
+```
+
+## Calcular creencias sobre capacidades específicas
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    creencias_media = rowMeans(
+      pick(
+        creencia_decisiones_justas,
+        creencia_respuestas_certeras,
+        creencia_orientacion_psicologica,
+        creencia_compania,
+        creencia_investigacion,
+        creencia_ensenanza
+      ),
+      na.rm = TRUE
+    )
+  )
+```
+
+## Calcular la brecha
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    brecha_actitud_creencias = actitud_ia - creencias_media
+  )
+```
+
+## Explorar las nuevas variables
+
+```{r}
+encuesta_ia %>%
+  summarise(
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+```
+
+## Comparar por frecuencia de uso
+
+```{r}
+encuesta_ia %>%
+  group_by(frecuencia_uso_ia) %>%
+  summarise(
+    n = n(),
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+```
+
+## Comparar por área de trabajo
+
+```{r}
+encuesta_ia %>%
+  group_by(area_trabajo_grupo) %>%
+  summarise(
+    n = n(),
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+```
+
+## Idea metodológica
+
+Una variable no siempre viene lista en el dataset.
+
+Muchas veces tenemos que construir indicadores a partir de varias columnas. Esa construcción requiere una decisión teórica y metodológica.
+
+En este caso distinguimos entre:
+
+- actitud general hacia la IA;
+- creencias sobre capacidades específicas;
+- distancia entre ambas dimensiones.
+
+## Ejercicio breve
+
+Calculá la actitud media por grupo de edad.
+
+```{r}
+encuesta_ia %>%
+  group_by(grupo_edad) %>%
+  summarise(
+    n = n(),
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+```
+
+## Cierre
+
+En este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos.

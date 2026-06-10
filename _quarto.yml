@@ -1,21 +1,35 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "primeros-pasos-r"
+  title: "Primeros pasos en análisis de datos con R"
+  site-url: "https://gastonbecerra.github.io/primeros-pasos-r/"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: Inicio
+        href: index.qmd
+      - text: Módulo 1
+        href: modulo-1.qmd
+      - text: Módulo 2
+        href: modulo-2.qmd
+      - text: Módulo 3
+        href: modulo-3.qmd
+      - text: Módulo 4
+        href: modulo-4.qmd
+    right:
+      - icon: github
+        href: https://github.com/gastonbecerra/primeros-pasos-r
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
     toc: true
+    toc-title: Contenidos
+    code-copy: true
+    code-overflow: wrap
+    lang: es
 
-editor: visual
-
+execute:
+  freeze: auto
