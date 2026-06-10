@@ -1,0 +1,140 @@
+id_caso,edad,grupo_edad,area_trabajo_grupo,frecuencia_uso_ia,actitud_positiva,actitud_trabajo_estudio,actitud_vida_cotidiana,actitud_aprender_ia,creencia_decisiones_justas,creencia_respuestas_certeras,creencia_orientacion_psicologica,creencia_compania,creencia_investigacion,creencia_ensenanza
+1,45,45-59,Educación,ocasional,3,3,4,4,1,2,1,3,4,4
+2,57,45-59,Educación,frecuente,4,5,5,4,3,2,2,2,3,5
+3,45,45-59,Educación,esporadicamente,3,4,4,4,3,3,1,1,3,4
+4,60,60+,Educación,frecuente,3,1,1,3,2,3,2,4,1,4
+5,55,45-59,Educación,frecuente,3,4,4,3,2,2,1,1,4,4
+6,30,30-44,Educación,ocasional,4,4,5,4,3,4,3,3,4,1
+7,65,60+,Educación,ocasional,1,4,4,4,4,5,4,4,2,4
+8,68,60+,Educación,frecuente,5,5,5,5,5,5,3,2,5,5
+9,59,45-59,Educación,frecuente,5,5,5,5,1,2,1,1,2,4
+10,19,18-29,Educación,ocasional,4,4,4,3,3,4,1,2,4,4
+11,45,45-59,Educación,frecuente,4,4,5,3,1,4,2,4,2,4
+12,43,30-44,Educación,ocasional,2,4,4,3,2,2,2,2,2,4
+13,43,30-44,Educación,frecuente,4,4,4,4,2,1,2,2,2,4
+14,34,30-44,Educación,ocasional,3,4,4,3,4,4,2,2,4,4
+15,61,60+,Educación,ocasional,3,4,5,3,4,2,2,2,2,4
+16,24,18-29,Educación,ocasional,3,4,4,4,2,2,1,1,2,2
+17,39,30-44,Educación,frecuente,4,5,5,5,3,4,1,1,2,3
+18,61,60+,Educación,frecuente,5,5,5,5,3,2,3,3,3,3
+19,65,60+,Educación,frecuente,4,4,5,3,2,2,2,4,4,4
+20,58,45-59,Educación,ocasional,2,4,4,4,1,1,1,1,4,1
+21,63,60+,Educación,ocasional,4,4,4,4,2,2,1,3,2,2
+22,40,30-44,Educación,esporadicamente,3,3,3,3,3,3,3,3,3,3
+23,43,30-44,Educación,frecuente,4,4,4,4,4,2,2,2,2,4
+24,47,45-59,Educación,ocasional,3,4,4,2,2,1,1,2,2,2
+25,25,18-29,Educación,ocasional,3,2,4,1,1,1,2,3,2,4
+26,43,30-44,Educación,ocasional,4,4,5,5,3,2,2,4,3,4
+27,57,45-59,Educación,frecuente,4,4,4,3,2,4,2,2,2,4
+28,38,30-44,Educación,ocasional,3,4,4,3,1,2,1,4,2,2
+29,56,45-59,Educación,frecuente,4,4,5,4,2,2,2,2,2,2
+30,36,30-44,Educación,esporadicamente,3,4,4,3,1,2,2,2,2,2
+31,52,45-59,Educación,frecuente,5,5,5,5,3,3,3,3,5,5
+32,45,45-59,Educación,esporadicamente,3,4,3,5,2,3,2,3,4,4
+33,50,45-59,Educación,ocasional,4,4,4,4,3,4,3,3,4,4
+34,33,30-44,Educación,ocasional,2,4,4,3,2,4,2,2,4,4
+35,50,45-59,Educación,frecuente,3,3,4,3,2,4,2,2,2,4
+36,25,18-29,Educación,frecuente,2,3,5,3,3,3,3,3,3,5
+37,49,45-59,Educación,frecuente,5,5,5,5,3,3,3,3,5,5
+38,42,30-44,Educación,frecuente,3,3,4,3,2,2,1,1,1,3
+39,37,30-44,Educación,ocasional,4,5,4,4,2,2,2,4,2,4
+40,65,60+,Educación,frecuente,3,5,5,5,3,2,1,2,2,4
+41,65,60+,Educación,nunca,3,3,3,3,1,1,1,1,1,1
+42,46,45-59,Educación,ocasional,3,3,4,3,2,3,2,3,4,4
+43,55,45-59,Educación,esporadicamente,4,4,4,4,2,2,2,2,2,4
+44,37,30-44,Educación,frecuente,4,5,4,4,3,2,3,4,3,4
+45,46,45-59,Educación,esporadicamente,3,4,4,3,2,3,2,2,3,3
+46,43,30-44,Educación,esporadicamente,2,3,4,3,1,3,1,1,1,1
+47,45,45-59,Educación,ocasional,5,5,5,5,2,2,2,1,4,4
+48,35,30-44,Educación,frecuente,4,5,4,3,2,2,1,1,3,5
+49,52,45-59,Educación,ocasional,3,3,4,3,2,2,2,2,3,3
+50,31,30-44,Educación,frecuente,2,4,4,4,2,2,2,2,2,3
+51,30,30-44,Salud y servicios sociales,ocasional,2,4,5,2,2,2,1,1,2,2
+52,38,30-44,Salud y servicios sociales,esporadicamente,4,3,4,4,3,3,2,2,4,3
+53,42,30-44,Salud y servicios sociales,ocasional,2,4,4,4,2,2,1,1,2,4
+54,62,60+,Salud y servicios sociales,esporadicamente,3,3,3,3,3,3,3,4,3,3
+55,56,45-59,Salud y servicios sociales,esporadicamente,3,4,4,3,2,1,1,1,2,4
+56,38,30-44,Salud y servicios sociales,esporadicamente,1,3,3,1,1,1,1,1,1,2
+57,41,30-44,Salud y servicios sociales,esporadicamente,3,4,5,4,3,3,2,2,4,4
+58,29,18-29,Salud y servicios sociales,ocasional,4,5,5,4,3,4,2,2,4,3
+59,33,30-44,Salud y servicios sociales,ocasional,3,4,5,3,2,2,2,2,2,3
+60,40,30-44,Salud y servicios sociales,ocasional,4,4,5,3,3,2,1,2,4,4
+61,34,30-44,Salud y servicios sociales,ocasional,4,5,5,3,4,2,1,2,4,5
+62,40,30-44,Salud y servicios sociales,ocasional,4,4,4,3,2,2,2,2,2,2
+63,38,30-44,Salud y servicios sociales,frecuente,4,4,4,4,4,2,1,2,4,4
+64,57,45-59,Salud y servicios sociales,frecuente,4,4,4,4,3,3,2,4,4,4
+65,46,45-59,Salud y servicios sociales,nunca,2,3,3,2,2,2,1,1,4,1
+66,50,45-59,Salud y servicios sociales,frecuente,3,4,4,3,1,1,1,2,3,4
+67,45,45-59,Salud y servicios sociales,nunca,5,1,1,5,1,1,1,1,1,1
+68,55,45-59,Salud y servicios sociales,ocasional,4,4,4,4,2,3,2,2,3,2
+69,57,45-59,Salud y servicios sociales,ocasional,4,4,5,3,1,2,1,3,3,3
+70,38,30-44,Salud y servicios sociales,frecuente,4,4,4,4,1,2,2,3,3,4
+71,58,45-59,Salud y servicios sociales,ocasional,5,5,5,5,3,3,2,3,4,4
+72,51,45-59,Salud y servicios sociales,ocasional,4,5,5,5,3,2,1,3,3,4
+73,64,60+,Salud y servicios sociales,ocasional,4,4,4,4,3,3,1,1,4,4
+74,61,60+,Salud y servicios sociales,ocasional,3,4,4,4,2,2,1,2,2,4
+75,55,45-59,Salud y servicios sociales,ocasional,3,3,3,2,3,3,1,3,4,3
+76,55,45-59,Salud y servicios sociales,ocasional,4,4,4,4,2,3,2,1,4,4
+77,48,45-59,Salud y servicios sociales,esporadicamente,2,3,4,3,2,2,1,1,2,4
+78,64,60+,Salud y servicios sociales,esporadicamente,3,3,5,4,3,3,2,4,2,4
+79,42,30-44,Salud y servicios sociales,ocasional,4,4,4,4,3,3,2,3,5,4
+80,31,30-44,Salud y servicios sociales,frecuente,4,3,4,4,2,2,2,2,2,4
+81,27,18-29,Salud y servicios sociales,frecuente,4,4,5,4,1,4,2,5,5,5
+82,35,30-44,Salud y servicios sociales,frecuente,3,4,5,3,1,2,1,1,1,4
+83,66,60+,Salud y servicios sociales,frecuente,4,4,4,4,3,2,2,3,4,4
+84,44,30-44,Salud y servicios sociales,esporadicamente,4,3,2,4,3,3,1,1,2,2
+85,59,45-59,Salud y servicios sociales,frecuente,3,5,5,4,2,2,4,3,5,5
+86,24,18-29,Salud y servicios sociales,ocasional,3,5,4,4,3,4,4,2,5,5
+87,40,30-44,Salud y servicios sociales,frecuente,5,4,5,4,2,4,4,4,3,4
+88,55,45-59,Salud y servicios sociales,ocasional,3,3,4,3,3,3,2,2,4,2
+89,38,30-44,Salud y servicios sociales,ocasional,4,4,4,4,4,4,1,2,4,3
+90,42,30-44,Salud y servicios sociales,esporadicamente,3,4,4,4,2,3,1,1,4,4
+91,58,45-59,Salud y servicios sociales,frecuente,2,2,4,3,1,2,1,1,1,2
+92,59,45-59,Salud y servicios sociales,frecuente,5,5,5,5,5,5,5,5,5,5
+93,30,30-44,Salud y servicios sociales,esporadicamente,4,4,5,5,3,2,1,1,2,1
+94,54,45-59,Salud y servicios sociales,frecuente,2,4,4,3,3,1,2,4,2,4
+95,45,45-59,Salud y servicios sociales,frecuente,3,5,5,4,3,3,3,2,4,4
+96,52,45-59,Salud y servicios sociales,frecuente,3,4,4,4,2,2,2,4,2,4
+97,35,30-44,Salud y servicios sociales,nunca,2,4,4,2,2,2,1,1,4,4
+98,48,45-59,Salud y servicios sociales,ocasional,4,4,5,3,2,4,1,3,1,4
+99,45,45-59,Salud y servicios sociales,frecuente,3,3,4,4,2,2,2,3,2,3
+100,72,60+,Salud y servicios sociales,esporadicamente,4,4,4,3,2,3,2,3,2,2
+101,49,45-59,Consultoría / servicios profesionales,frecuente,4,4,4,4,2,2,2,2,4,4
+102,44,30-44,Consultoría / servicios profesionales,frecuente,5,5,5,4,2,2,2,2,2,4
+103,28,18-29,Consultoría / servicios profesionales,frecuente,3,4,5,4,4,3,3,2,3,4
+104,54,45-59,Consultoría / servicios profesionales,ocasional,2,2,4,2,2,1,1,1,2,3
+105,33,30-44,Consultoría / servicios profesionales,frecuente,4,2,5,3,4,4,4,2,2,4
+106,29,18-29,Consultoría / servicios profesionales,esporadicamente,1,1,3,2,2,2,2,2,2,3
+107,46,45-59,Consultoría / servicios profesionales,ocasional,2,4,5,3,1,1,1,2,1,4
+108,39,30-44,Consultoría / servicios profesionales,ocasional,2,3,4,2,2,2,1,1,2,2
+109,44,30-44,Consultoría / servicios profesionales,frecuente,4,4,4,4,2,2,2,2,4,4
+110,28,18-29,Consultoría / servicios profesionales,ocasional,5,4,4,3,2,4,1,5,3,5
+111,74,60+,Consultoría / servicios profesionales,ocasional,3,4,4,4,3,3,3,3,4,4
+112,30,30-44,Consultoría / servicios profesionales,esporadicamente,3,3,5,3,3,2,1,1,2,4
+113,43,30-44,Consultoría / servicios profesionales,ocasional,5,5,5,5,5,4,1,1,1,5
+114,33,30-44,Consultoría / servicios profesionales,esporadicamente,3,3,4,3,2,4,2,2,4,3
+115,30,30-44,Consultoría / servicios profesionales,frecuente,4,4,4,4,2,1,2,2,4,4
+116,65,60+,Consultoría / servicios profesionales,esporadicamente,3,3,3,3,1,1,1,1,2,2
+117,29,18-29,Consultoría / servicios profesionales,ocasional,5,4,4,4,3,3,3,4,3,4
+118,65,60+,Consultoría / servicios profesionales,ocasional,4,4,3,4,3,3,2,2,5,4
+119,42,30-44,Consultoría / servicios profesionales,frecuente,3,4,4,3,2,2,2,2,2,2
+120,30,30-44,Consultoría / servicios profesionales,esporadicamente,4,4,4,4,2,2,2,2,4,4
+121,60,60+,Consultoría / servicios profesionales,frecuente,4,5,5,5,2,2,2,2,4,4
+122,40,30-44,Consultoría / servicios profesionales,ocasional,4,5,5,4,4,2,1,1,4,2
+123,36,30-44,Consultoría / servicios profesionales,ocasional,3,4,4,4,3,3,2,2,3,3
+124,33,30-44,Consultoría / servicios profesionales,frecuente,3,5,4,4,2,2,1,1,4,4
+125,25,18-29,Consultoría / servicios profesionales,frecuente,4,5,5,4,1,1,2,4,2,5
+126,60,60+,Consultoría / servicios profesionales,ocasional,3,4,4,3,2,3,2,3,3,2
+127,36,30-44,Consultoría / servicios profesionales,frecuente,5,4,5,4,2,3,1,1,3,3
+128,50,45-59,Consultoría / servicios profesionales,ocasional,4,5,4,3,4,4,4,4,4,4
+129,58,45-59,Consultoría / servicios profesionales,ocasional,4,4,4,4,2,3,1,1,3,3
+130,55,45-59,Consultoría / servicios profesionales,frecuente,3,4,4,3,2,2,2,2,2,4
+131,59,45-59,Consultoría / servicios profesionales,frecuente,3,4,5,4,2,2,3,2,4,4
+132,54,45-59,Consultoría / servicios profesionales,frecuente,3,4,5,3,2,3,1,1,4,4
+133,29,18-29,Consultoría / servicios profesionales,nunca,4,4,4,2,4,4,3,4,4,4
+134,39,30-44,Consultoría / servicios profesionales,ocasional,4,4,4,4,3,3,2,3,4,4
+135,42,30-44,Consultoría / servicios profesionales,frecuente,5,5,5,5,4,1,1,4,4,5
+136,47,45-59,Consultoría / servicios profesionales,nunca,1,1,1,1,3,4,1,1,1,3
+137,26,18-29,Consultoría / servicios profesionales,frecuente,3,4,5,4,2,2,1,2,3,3
+138,26,18-29,Consultoría / servicios profesionales,esporadicamente,3,3,4,4,2,2,1,2,2,2
+139,38,30-44,Consultoría / servicios profesionales,esporadicamente,4,3,4,4,3,3,2,4,4,4
