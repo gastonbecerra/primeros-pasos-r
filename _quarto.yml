@@ -9,13 +9,13 @@ website:
     left:
       - text: Inicio
         href: index.qmd
-      - text: Módulo 1
+      - text: Primero
         href: modulo-1.qmd
-      - text: Módulo 2
+      - text: Segundo
         href: modulo-2.qmd
-      - text: Módulo 3
+      - text: Tercero
         href: modulo-3.qmd
-      - text: Módulo 4
+      - text: Sigamos!
         href: modulo-4.qmd
     right:
       - icon: github

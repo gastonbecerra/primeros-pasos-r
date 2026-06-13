@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Módulo 1. Introducción a R y Posit.Cloud – Primeros pasos en análisis de datos con R</title>
+<title>Primer paso. Preparar el entorno de trabajo – Primeros pasos en análisis de datos con R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,19 +130,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./modulo-1.html" aria-current="page"> 
-<span class="menu-text">Módulo 1</span></a>
+<span class="menu-text">Primero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-2.html"> 
-<span class="menu-text">Módulo 2</span></a>
+<span class="menu-text">Segundo</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-3.html"> 
-<span class="menu-text">Módulo 3</span></a>
+<span class="menu-text">Tercero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-4.html"> 
-<span class="menu-text">Módulo 4</span></a>
+<span class="menu-text">Sigamos!</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -168,17 +168,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#en-este-módulo" id="toc-en-este-módulo" class="nav-link" data-scroll-target="#en-este-módulo">En este módulo</a></li>
-  <li><a href="#punto-de-partida" id="toc-punto-de-partida" class="nav-link" data-scroll-target="#punto-de-partida">Punto de partida</a></li>
-  <li><a href="#rstudio-y-posit.cloud" id="toc-rstudio-y-posit.cloud" class="nav-link" data-scroll-target="#rstudio-y-posit.cloud">RStudio y Posit.Cloud</a></li>
-  <li><a href="#consola-y-script" id="toc-consola-y-script" class="nav-link" data-scroll-target="#consola-y-script">Consola y script</a></li>
+  <li><a href="#qué-es-r" id="toc-qué-es-r" class="nav-link" data-scroll-target="#qué-es-r">¿Qué es R?</a></li>
+  <li><a href="#qué-es-un-ide-qué-es-rstudio" id="toc-qué-es-un-ide-qué-es-rstudio" class="nav-link" data-scroll-target="#qué-es-un-ide-qué-es-rstudio">¿Qué es un IDE? / ¿Qué es RStudio?</a></li>
+  <li><a href="#la-interfaz-de-rstudio" id="toc-la-interfaz-de-rstudio" class="nav-link" data-scroll-target="#la-interfaz-de-rstudio">La interfaz de RStudio</a></li>
+  <li><a href="#cargar-archivos" id="toc-cargar-archivos" class="nav-link" data-scroll-target="#cargar-archivos">Cargar archivos</a></li>
+  <li><a href="#nuestro-primer-código" id="toc-nuestro-primer-código" class="nav-link" data-scroll-target="#nuestro-primer-código">Nuestro primer código</a></li>
+  <li><a href="#trabajar-con-paquetes" id="toc-trabajar-con-paquetes" class="nav-link" data-scroll-target="#trabajar-con-paquetes">Trabajar con paquetes</a></li>
   <li><a href="#cargar-paquetes" id="toc-cargar-paquetes" class="nav-link" data-scroll-target="#cargar-paquetes">Cargar paquetes</a></li>
-  <li><a href="#leer-datos" id="toc-leer-datos" class="nav-link" data-scroll-target="#leer-datos">Leer datos</a></li>
-  <li><a href="#mirar-la-tabla" id="toc-mirar-la-tabla" class="nav-link" data-scroll-target="#mirar-la-tabla">Mirar la tabla</a></li>
-  <li><a href="#diccionario-de-variables" id="toc-diccionario-de-variables" class="nav-link" data-scroll-target="#diccionario-de-variables">Diccionario de variables</a></li>
-  <li><a href="#primera-pregunta" id="toc-primera-pregunta" class="nav-link" data-scroll-target="#primera-pregunta">Primera pregunta</a></li>
-  <li><a href="#ejercicio-breve" id="toc-ejercicio-breve" class="nav-link" data-scroll-target="#ejercicio-breve">Ejercicio breve</a></li>
-  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Módulo 1. Introducción a R y Posit.Cloud</h1>
+<h1 class="title">Primer paso. Preparar el entorno de trabajo</h1>
 </div>
 
 
@@ -206,232 +202,128 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset.</p>
-</section>
-<section id="en-este-módulo" class="level2">
-<h2 class="anchored" data-anchor-id="en-este-módulo">En este módulo</h2>
-<p>Vamos a trabajar con:</p>
+<p>En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.</p>
+<p>Puntualmente, vamos a ver:</p>
 <ul>
-<li>R;</li>
-<li>RStudio / Posit.Cloud;</li>
-<li>consola y scripts;</li>
-<li>objetos;</li>
-<li>paquetes;</li>
-<li>archivos CSV;</li>
-<li>primeras inspecciones de una tabla.</li>
+<li>qué es R;</li>
+<li>cómo usarlo en la nube;</li>
+<li>cómo utilizar una interfaz de trabajo;</li>
+<li>cómo cargar un archivo .csv;</li>
+<li>cómo hacer una primera inspección de nuestra tabla.</li>
 </ul>
 </section>
-<section id="punto-de-partida" class="level2">
-<h2 class="anchored" data-anchor-id="punto-de-partida">Punto de partida</h2>
-<p>R es un lenguaje de programación orientado al análisis estadístico y la visualización de datos.</p>
-<p>Para este taller no necesitamos aprender todo R. Necesitamos empezar a usarlo para una tarea concreta:</p>
-<blockquote class="blockquote">
-<p>cargar una encuesta, mirar sus variables y preparar una primera exploración.</p>
-</blockquote>
+<section id="qué-es-r" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-r">¿Qué es R?</h2>
+<p>R es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: <a href="#0">The R Project for Statistical Computing</a>.</p>
+<p>Para usar R y RStudio hay dos caminos:</p>
+<ol type="1">
+<li>instalar R y RStudio en nuestra computadora;</li>
+<li>usar una versión en la nube desde el navegador.</li>
+</ol>
+<p>En este taller vamos a ir por la segunda opción, y vamos a usar <a href="https://posit.cloud/plans/free">Posit.Cloud con plan gratuito</a>.</p>
+<p>Pero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargarte R e instalarla tu computadora, a través de <a href="https://cran.r-project.org/mirrors.html">CRAN: El archivo oficial de R</a>.</p>
 </section>
-<section id="rstudio-y-posit.cloud" class="level2">
-<h2 class="anchored" data-anchor-id="rstudio-y-posit.cloud">RStudio y Posit.Cloud</h2>
-<p>R es el lenguaje.<br>
-RStudio es el entorno donde escribimos, ejecutamos y organizamos el código.<br>
-Posit.Cloud permite trabajar con RStudio desde el navegador, sin instalar nada en la computadora.</p>
+<section id="qué-es-un-ide-qué-es-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-un-ide-qué-es-rstudio">¿Qué es un IDE? / ¿Qué es RStudio?</h2>
+<p>R puede usarse directamente desde una consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código.</p>
+<p>Entre los posibles IDEs para R, vamos a usar <strong>RStudio</strong>, el cual se encuentra disponible en Posit.Cloud.</p>
+<p>Si estás trabajando en local, podés descargar gratuitamente <a href="https://posit.co/downloads/">RStudio versión escritorio</a>.</p>
+<p>En Posit.CLoud, un <strong>proyecto</strong> es la unidad de trabajo, donde se reúne código, datos, y archivos en un mismo espacio. Hay distintos tipo de Proyectos, pero aquí vamos a usar RStudio.</p>
+<p><img src="https://docs.posit.co/cloud/get_started/images/newProjectRStudio.webp" class="img-fluid"></p>
+<p>Guía oficial: <a href="https://docs.posit.co/cloud/get_started/">Get Started with Posit Cloud</a>.</p>
 </section>
-<section id="consola-y-script" class="level2">
-<h2 class="anchored" data-anchor-id="consola-y-script">Consola y script</h2>
-<p>En RStudio vamos a usar dos espacios principales:</p>
+<section id="la-interfaz-de-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="la-interfaz-de-rstudio">La interfaz de RStudio</h2>
+<p>Cuando se abre RStudio, la pantalla se organiza en paneles.</p>
+<p><img src="https://docs.posit.co/ide/user/ide/guide/ui/images/rstudio-panes-labeled.png" class="img-fluid"></p>
+<p>Los cuatro paneles principales son:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Espacio</th>
-<th>Uso</th>
+<th>Panel</th>
+<th>Para qué sirve</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Consola</td>
-<td>Ejecutar comandos sueltos</td>
+<td><strong>Source</strong></td>
+<td>Escribir y guardar código en scripts (archivos de texto)</td>
 </tr>
 <tr class="even">
-<td>Script</td>
-<td>Guardar una secuencia de comandos</td>
+<td><strong>Console</strong></td>
+<td>Ejecutar comandos de R y mostrar resultados / respuestas</td>
+</tr>
+<tr class="odd">
+<td><strong>Environment</strong></td>
+<td>Ver objetos cargados en memoria</td>
+</tr>
+<tr class="even">
+<td><strong>Output</strong></td>
+<td>Ver archivos, gráficos, paquetes, ayuda y visualizaciones</td>
 </tr>
 </tbody>
 </table>
-<p>En el taller vamos a escribir el código en scripts para poder reutilizarlo.</p>
+<p>Guía oficial: <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">RStudio User Guide - Pane Layout</a>.</p>
+</section>
+<section id="cargar-archivos" class="level2">
+<h2 class="anchored" data-anchor-id="cargar-archivos">Cargar archivos</h2>
+<p>En este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de <code>Files</code> que está en el panel de Outputs:</p>
+<p><img src="images/upload.png" class="img-fluid"></p>
+</section>
+<section id="nuestro-primer-código" class="level2">
+<h2 class="anchored" data-anchor-id="nuestro-primer-código">Nuestro primer código</h2>
+<p>Para empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.</p>
+<p>En RStudio podemos ejecutar código de dos maneras:</p>
+<ol type="1">
+<li>escribiendo directamente en la <strong>Console</strong>;</li>
+<li>escribiendo en un <strong>script</strong> y ejecutando línea por línea.</li>
+</ol>
+<p>En este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.</p>
+<p>Para crear un script nuevo:</p>
+<pre class="text"><code>File &gt; New File &gt; R Script</code></pre>
+<p>También se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.</p>
+<p>Una vez abierto el script, escribimos:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para ejecutar esa línea, ubicamos el cursor sobre ella y usamos:</p>
+<pre class="text"><code>Ctrl + Enter</code></pre>
+<p>También podemos hacer clic en el botón <strong>Run</strong>. El resultado aparece en la <strong>Console</strong>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R también nos permite guardar valores en objetos (variables), utilizando el operador de asignación <code>&lt;-</code> .</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mi_otro_numero <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mi_texto <span class="ot">&lt;-</span> <span class="st">"Hola, R"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Cuando ejecutamos este código, el objeto aparece en el panel <strong>Environment</strong>. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.</p>
+<p>Luego, podemos ver estos objetos, u operar sobre ellos.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="co"># si no hacemos nada, se muestra en pantalla</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mi_texto</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="sc">&gt;</span> mi_otro_numero <span class="co"># si hacemos una operacion muestra el resultado</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero <span class="ot">&lt;-</span> mi_numero <span class="sc">+</span> mi_otro_numero <span class="co"># o podemos guardar el resultado de una operación en una variable nueva</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="trabajar-con-paquetes" class="level2">
+<h2 class="anchored" data-anchor-id="trabajar-con-paquetes">Trabajar con paquetes</h2>
+<p>R viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un <strong>paquete</strong> es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.</p>
+<p>En este taller vamos a usar principalmente el paquete <code>tidyverse</code>, que reúne varias herramientas para leer, transformar, analizar y graficar datos.</p>
+<p>Para instalarlo, ejecutamos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>También vamos a instalar <code>janitor</code>, que sirve para algunas tareas simples de limpieza de datos:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>La instalación se hace una sola vez en cada entorno de trabajo.</p>
 </section>
 <section id="cargar-paquetes" class="level2">
 <h2 class="anchored" data-anchor-id="cargar-paquetes">Cargar paquetes</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'purrr' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lubridate' was built under R version 4.4.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.2
-✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-</section>
-<section id="leer-datos" class="level2">
-<h2 class="anchored" data-anchor-id="leer-datos">Leer datos</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/encuesta_ia_subset.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 139 Columns: 15
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia
-dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
-<section id="mirar-la-tabla" class="level2">
-<h2 class="anchored" data-anchor-id="mirar-la-tabla">Mirar la tabla</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 139
-Columns: 15
-$ id_caso                          &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…
-$ edad                             &lt;dbl&gt; 45, 57, 45, 60, 55, 30, 65, 68, 59, 1…
-$ grupo_edad                       &lt;chr&gt; "45-59", "45-59", "45-59", "60+", "45…
-$ area_trabajo_grupo               &lt;chr&gt; "Educación", "Educación", "Educación"…
-$ frecuencia_uso_ia                &lt;chr&gt; "ocasional", "frecuente", "esporadica…
-$ actitud_positiva                 &lt;dbl&gt; 3, 4, 3, 3, 3, 4, 1, 5, 5, 4, 4, 2, 4…
-$ actitud_trabajo_estudio          &lt;dbl&gt; 3, 5, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4…
-$ actitud_vida_cotidiana           &lt;dbl&gt; 4, 5, 4, 1, 4, 5, 4, 5, 5, 4, 5, 4, 4…
-$ actitud_aprender_ia              &lt;dbl&gt; 4, 4, 4, 3, 3, 4, 4, 5, 5, 3, 3, 3, 4…
-$ creencia_decisiones_justas       &lt;dbl&gt; 1, 3, 3, 2, 2, 3, 4, 5, 1, 3, 1, 2, 2…
-$ creencia_respuestas_certeras     &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 5, 5, 2, 4, 4, 2, 1…
-$ creencia_orientacion_psicologica &lt;dbl&gt; 1, 2, 1, 2, 1, 3, 4, 3, 1, 1, 2, 2, 2…
-$ creencia_compania                &lt;dbl&gt; 3, 2, 1, 4, 1, 3, 4, 2, 1, 2, 4, 2, 2…
-$ creencia_investigacion           &lt;dbl&gt; 4, 3, 3, 1, 4, 4, 2, 5, 2, 4, 2, 2, 2…
-$ creencia_ensenanza               &lt;dbl&gt; 4, 5, 4, 4, 4, 1, 4, 5, 4, 4, 4, 4, 4…</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 15
-  id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia actitud_positiva
-    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                        &lt;dbl&gt;
-1       1    45 45-59      Educación          ocasional                        3
-2       2    57 45-59      Educación          frecuente                        4
-3       3    45 45-59      Educación          esporadicamente                  3
-4       4    60 60+        Educación          frecuente                        3
-5       5    55 45-59      Educación          frecuente                        3
-6       6    30 30-44      Educación          ocasional                        4
-# ℹ 9 more variables: actitud_trabajo_estudio &lt;dbl&gt;,
-#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
-#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
-#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
-#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "id_caso"                          "edad"                            
- [3] "grupo_edad"                       "area_trabajo_grupo"              
- [5] "frecuencia_uso_ia"                "actitud_positiva"                
- [7] "actitud_trabajo_estudio"          "actitud_vida_cotidiana"          
- [9] "actitud_aprender_ia"              "creencia_decisiones_justas"      
-[11] "creencia_respuestas_certeras"     "creencia_orientacion_psicologica"
-[13] "creencia_compania"                "creencia_investigacion"          
-[15] "creencia_ensenanza"              </code></pre>
-</div>
-</div>
-</section>
-<section id="diccionario-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="diccionario-de-variables">Diccionario de variables</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>diccionario <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/diccionario_variables.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 15 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (4): variable, descripcion, tipo, valores
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>diccionario</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15 × 4
-   variable                         descripcion                    tipo  valores
-   &lt;chr&gt;                            &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt;  
- 1 id_caso                          Identificador anónimo del caso numé… 1, 2, …
- 2 edad                             Edad de la persona encuestada  numé… 19 a 74
- 3 grupo_edad                       Edad agrupada                  cate… 18-29;…
- 4 area_trabajo_grupo               Área laboral recodificada      cate… Educac…
- 5 frecuencia_uso_ia                Frecuencia declarada de uso d… cate… nunca;…
- 6 actitud_positiva                 Ítem de actitud general posit… Like… 1 a 5  
- 7 actitud_trabajo_estudio          Ítem sobre valoración de la I… Like… 1 a 5  
- 8 actitud_vida_cotidiana           Ítem sobre valoración de la I… Like… 1 a 5  
- 9 actitud_aprender_ia              Ítem sobre disposición a apre… Like… 1 a 5  
-10 creencia_decisiones_justas       Creencia en que la IA puede t… Like… 1 a 5  
-11 creencia_respuestas_certeras     Creencia en que la IA puede d… Like… 1 a 5  
-12 creencia_orientacion_psicologica Creencia en que la IA puede o… Like… 1 a 5  
-13 creencia_compania                Creencia en que la IA puede b… Like… 1 a 5  
-14 creencia_investigacion           Creencia en que la IA puede h… Like… 1 a 5  
-15 creencia_ensenanza               Creencia en que la IA puede e… Like… 1 a 5  </code></pre>
-</div>
-</div>
-</section>
-<section id="primera-pregunta" class="level2">
-<h2 class="anchored" data-anchor-id="primera-pregunta">Primera pregunta</h2>
-<p>Antes de analizar, conviene preguntarnos:</p>
-<blockquote class="blockquote">
-<p>¿Qué representa cada fila? ¿Qué representa cada columna?</p>
-</blockquote>
-<p>En este dataset:</p>
-<ul>
-<li>cada fila representa una persona encuestada;</li>
-<li>cada columna representa una variable;</li>
-<li>algunas variables describen características de las personas;</li>
-<li>otras variables miden actitudes o creencias hacia la IA.</li>
-</ul>
-</section>
-<section id="ejercicio-breve" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-breve">Ejercicio breve</h2>
-<p>Explorá el dataset con estos comandos:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 139</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 139  15</code></pre>
-</div>
-</div>
-</section>
-<section id="cierre" class="level2">
-<h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
-<p>En este módulo preparamos el entorno y cargamos los datos. En el próximo módulo vamos a empezar a manipular la tabla para responder preguntas más precisas.</p>
+<p>Después de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>

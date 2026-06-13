@@ -79,233 +79,191 @@
   {
     "objectID": "modulo-2.html",
     "href": "modulo-2.html",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
     "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
   },
   {
     "objectID": "modulo-2.html#objetivo",
     "href": "modulo-2.html#objetivo",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
     "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
   },
   {
     "objectID": "modulo-2.html#en-este-módulo",
     "href": "modulo-2.html#en-este-módulo",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "En este módulo",
     "text": "En este módulo\nVamos a trabajar con:\n\nselect();\nfilter();\nrename();\nmutate();\ncount();\narrange()."
   },
   {
     "objectID": "modulo-2.html#cargar-datos",
     "href": "modulo-2.html#cargar-datos",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Cargar datos",
     "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "modulo-2.html#seleccionar-columnas",
     "href": "modulo-2.html#seleccionar-columnas",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Seleccionar columnas",
     "text": "Seleccionar columnas\n\nencuesta_ia %&gt;%\n  select(edad, grupo_edad, area_trabajo_grupo)\n\n# A tibble: 139 × 3\n    edad grupo_edad area_trabajo_grupo\n   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;             \n 1    45 45-59      Educación         \n 2    57 45-59      Educación         \n 3    45 45-59      Educación         \n 4    60 60+        Educación         \n 5    55 45-59      Educación         \n 6    30 30-44      Educación         \n 7    65 60+        Educación         \n 8    68 60+        Educación         \n 9    59 45-59      Educación         \n10    19 18-29      Educación         \n# ℹ 129 more rows"
   },
   {
     "objectID": "modulo-2.html#filtrar-casos",
     "href": "modulo-2.html#filtrar-casos",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Filtrar casos",
     "text": "Filtrar casos\n\nencuesta_ia %&gt;%\n  filter(area_trabajo_grupo == \"Educación\")\n\n# A tibble: 50 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       1    45 45-59      Educación          ocasional        \n 2       2    57 45-59      Educación          frecuente        \n 3       3    45 45-59      Educación          esporadicamente  \n 4       4    60 60+        Educación          frecuente        \n 5       5    55 45-59      Educación          frecuente        \n 6       6    30 30-44      Educación          ocasional        \n 7       7    65 60+        Educación          ocasional        \n 8       8    68 60+        Educación          frecuente        \n 9       9    59 45-59      Educación          frecuente        \n10      10    19 18-29      Educación          ocasional        \n# ℹ 40 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\n\nencuesta_ia %&gt;%\n  filter(frecuencia_uso_ia == \"frecuente\")\n\n# A tibble: 54 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       2    57 45-59      Educación          frecuente        \n 2       4    60 60+        Educación          frecuente        \n 3       5    55 45-59      Educación          frecuente        \n 4       8    68 60+        Educación          frecuente        \n 5       9    59 45-59      Educación          frecuente        \n 6      11    45 45-59      Educación          frecuente        \n 7      13    43 30-44      Educación          frecuente        \n 8      17    39 30-44      Educación          frecuente        \n 9      18    61 60+        Educación          frecuente        \n10      19    65 60+        Educación          frecuente        \n# ℹ 44 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;"
   },
   {
     "objectID": "modulo-2.html#contar-categorías",
     "href": "modulo-2.html#contar-categorías",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Contar categorías",
     "text": "Contar categorías\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo)\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Consultoría / servicios profesionales    39\n2 Educación                                50\n3 Salud y servicios sociales               50\n\n\n\nencuesta_ia %&gt;%\n  count(frecuencia_uso_ia)\n\n# A tibble: 4 × 2\n  frecuencia_uso_ia     n\n  &lt;chr&gt;             &lt;int&gt;\n1 esporadicamente      25\n2 frecuente            54\n3 nunca                 6\n4 ocasional            54\n\n\n\nencuesta_ia %&gt;%\n  count(grupo_edad)\n\n# A tibble: 4 × 2\n  grupo_edad     n\n  &lt;chr&gt;      &lt;int&gt;\n1 18-29         15\n2 30-44         54\n3 45-59         50\n4 60+           20"
   },
   {
     "objectID": "modulo-2.html#ordenar-resultados",
     "href": "modulo-2.html#ordenar-resultados",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Ordenar resultados",
     "text": "Ordenar resultados\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo) %&gt;%\n  arrange(desc(n))\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Educación                                50\n2 Salud y servicios sociales               50\n3 Consultoría / servicios profesionales    39"
   },
   {
     "objectID": "modulo-2.html#crear-nuevas-variables",
     "href": "modulo-2.html#crear-nuevas-variables",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Crear nuevas variables",
     "text": "Crear nuevas variables\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    edad_mayor_45 = edad &gt;= 45\n  )\n\n\nencuesta_ia %&gt;%\n  count(edad_mayor_45)\n\n# A tibble: 2 × 2\n  edad_mayor_45     n\n  &lt;lgl&gt;         &lt;int&gt;\n1 FALSE            69\n2 TRUE             70"
   },
   {
     "objectID": "modulo-2.html#renombrar-variables",
     "href": "modulo-2.html#renombrar-variables",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Renombrar variables",
     "text": "Renombrar variables\n\nencuesta_ia %&gt;%\n  rename(\n    area = area_trabajo_grupo,\n    frecuencia = frecuencia_uso_ia\n  )\n\n# A tibble: 139 × 16\n   id_caso  edad grupo_edad area      frecuencia      actitud_positiva\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;\n 1       1    45 45-59      Educación ocasional                      3\n 2       2    57 45-59      Educación frecuente                      4\n 3       3    45 45-59      Educación esporadicamente                3\n 4       4    60 60+        Educación frecuente                      3\n 5       5    55 45-59      Educación frecuente                      3\n 6       6    30 30-44      Educación ocasional                      4\n 7       7    65 60+        Educación ocasional                      1\n 8       8    68 60+        Educación frecuente                      5\n 9       9    59 45-59      Educación frecuente                      5\n10      10    19 18-29      Educación ocasional                      4\n# ℹ 129 more rows\n# ℹ 10 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, edad_mayor_45 &lt;lgl&gt;"
   },
   {
     "objectID": "modulo-2.html#idea-metodológica",
     "href": "modulo-2.html#idea-metodológica",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Idea metodológica",
     "text": "Idea metodológica\nManipular datos no es una tarea meramente técnica.\nCada vez que filtramos, agrupamos, recodificamos o creamos una variable, estamos tomando una decisión analítica.\nPor eso conviene preguntarnos:\n\n¿Esta transformación ayuda a responder mi pregunta de investigación?"
   },
   {
     "objectID": "modulo-2.html#ejercicio-breve",
     "href": "modulo-2.html#ejercicio-breve",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Ejercicio breve",
     "text": "Ejercicio breve\nConstruí una tabla que muestre cuántas personas hay por área de trabajo y frecuencia de uso de IA.\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo, frecuencia_uso_ia)\n\n# A tibble: 12 × 3\n   area_trabajo_grupo                    frecuencia_uso_ia     n\n   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;\n 1 Consultoría / servicios profesionales esporadicamente       7\n 2 Consultoría / servicios profesionales frecuente            16\n 3 Consultoría / servicios profesionales nunca                 2\n 4 Consultoría / servicios profesionales ocasional            14\n 5 Educación                             esporadicamente       7\n 6 Educación                             frecuente            22\n 7 Educación                             nunca                 1\n 8 Educación                             ocasional            20\n 9 Salud y servicios sociales            esporadicamente      11\n10 Salud y servicios sociales            frecuente            16\n11 Salud y servicios sociales            nunca                 3\n12 Salud y servicios sociales            ocasional            20"
   },
   {
     "objectID": "modulo-2.html#cierre",
     "href": "modulo-2.html#cierre",
-    "title": "Módulo 2. Exploración y manipulación de datasets",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "Cierre",
     "text": "Cierre\nEn este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación."
+  },
+  {
+    "objectID": "modulo-2.html#cargar-nuestra-primera-base",
+    "href": "modulo-2.html#cargar-nuestra-primera-base",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "Cargar nuestra primera base",
+    "text": "Cargar nuestra primera base\nAhora vamos a cargar el dataset del taller.\nPrimero cargamos los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)\nLuego leemos el archivo .csv con la función read_csv():\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\nCon esta línea estamos haciendo tres cosas:\n\nleemos un archivo de datos;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nPodemos ver que el objeto aparece en el panel Environment.\nPara mostrar la tabla, escribimos el nombre del objeto:\nencuesta_ia\nTambién podemos inspeccionarla con algunas funciones básicas:\nglimpse(encuesta_ia)\nhead(encuesta_ia)\nnames(encuesta_ia)\nEstas funciones nos permiten responder preguntas iniciales:\n\n¿cuántas filas tiene la tabla?\n¿cuántas columnas?\n¿qué nombres tienen las variables?\n¿qué tipo de datos contiene cada columna?\n\nTambién podemos ver sus dimensiones:\nnrow(encuesta_ia)\nncol(encuesta_ia)\ndim(encuesta_ia)"
+  },
+  {
+    "objectID": "modulo-2.html#leer-el-diccionario-de-variables",
+    "href": "modulo-2.html#leer-el-diccionario-de-variables",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "Leer el diccionario de variables",
+    "text": "Leer el diccionario de variables\nAdemás del dataset, tenemos un diccionario de variables. Este archivo explica qué significa cada columna de la tabla.\ndiccionario &lt;- read_csv(\"data/diccionario_variables.csv\")\n\ndiccionario\nAntes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
     "section": "",
-    "text": "Este taller introduce herramientas básicas de análisis de datos con R a partir de un ejercicio práctico con datos de encuesta sobre actitudes, creencias y usos de inteligencia artificial.\nEl objetivo no es aprender comandos de manera aislada, sino usar R para formular preguntas, explorar datos, transformar tablas y construir respuestas interpretables desde las ciencias sociales."
+    "text": "Este taller busca acompañarnos en los primeros pasos (pero primeros en serio) del análisis de datos con R.\nParticularmente, vamos a dar juntos 3 pasitos:\nEl taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom."
   },
   {
-    "objectID": "index.html#organización-del-taller",
-    "href": "index.html#organización-del-taller",
+    "objectID": "index.html#caso-de-estudio",
+    "href": "index.html#caso-de-estudio",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Organización del taller",
-    "text": "Organización del taller\nEl taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.\n\n\n\n\n\n\n\n\nMódulo\nTema\nPropósito\n\n\n\n\n1\nIntroducción a R y Posit.Cloud\nPreparar el entorno y cargar datos\n\n\n2\nExploración y manipulación de datasets\nConocer la tabla y transformarla\n\n\n3\nPreguntas de investigación y construcción de variables\nPasar de columnas a indicadores\n\n\n4\nAnálisis descriptivo\nProducir tablas, gráficos e interpretaciones"
+    "section": "Caso de estudio",
+    "text": "Caso de estudio\nPara ejercitarnos, vamos a trabajar con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina. Particularmente, nos vamos a preguntar: ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\nA partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos."
   },
   {
-    "objectID": "index.html#dataset-de-trabajo",
-    "href": "index.html#dataset-de-trabajo",
+    "objectID": "index.html#sobre-este-material",
+    "href": "index.html#sobre-este-material",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Dataset de trabajo",
-    "text": "Dataset de trabajo\nTrabajaremos con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.\nEl dataset incluye información sobre:\n\nedad;\nárea de trabajo;\nfrecuencia de uso de IA;\nactitudes generales hacia la IA;\ncreencias sobre capacidades específicas de la IA."
-  },
-  {
-    "objectID": "index.html#pregunta-general",
-    "href": "index.html#pregunta-general",
-    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Pregunta general",
-    "text": "Pregunta general\n¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\nA partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos."
-  },
-  {
-    "objectID": "index.html#materiales",
-    "href": "index.html#materiales",
-    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Materiales",
-    "text": "Materiales\n\nMódulo 1. Introducción a R y Posit.Cloud\nMódulo 2. Exploración y manipulación de datasets\nMódulo 3. Preguntas de investigación y construcción de variables\nMódulo 4. Análisis descriptivo"
-  },
-  {
-    "objectID": "index.html#archivos-de-trabajo",
-    "href": "index.html#archivos-de-trabajo",
-    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Archivos de trabajo",
-    "text": "Archivos de trabajo\nDurante el taller vamos a usar:\ndata/encuesta_ia_subset.csv\ndata/diccionario_variables.csv\nscripts/"
-  },
-  {
-    "objectID": "index.html#idea-metodológica",
-    "href": "index.html#idea-metodológica",
-    "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
-    "section": "Idea metodológica",
-    "text": "Idea metodológica\nAntes de analizar datos, necesitamos saber qué representa cada columna. Una tabla no es solamente un archivo: es una forma de organizar observaciones, variables y decisiones de investigación.\nEn este taller vamos a insistir en una idea simple:\n\nEl código debe estar al servicio de la pregunta de investigación, no al revés."
+    "section": "Sobre este material",
+    "text": "Sobre este material\nEste material se elaboró para un taller gratuito y abierto."
   },
   {
     "objectID": "modulo-1.html",
     "href": "modulo-1.html",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset."
+    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar una interfaz de trabajo;\ncómo cargar un archivo .csv;\ncómo hacer una primera inspección de nuestra tabla."
   },
   {
     "objectID": "modulo-1.html#objetivo",
     "href": "modulo-1.html#objetivo",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "Preparar el entorno de trabajo, familiarizarnos con R y cargar nuestro primer dataset."
+    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar una interfaz de trabajo;\ncómo cargar un archivo .csv;\ncómo hacer una primera inspección de nuestra tabla."
   },
   {
-    "objectID": "modulo-1.html#en-este-módulo",
-    "href": "modulo-1.html#en-este-módulo",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "En este módulo",
-    "text": "En este módulo\nVamos a trabajar con:\n\nR;\nRStudio / Posit.Cloud;\nconsola y scripts;\nobjetos;\npaquetes;\narchivos CSV;\nprimeras inspecciones de una tabla."
+    "objectID": "modulo-1.html#qué-es-r",
+    "href": "modulo-1.html#qué-es-r",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "¿Qué es R?",
+    "text": "¿Qué es R?\nR es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: The R Project for Statistical Computing.\nPara usar R y RStudio hay dos caminos:\n\ninstalar R y RStudio en nuestra computadora;\nusar una versión en la nube desde el navegador.\n\nEn este taller vamos a ir por la segunda opción, y vamos a usar Posit.Cloud con plan gratuito.\nPero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargarte R e instalarla tu computadora, a través de CRAN: El archivo oficial de R."
   },
   {
-    "objectID": "modulo-1.html#punto-de-partida",
-    "href": "modulo-1.html#punto-de-partida",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Punto de partida",
-    "text": "Punto de partida\nR es un lenguaje de programación orientado al análisis estadístico y la visualización de datos.\nPara este taller no necesitamos aprender todo R. Necesitamos empezar a usarlo para una tarea concreta:\n\ncargar una encuesta, mirar sus variables y preparar una primera exploración."
+    "objectID": "modulo-1.html#qué-es-un-ide-qué-es-rstudio",
+    "href": "modulo-1.html#qué-es-un-ide-qué-es-rstudio",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "¿Qué es un IDE? / ¿Qué es RStudio?",
+    "text": "¿Qué es un IDE? / ¿Qué es RStudio?\nR puede usarse directamente desde una consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código.\nEntre los posibles IDEs para R, vamos a usar RStudio, el cual se encuentra disponible en Posit.Cloud.\nSi estás trabajando en local, podés descargar gratuitamente RStudio versión escritorio.\nEn Posit.CLoud, un proyecto es la unidad de trabajo, donde se reúne código, datos, y archivos en un mismo espacio. Hay distintos tipo de Proyectos, pero aquí vamos a usar RStudio.\n\nGuía oficial: Get Started with Posit Cloud."
   },
   {
-    "objectID": "modulo-1.html#rstudio-y-posit.cloud",
-    "href": "modulo-1.html#rstudio-y-posit.cloud",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "RStudio y Posit.Cloud",
-    "text": "RStudio y Posit.Cloud\nR es el lenguaje.\nRStudio es el entorno donde escribimos, ejecutamos y organizamos el código.\nPosit.Cloud permite trabajar con RStudio desde el navegador, sin instalar nada en la computadora."
+    "objectID": "modulo-1.html#la-interfaz-de-rstudio",
+    "href": "modulo-1.html#la-interfaz-de-rstudio",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "La interfaz de RStudio",
+    "text": "La interfaz de RStudio\nCuando se abre RStudio, la pantalla se organiza en paneles.\n\nLos cuatro paneles principales son:\n\n\n\n\n\n\n\nPanel\nPara qué sirve\n\n\n\n\nSource\nEscribir y guardar código en scripts (archivos de texto)\n\n\nConsole\nEjecutar comandos de R y mostrar resultados / respuestas\n\n\nEnvironment\nVer objetos cargados en memoria\n\n\nOutput\nVer archivos, gráficos, paquetes, ayuda y visualizaciones\n\n\n\nGuía oficial: RStudio User Guide - Pane Layout."
   },
   {
-    "objectID": "modulo-1.html#consola-y-script",
-    "href": "modulo-1.html#consola-y-script",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Consola y script",
-    "text": "Consola y script\nEn RStudio vamos a usar dos espacios principales:\n\n\n\nEspacio\nUso\n\n\n\n\nConsola\nEjecutar comandos sueltos\n\n\nScript\nGuardar una secuencia de comandos\n\n\n\nEn el taller vamos a escribir el código en scripts para poder reutilizarlo."
+    "objectID": "modulo-1.html#cargar-archivos",
+    "href": "modulo-1.html#cargar-archivos",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "Cargar archivos",
+    "text": "Cargar archivos\nEn este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de Files que está en el panel de Outputs:"
+  },
+  {
+    "objectID": "modulo-1.html#nuestro-primer-código",
+    "href": "modulo-1.html#nuestro-primer-código",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "Nuestro primer código",
+    "text": "Nuestro primer código\nPara empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.\nEn RStudio podemos ejecutar código de dos maneras:\n\nescribiendo directamente en la Console;\nescribiendo en un script y ejecutando línea por línea.\n\nEn este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.\nPara crear un script nuevo:\nFile &gt; New File &gt; R Script\nTambién se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.\nUna vez abierto el script, escribimos:\n2 + 2\nPara ejecutar esa línea, ubicamos el cursor sobre ella y usamos:\nCtrl + Enter\nTambién podemos hacer clic en el botón Run. El resultado aparece en la Console:\n[1] 4\nR también nos permite guardar valores en objetos (variables), utilizando el operador de asignación &lt;- .\nmi_numero &lt;- 10\nmi_otro_numero &lt;- 15\nmi_texto &lt;- \"Hola, R\"\nCuando ejecutamos este código, el objeto aparece en el panel Environment. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.\nLuego, podemos ver estos objetos, u operar sobre ellos.\nmi_numero # si no hacemos nada, se muestra en pantalla\nmi_texto\n\nmi_numero &gt; mi_otro_numero # si hacemos una operacion muestra el resultado\n\nmi_nuevo_numero &lt;- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva\nmi_nuevo_numero"
+  },
+  {
+    "objectID": "modulo-1.html#trabajar-con-paquetes",
+    "href": "modulo-1.html#trabajar-con-paquetes",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "Trabajar con paquetes",
+    "text": "Trabajar con paquetes\nR viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un paquete es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.\nEn este taller vamos a usar principalmente el paquete tidyverse, que reúne varias herramientas para leer, transformar, analizar y graficar datos.\nPara instalarlo, ejecutamos:\ninstall.packages(\"tidyverse\")\nTambién vamos a instalar janitor, que sirve para algunas tareas simples de limpieza de datos:\ninstall.packages(\"janitor\")\nLa instalación se hace una sola vez en cada entorno de trabajo."
   },
   {
     "objectID": "modulo-1.html#cargar-paquetes",
     "href": "modulo-1.html#cargar-paquetes",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
+    "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "Cargar paquetes",
-    "text": "Cargar paquetes\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
-  },
-  {
-    "objectID": "modulo-1.html#leer-datos",
-    "href": "modulo-1.html#leer-datos",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Leer datos",
-    "text": "Leer datos\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "modulo-1.html#mirar-la-tabla",
-    "href": "modulo-1.html#mirar-la-tabla",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Mirar la tabla",
-    "text": "Mirar la tabla\n\nglimpse(encuesta_ia)\n\nRows: 139\nColumns: 15\n$ id_caso                          &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…\n$ edad                             &lt;dbl&gt; 45, 57, 45, 60, 55, 30, 65, 68, 59, 1…\n$ grupo_edad                       &lt;chr&gt; \"45-59\", \"45-59\", \"45-59\", \"60+\", \"45…\n$ area_trabajo_grupo               &lt;chr&gt; \"Educación\", \"Educación\", \"Educación\"…\n$ frecuencia_uso_ia                &lt;chr&gt; \"ocasional\", \"frecuente\", \"esporadica…\n$ actitud_positiva                 &lt;dbl&gt; 3, 4, 3, 3, 3, 4, 1, 5, 5, 4, 4, 2, 4…\n$ actitud_trabajo_estudio          &lt;dbl&gt; 3, 5, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4…\n$ actitud_vida_cotidiana           &lt;dbl&gt; 4, 5, 4, 1, 4, 5, 4, 5, 5, 4, 5, 4, 4…\n$ actitud_aprender_ia              &lt;dbl&gt; 4, 4, 4, 3, 3, 4, 4, 5, 5, 3, 3, 3, 4…\n$ creencia_decisiones_justas       &lt;dbl&gt; 1, 3, 3, 2, 2, 3, 4, 5, 1, 3, 1, 2, 2…\n$ creencia_respuestas_certeras     &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 5, 5, 2, 4, 4, 2, 1…\n$ creencia_orientacion_psicologica &lt;dbl&gt; 1, 2, 1, 2, 1, 3, 4, 3, 1, 1, 2, 2, 2…\n$ creencia_compania                &lt;dbl&gt; 3, 2, 1, 4, 1, 3, 4, 2, 1, 2, 4, 2, 2…\n$ creencia_investigacion           &lt;dbl&gt; 4, 3, 3, 1, 4, 4, 2, 5, 2, 4, 2, 2, 2…\n$ creencia_ensenanza               &lt;dbl&gt; 4, 5, 4, 4, 4, 1, 4, 5, 4, 4, 4, 4, 4…\n\n\n\nhead(encuesta_ia)\n\n# A tibble: 6 × 15\n  id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia actitud_positiva\n    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                        &lt;dbl&gt;\n1       1    45 45-59      Educación          ocasional                        3\n2       2    57 45-59      Educación          frecuente                        4\n3       3    45 45-59      Educación          esporadicamente                  3\n4       4    60 60+        Educación          frecuente                        3\n5       5    55 45-59      Educación          frecuente                        3\n6       6    30 30-44      Educación          ocasional                        4\n# ℹ 9 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\n\nnames(encuesta_ia)\n\n [1] \"id_caso\"                          \"edad\"                            \n [3] \"grupo_edad\"                       \"area_trabajo_grupo\"              \n [5] \"frecuencia_uso_ia\"                \"actitud_positiva\"                \n [7] \"actitud_trabajo_estudio\"          \"actitud_vida_cotidiana\"          \n [9] \"actitud_aprender_ia\"              \"creencia_decisiones_justas\"      \n[11] \"creencia_respuestas_certeras\"     \"creencia_orientacion_psicologica\"\n[13] \"creencia_compania\"                \"creencia_investigacion\"          \n[15] \"creencia_ensenanza\""
-  },
-  {
-    "objectID": "modulo-1.html#diccionario-de-variables",
-    "href": "modulo-1.html#diccionario-de-variables",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Diccionario de variables",
-    "text": "Diccionario de variables\n\ndiccionario &lt;- read_csv(\"data/diccionario_variables.csv\")\n\nRows: 15 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): variable, descripcion, tipo, valores\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndiccionario\n\n# A tibble: 15 × 4\n   variable                         descripcion                    tipo  valores\n   &lt;chr&gt;                            &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt;  \n 1 id_caso                          Identificador anónimo del caso numé… 1, 2, …\n 2 edad                             Edad de la persona encuestada  numé… 19 a 74\n 3 grupo_edad                       Edad agrupada                  cate… 18-29;…\n 4 area_trabajo_grupo               Área laboral recodificada      cate… Educac…\n 5 frecuencia_uso_ia                Frecuencia declarada de uso d… cate… nunca;…\n 6 actitud_positiva                 Ítem de actitud general posit… Like… 1 a 5  \n 7 actitud_trabajo_estudio          Ítem sobre valoración de la I… Like… 1 a 5  \n 8 actitud_vida_cotidiana           Ítem sobre valoración de la I… Like… 1 a 5  \n 9 actitud_aprender_ia              Ítem sobre disposición a apre… Like… 1 a 5  \n10 creencia_decisiones_justas       Creencia en que la IA puede t… Like… 1 a 5  \n11 creencia_respuestas_certeras     Creencia en que la IA puede d… Like… 1 a 5  \n12 creencia_orientacion_psicologica Creencia en que la IA puede o… Like… 1 a 5  \n13 creencia_compania                Creencia en que la IA puede b… Like… 1 a 5  \n14 creencia_investigacion           Creencia en que la IA puede h… Like… 1 a 5  \n15 creencia_ensenanza               Creencia en que la IA puede e… Like… 1 a 5"
-  },
-  {
-    "objectID": "modulo-1.html#primera-pregunta",
-    "href": "modulo-1.html#primera-pregunta",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Primera pregunta",
-    "text": "Primera pregunta\nAntes de analizar, conviene preguntarnos:\n\n¿Qué representa cada fila? ¿Qué representa cada columna?\n\nEn este dataset:\n\ncada fila representa una persona encuestada;\ncada columna representa una variable;\nalgunas variables describen características de las personas;\notras variables miden actitudes o creencias hacia la IA."
-  },
-  {
-    "objectID": "modulo-1.html#ejercicio-breve",
-    "href": "modulo-1.html#ejercicio-breve",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Ejercicio breve",
-    "text": "Ejercicio breve\nExplorá el dataset con estos comandos:\n\nnrow(encuesta_ia)\n\n[1] 139\n\nncol(encuesta_ia)\n\n[1] 15\n\ndim(encuesta_ia)\n\n[1] 139  15"
-  },
-  {
-    "objectID": "modulo-1.html#cierre",
-    "href": "modulo-1.html#cierre",
-    "title": "Módulo 1. Introducción a R y Posit.Cloud",
-    "section": "Cierre",
-    "text": "Cierre\nEn este módulo preparamos el entorno y cargamos los datos. En el próximo módulo vamos a empezar a manipular la tabla para responder preguntas más precisas."
+    "text": "Cargar paquetes\nDespués de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.\nlibrary(tidyverse)\nlibrary(janitor)\nEsta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)"
   },
   {
     "objectID": "modulo-3.html",

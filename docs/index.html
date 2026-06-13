@@ -95,19 +95,19 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-1.html"> 
-<span class="menu-text">Módulo 1</span></a>
+<span class="menu-text">Primero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-2.html"> 
-<span class="menu-text">Módulo 2</span></a>
+<span class="menu-text">Segundo</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-3.html"> 
-<span class="menu-text">Módulo 3</span></a>
+<span class="menu-text">Tercero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-4.html"> 
-<span class="menu-text">Módulo 4</span></a>
+<span class="menu-text">Sigamos!</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -132,12 +132,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contenidos</h2>
    
   <ul>
-  <li><a href="#organización-del-taller" id="toc-organización-del-taller" class="nav-link active" data-scroll-target="#organización-del-taller">Organización del taller</a></li>
-  <li><a href="#dataset-de-trabajo" id="toc-dataset-de-trabajo" class="nav-link" data-scroll-target="#dataset-de-trabajo">Dataset de trabajo</a></li>
-  <li><a href="#pregunta-general" id="toc-pregunta-general" class="nav-link" data-scroll-target="#pregunta-general">Pregunta general</a></li>
-  <li><a href="#materiales" id="toc-materiales" class="nav-link" data-scroll-target="#materiales">Materiales</a></li>
-  <li><a href="#archivos-de-trabajo" id="toc-archivos-de-trabajo" class="nav-link" data-scroll-target="#archivos-de-trabajo">Archivos de trabajo</a></li>
-  <li><a href="#idea-metodológica" id="toc-idea-metodológica" class="nav-link" data-scroll-target="#idea-metodológica">Idea metodológica</a></li>
+  <li><a href="#caso-de-estudio" id="toc-caso-de-estudio" class="nav-link active" data-scroll-target="#caso-de-estudio">Caso de estudio</a></li>
+  <li><a href="#sobre-este-material" id="toc-sobre-este-material" class="nav-link" data-scroll-target="#sobre-este-material">Sobre este material</a></li>
   </ul>
 </nav>
     </div>
@@ -163,88 +159,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Este taller introduce herramientas básicas de análisis de datos con R a partir de un ejercicio práctico con datos de encuesta sobre actitudes, creencias y usos de inteligencia artificial.</p>
-<p>El objetivo no es aprender comandos de manera aislada, sino usar R para formular preguntas, explorar datos, transformar tablas y construir respuestas interpretables desde las ciencias sociales.</p>
-<section id="organización-del-taller" class="level2">
-<h2 class="anchored" data-anchor-id="organización-del-taller">Organización del taller</h2>
-<p>El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Módulo</th>
-<th>Tema</th>
-<th>Propósito</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Introducción a R y Posit.Cloud</td>
-<td>Preparar el entorno y cargar datos</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Exploración y manipulación de datasets</td>
-<td>Conocer la tabla y transformarla</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Preguntas de investigación y construcción de variables</td>
-<td>Pasar de columnas a indicadores</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Análisis descriptivo</td>
-<td>Producir tablas, gráficos e interpretaciones</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="dataset-de-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="dataset-de-trabajo">Dataset de trabajo</h2>
-<p>Trabajaremos con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.</p>
-<p>El dataset incluye información sobre:</p>
+<p>Este taller busca acompañarnos en los primeros pasos (pero primeros en serio) del análisis de datos con R.<br>
+Particularmente, vamos a dar juntos 3 pasitos:</p>
 <ul>
-<li>edad;</li>
-<li>área de trabajo;</li>
-<li>frecuencia de uso de IA;</li>
-<li>actitudes generales hacia la IA;</li>
-<li>creencias sobre capacidades específicas de la IA.</li>
+<li>Primero, preparar un entorno para usar R</li>
+<li>Segundo, explorar y preparar un dataset para que lo analicemos</li>
+<li>Tercero, responder preguntas a través del análisis de datos</li>
 </ul>
-</section>
-<section id="pregunta-general" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-general">Pregunta general</h2>
-<p>¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?</p>
+<p>El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.</p>
+<section id="caso-de-estudio" class="level2">
+<h2 class="anchored" data-anchor-id="caso-de-estudio">Caso de estudio</h2>
+<p>Para ejercitarnos, vamos a trabajar con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina. Particularmente, nos vamos a preguntar: ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?</p>
 <p>A partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos.</p>
 </section>
-<section id="materiales" class="level2">
-<h2 class="anchored" data-anchor-id="materiales">Materiales</h2>
-<ul>
-<li><a href="./modulo-1.html">Módulo 1. Introducción a R y Posit.Cloud</a></li>
-<li><a href="./modulo-2.html">Módulo 2. Exploración y manipulación de datasets</a></li>
-<li><a href="./modulo-3.html">Módulo 3. Preguntas de investigación y construcción de variables</a></li>
-<li><a href="./modulo-4.html">Módulo 4. Análisis descriptivo</a></li>
-</ul>
-</section>
-<section id="archivos-de-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="archivos-de-trabajo">Archivos de trabajo</h2>
-<p>Durante el taller vamos a usar:</p>
-<pre class="text"><code>data/encuesta_ia_subset.csv
-data/diccionario_variables.csv
-scripts/</code></pre>
-</section>
-<section id="idea-metodológica" class="level2">
-<h2 class="anchored" data-anchor-id="idea-metodológica">Idea metodológica</h2>
-<p>Antes de analizar datos, necesitamos saber qué representa cada columna. Una tabla no es solamente un archivo: es una forma de organizar observaciones, variables y decisiones de investigación.</p>
-<p>En este taller vamos a insistir en una idea simple:</p>
-<blockquote class="blockquote">
-<p>El código debe estar al servicio de la pregunta de investigación, no al revés.</p>
-</blockquote>
+<section id="sobre-este-material" class="level2">
+<h2 class="anchored" data-anchor-id="sobre-este-material">Sobre este material</h2>
+<p>Este material se elaboró para un taller gratuito y abierto.</p>
 
 
 </section>

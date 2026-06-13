@@ -1,5 +1,5 @@
 ---
-title: "Módulo 2. Exploración y manipulación de datasets"
+title: "Segundo paso. Exploración y manipulación de datasets"
 ---
 
 ## Objetivo
@@ -16,6 +16,10 @@ Vamos a trabajar con:
 - `mutate()`;
 - `count()`;
 - `arrange()`.
+
+
+
+
 
 ## Cargar datos
 
@@ -115,3 +119,82 @@ encuesta_ia %>%
 ## Cierre
 
 En este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación.
+
+
+
+
+
+
+
+
+## Cargar nuestra primera base
+
+Ahora vamos a cargar el dataset del taller.
+
+Primero cargamos los paquetes que vamos a usar:
+
+```r
+library(tidyverse)
+library(janitor)
+```
+
+Luego leemos el archivo `.csv` con la función `read_csv()`:
+
+```r
+encuesta_ia <- read_csv("data/encuesta_ia_subset.csv")
+```
+
+Con esta línea estamos haciendo tres cosas:
+
+1. leemos un archivo de datos;
+2. lo cargamos en R;
+3. lo guardamos en un objeto llamado `encuesta_ia`.
+
+Podemos ver que el objeto aparece en el panel **Environment**.
+
+Para mostrar la tabla, escribimos el nombre del objeto:
+
+```r
+encuesta_ia
+```
+
+También podemos inspeccionarla con algunas funciones básicas:
+
+```r
+glimpse(encuesta_ia)
+```
+
+```r
+head(encuesta_ia)
+```
+
+```r
+names(encuesta_ia)
+```
+
+Estas funciones nos permiten responder preguntas iniciales:
+
+- ¿cuántas filas tiene la tabla?
+- ¿cuántas columnas?
+- ¿qué nombres tienen las variables?
+- ¿qué tipo de datos contiene cada columna?
+
+También podemos ver sus dimensiones:
+
+```r
+nrow(encuesta_ia)
+ncol(encuesta_ia)
+dim(encuesta_ia)
+```
+
+## Leer el diccionario de variables
+
+Además del dataset, tenemos un diccionario de variables. Este archivo explica qué significa cada columna de la tabla.
+
+```r
+diccionario <- read_csv("data/diccionario_variables.csv")
+
+diccionario
+```
+
+Antes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación.

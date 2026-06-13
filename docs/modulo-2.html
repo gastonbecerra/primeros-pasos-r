@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Módulo 2. Exploración y manipulación de datasets – Primeros pasos en análisis de datos con R</title>
+<title>Segundo paso. Exploración y manipulación de datasets – Primeros pasos en análisis de datos con R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,19 +130,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-1.html"> 
-<span class="menu-text">Módulo 1</span></a>
+<span class="menu-text">Primero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./modulo-2.html" aria-current="page"> 
-<span class="menu-text">Módulo 2</span></a>
+<span class="menu-text">Segundo</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-3.html"> 
-<span class="menu-text">Módulo 3</span></a>
+<span class="menu-text">Tercero</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-4.html"> 
-<span class="menu-text">Módulo 4</span></a>
+<span class="menu-text">Sigamos!</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -179,6 +179,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#idea-metodológica" id="toc-idea-metodológica" class="nav-link" data-scroll-target="#idea-metodológica">Idea metodológica</a></li>
   <li><a href="#ejercicio-breve" id="toc-ejercicio-breve" class="nav-link" data-scroll-target="#ejercicio-breve">Ejercicio breve</a></li>
   <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
+  <li><a href="#cargar-nuestra-primera-base" id="toc-cargar-nuestra-primera-base" class="nav-link" data-scroll-target="#cargar-nuestra-primera-base">Cargar nuestra primera base</a></li>
+  <li><a href="#leer-el-diccionario-de-variables" id="toc-leer-el-diccionario-de-variables" class="nav-link" data-scroll-target="#leer-el-diccionario-de-variables">Leer el diccionario de variables</a></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Módulo 2. Exploración y manipulación de datasets</h1>
+<h1 class="title">Segundo paso. Exploración y manipulación de datasets</h1>
 </div>
 
 
@@ -482,6 +484,47 @@ dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
 <section id="cierre" class="level2">
 <h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
 <p>En este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación.</p>
+</section>
+<section id="cargar-nuestra-primera-base" class="level2">
+<h2 class="anchored" data-anchor-id="cargar-nuestra-primera-base">Cargar nuestra primera base</h2>
+<p>Ahora vamos a cargar el dataset del taller.</p>
+<p>Primero cargamos los paquetes que vamos a usar:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Luego leemos el archivo <code>.csv</code> con la función <code>read_csv()</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/encuesta_ia_subset.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con esta línea estamos haciendo tres cosas:</p>
+<ol type="1">
+<li>leemos un archivo de datos;</li>
+<li>lo cargamos en R;</li>
+<li>lo guardamos en un objeto llamado <code>encuesta_ia</code>.</li>
+</ol>
+<p>Podemos ver que el objeto aparece en el panel <strong>Environment</strong>.</p>
+<p>Para mostrar la tabla, escribimos el nombre del objeto:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>También podemos inspeccionarla con algunas funciones básicas:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estas funciones nos permiten responder preguntas iniciales:</p>
+<ul>
+<li>¿cuántas filas tiene la tabla?</li>
+<li>¿cuántas columnas?</li>
+<li>¿qué nombres tienen las variables?</li>
+<li>¿qué tipo de datos contiene cada columna?</li>
+</ul>
+<p>También podemos ver sus dimensiones:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(encuesta_ia)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(encuesta_ia)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="leer-el-diccionario-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="leer-el-diccionario-de-variables">Leer el diccionario de variables</h2>
+<p>Además del dataset, tenemos un diccionario de variables. Este archivo explica qué significa cada columna de la tabla.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>diccionario <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/diccionario_variables.csv"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>diccionario</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Antes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación.</p>
 
 
 </section>

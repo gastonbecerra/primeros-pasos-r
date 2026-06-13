@@ -138,3 +138,166 @@ encuesta_ia %>%
 ## Cierre
 
 En este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos.
+
+
+
+## Objetivo
+
+Producir tablas, gráficos e interpretaciones descriptivas.
+
+## Cargar datos
+
+```{r}
+library(tidyverse)
+
+encuesta_ia <- read_csv("data/encuesta_ia_subset.csv") %>%
+  mutate(
+    actitud_ia = rowMeans(
+      pick(
+        actitud_positiva,
+        actitud_trabajo_estudio,
+        actitud_vida_cotidiana,
+        actitud_aprender_ia
+      ),
+      na.rm = TRUE
+    ),
+    creencias_media = rowMeans(
+      pick(
+        creencia_decisiones_justas,
+        creencia_respuestas_certeras,
+        creencia_orientacion_psicologica,
+        creencia_compania,
+        creencia_investigacion,
+        creencia_ensenanza
+      ),
+      na.rm = TRUE
+    ),
+    brecha_actitud_creencias = actitud_ia - creencias_media
+  )
+```
+
+## Tabla descriptiva general
+
+```{r}
+encuesta_ia %>%
+  summarise(
+    casos = n(),
+    edad_media = mean(edad),
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+```
+
+## Actitud según frecuencia de uso
+
+```{r}
+tabla_frecuencia <- encuesta_ia %>%
+  group_by(frecuencia_uso_ia) %>%
+  summarise(
+    n = n(),
+    actitud_media = mean(actitud_ia),
+    creencias_media = mean(creencias_media),
+    brecha_media = mean(brecha_actitud_creencias)
+  )
+
+tabla_frecuencia
+```
+
+## Gráfico de actitud según frecuencia de uso
+
+```{r}
+tabla_frecuencia %>%
+  ggplot(aes(x = frecuencia_uso_ia, y = actitud_media)) +
+  geom_col() +
+  labs(
+    x = "Frecuencia de uso de IA",
+    y = "Actitud media hacia la IA",
+    title = "Actitud hacia la IA según frecuencia de uso"
+  ) +
+  theme_minimal()
+```
+
+## Comparación entre actitud y creencias
+
+```{r}
+tabla_comparacion <- encuesta_ia %>%
+  summarise(
+    actitud_ia = mean(actitud_ia),
+    creencias_media = mean(creencias_media)
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "media"
+  )
+
+tabla_comparacion
+```
+
+```{r}
+tabla_comparacion %>%
+  ggplot(aes(x = variable, y = media)) +
+  geom_col() +
+  labs(
+    x = NULL,
+    y = "Media",
+    title = "Actitud general y creencias específicas hacia la IA"
+  ) +
+  theme_minimal()
+```
+
+## Creencias por dimensión
+
+```{r}
+creencias_largo <- encuesta_ia %>%
+  select(starts_with("creencia_")) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "creencia",
+    values_to = "valor"
+  )
+
+creencias_largo %>%
+  group_by(creencia) %>%
+  summarise(media = mean(valor)) %>%
+  arrange(desc(media))
+```
+
+```{r}
+creencias_largo %>%
+  group_by(creencia) %>%
+  summarise(media = mean(valor)) %>%
+  ggplot(aes(x = reorder(creencia, media), y = media)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "Media",
+    title = "Creencias sobre capacidades específicas de la IA"
+  ) +
+  theme_minimal()
+```
+
+## Interpretación
+
+Los resultados descriptivos permiten discutir una tensión central:
+
+> La actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.
+
+Esto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella.
+
+## Ejercicio final
+
+Elegí una pregunta y respondela con una tabla y un gráfico.
+
+Ejemplos:
+
+- ¿La actitud hacia la IA cambia según el área de trabajo?
+- ¿La brecha entre actitud y creencias cambia según frecuencia de uso?
+- ¿Qué grupo de edad muestra mayor actitud promedio?
+- ¿Qué creencia específica tiene el promedio más bajo?
+
+## Cierre
+
+El análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas.
