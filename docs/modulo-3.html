@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Módulo 3. Preguntas de investigación y construcción de variables – Primeros pasos en análisis de datos con R</title>
+<title>Tercer paso. Manipulación de datasets – Primeros pasos en análisis de datos con R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -168,27 +168,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#pregunta-general" id="toc-pregunta-general" class="nav-link" data-scroll-target="#pregunta-general">Pregunta general</a></li>
-  <li><a href="#cargar-datos" id="toc-cargar-datos" class="nav-link" data-scroll-target="#cargar-datos">Cargar datos</a></li>
-  <li><a href="#calcular-actitud-general" id="toc-calcular-actitud-general" class="nav-link" data-scroll-target="#calcular-actitud-general">Calcular actitud general</a></li>
-  <li><a href="#calcular-creencias-sobre-capacidades-específicas" id="toc-calcular-creencias-sobre-capacidades-específicas" class="nav-link" data-scroll-target="#calcular-creencias-sobre-capacidades-específicas">Calcular creencias sobre capacidades específicas</a></li>
-  <li><a href="#calcular-la-brecha" id="toc-calcular-la-brecha" class="nav-link" data-scroll-target="#calcular-la-brecha">Calcular la brecha</a></li>
-  <li><a href="#explorar-las-nuevas-variables" id="toc-explorar-las-nuevas-variables" class="nav-link" data-scroll-target="#explorar-las-nuevas-variables">Explorar las nuevas variables</a></li>
-  <li><a href="#comparar-por-frecuencia-de-uso" id="toc-comparar-por-frecuencia-de-uso" class="nav-link" data-scroll-target="#comparar-por-frecuencia-de-uso">Comparar por frecuencia de uso</a></li>
-  <li><a href="#comparar-por-área-de-trabajo" id="toc-comparar-por-área-de-trabajo" class="nav-link" data-scroll-target="#comparar-por-área-de-trabajo">Comparar por área de trabajo</a></li>
-  <li><a href="#idea-metodológica" id="toc-idea-metodológica" class="nav-link" data-scroll-target="#idea-metodológica">Idea metodológica</a></li>
-  <li><a href="#ejercicio-breve" id="toc-ejercicio-breve" class="nav-link" data-scroll-target="#ejercicio-breve">Ejercicio breve</a></li>
+  <li><a href="#cargamos-paquetes-y-datos" id="toc-cargamos-paquetes-y-datos" class="nav-link" data-scroll-target="#cargamos-paquetes-y-datos">Cargamos paquetes y datos</a></li>
+  <li><a href="#ordenar-resultados" id="toc-ordenar-resultados" class="nav-link" data-scroll-target="#ordenar-resultados">Ordenar resultados</a></li>
+  <li><a href="#calcular-porcentajes" id="toc-calcular-porcentajes" class="nav-link" data-scroll-target="#calcular-porcentajes">Calcular porcentajes</a></li>
+  <li><a href="#primera-lectura-descriptiva" id="toc-primera-lectura-descriptiva" class="nav-link" data-scroll-target="#primera-lectura-descriptiva">Primera lectura descriptiva</a></li>
+  <li><a href="#seleccionar-columnas" id="toc-seleccionar-columnas" class="nav-link" data-scroll-target="#seleccionar-columnas">Seleccionar columnas</a></li>
+  <li><a href="#filtrar-casos" id="toc-filtrar-casos" class="nav-link" data-scroll-target="#filtrar-casos">Filtrar casos</a></li>
+  <li><a href="#contar-después-de-filtrar" id="toc-contar-después-de-filtrar" class="nav-link" data-scroll-target="#contar-después-de-filtrar">Contar después de filtrar</a></li>
+  <li><a href="#crear-nuevas-variables" id="toc-crear-nuevas-variables" class="nav-link" data-scroll-target="#crear-nuevas-variables">Crear nuevas variables</a></li>
+  <li><a href="#renombrar-variables" id="toc-renombrar-variables" class="nav-link" data-scroll-target="#renombrar-variables">Renombrar variables</a></li>
+  <li><a href="#seleccionar-filtrar-y-ordenar" id="toc-seleccionar-filtrar-y-ordenar" class="nav-link" data-scroll-target="#seleccionar-filtrar-y-ordenar">Seleccionar, filtrar y ordenar</a></li>
+  <li><a href="#mini-ejercicios" id="toc-mini-ejercicios" class="nav-link" data-scroll-target="#mini-ejercicios">Mini-ejercicios</a></li>
   <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
-  <li><a href="#objetivo-1" id="toc-objetivo-1" class="nav-link" data-scroll-target="#objetivo-1">Objetivo</a></li>
-  <li><a href="#cargar-datos-1" id="toc-cargar-datos-1" class="nav-link" data-scroll-target="#cargar-datos-1">Cargar datos</a></li>
-  <li><a href="#tabla-descriptiva-general" id="toc-tabla-descriptiva-general" class="nav-link" data-scroll-target="#tabla-descriptiva-general">Tabla descriptiva general</a></li>
-  <li><a href="#actitud-según-frecuencia-de-uso" id="toc-actitud-según-frecuencia-de-uso" class="nav-link" data-scroll-target="#actitud-según-frecuencia-de-uso">Actitud según frecuencia de uso</a></li>
-  <li><a href="#gráfico-de-actitud-según-frecuencia-de-uso" id="toc-gráfico-de-actitud-según-frecuencia-de-uso" class="nav-link" data-scroll-target="#gráfico-de-actitud-según-frecuencia-de-uso">Gráfico de actitud según frecuencia de uso</a></li>
-  <li><a href="#comparación-entre-actitud-y-creencias" id="toc-comparación-entre-actitud-y-creencias" class="nav-link" data-scroll-target="#comparación-entre-actitud-y-creencias">Comparación entre actitud y creencias</a></li>
-  <li><a href="#creencias-por-dimensión" id="toc-creencias-por-dimensión" class="nav-link" data-scroll-target="#creencias-por-dimensión">Creencias por dimensión</a></li>
-  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">Interpretación</a></li>
-  <li><a href="#ejercicio-final" id="toc-ejercicio-final" class="nav-link" data-scroll-target="#ejercicio-final">Ejercicio final</a></li>
-  <li><a href="#cierre-1" id="toc-cierre-1" class="nav-link" data-scroll-target="#cierre-1">Cierre</a></li>
   </ul>
 </nav>
     </div>
@@ -197,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Módulo 3. Preguntas de investigación y construcción de variables</h1>
+<h1 class="title">Tercer paso. Manipulación de datasets</h1>
 </div>
 
 
@@ -216,445 +207,499 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>Construir variables analíticas para responder preguntas de investigación.</p>
+<p>En este tutorial vamos a aprender a manipular una tabla de datos con algunos verbos básicos de <code>dplyr</code>. Para el final, vas a poder ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.</p>
+<p>La idea es avanzar desde una primera exploración de la base hacia operaciones que nos permitan preparar los datos para responder preguntas de investigación.</p>
 </section>
-<section id="pregunta-general" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-general">Pregunta general</h2>
-<p>¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?</p>
-<p>Para responder esta pregunta vamos a construir tres variables:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>actitud_ia</code></td>
-<td>promedio de los ítems de actitud general</td>
-</tr>
-<tr class="even">
-<td><code>creencias_media</code></td>
-<td>promedio de las creencias sobre capacidades específicas</td>
-</tr>
-<tr class="odd">
-<td><code>brecha_actitud_creencias</code></td>
-<td>diferencia entre actitud general y creencias específicas</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="cargar-datos" class="level2">
-<h2 class="anchored" data-anchor-id="cargar-datos">Cargar datos</h2>
+<section id="cargamos-paquetes-y-datos" class="level2">
+<h2 class="anchored" data-anchor-id="cargamos-paquetes-y-datos">Cargamos paquetes y datos</h2>
+<p>Como siempre, empezamos cargando los paquetes que vamos a usar:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'purrr' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lubridate' was built under R version 4.4.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.2
-✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/encuesta_ia_subset.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 139 Columns: 15
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia
-dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
+<p>Luego cargamos nuevamente la base de datos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calcular-actitud-general" class="level2">
-<h2 class="anchored" data-anchor-id="calcular-actitud-general">Calcular actitud general</h2>
+<section id="ordenar-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="ordenar-resultados">Ordenar resultados</h2>
+<p>En el tutorial anterior usamos <code>count()</code> para contar cuántos casos hay en cada categoría.</p>
+<p>Por ejemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> <span class="fu">rowMeans</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        actitud_positiva,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        actitud_trabajo_estudio,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        actitud_vida_cotidiana,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        actitud_aprender_ia</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="calcular-creencias-sobre-capacidades-específicas" class="level2">
-<h2 class="anchored" data-anchor-id="calcular-creencias-sobre-capacidades-específicas">Calcular creencias sobre capacidades específicas</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">rowMeans</span>(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        creencia_decisiones_justas,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        creencia_respuestas_certeras,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        creencia_orientacion_psicologica,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        creencia_compania,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        creencia_investigacion,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        creencia_ensenanza</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="calcular-la-brecha" class="level2">
-<h2 class="anchored" data-anchor-id="calcular-la-brecha">Calcular la brecha</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_actitud_creencias =</span> actitud_ia <span class="sc">-</span> creencias_media</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="explorar-las-nuevas-variables" class="level2">
-<h2 class="anchored" data-anchor-id="explorar-las-nuevas-variables">Explorar las nuevas variables</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  actitud_media creencias_media brecha_media
-          &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1          3.77            2.58         1.19</code></pre>
+<pre><code># A tibble: 3 × 2
+  area_trabajo_grupo                        n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Consultoría / servicios profesionales    39
+2 Educación                                50
+3 Salud y servicios sociales               50</code></pre>
 </div>
 </div>
-</section>
-<section id="comparar-por-frecuencia-de-uso" class="level2">
-<h2 class="anchored" data-anchor-id="comparar-por-frecuencia-de-uso">Comparar por frecuencia de uso</h2>
+<p>Muchas veces conviene ordenar los resultados de mayor a menor. Para eso agregamos <code>arrange()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 5
-  frecuencia_uso_ia     n actitud_media creencias_media brecha_media
-  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1 esporadicamente      25          3.42            2.33        1.09 
-2 frecuente            54          4.04            2.71        1.33 
-3 nunca                 6          2.67            2.03        0.639
-4 ocasional            54          3.80            2.63        1.17 </code></pre>
+<pre><code># A tibble: 3 × 2
+  area_trabajo_grupo                        n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Educación                                50
+2 Salud y servicios sociales               50
+3 Consultoría / servicios profesionales    39</code></pre>
 </div>
 </div>
-</section>
-<section id="comparar-por-área-de-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="comparar-por-área-de-trabajo">Comparar por área de trabajo</h2>
+<p>Acá aparece un operador nuevo: <code>%&gt;%</code>.</p>
+<p>Este operador se llama <strong>pipe</strong> y permite encadenar operaciones. Podemos leerlo como “después”. Entonces, el código anterior puede leerse así:</p>
+<blockquote class="blockquote">
+<p>contá los casos por área de trabajo y después ordená el resultado de mayor a menor.</p>
+</blockquote>
+<p>También podemos ordenar de menor a mayor:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(n)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 5
-  area_trabajo_grupo                n actitud_media creencias_media brecha_media
-  &lt;chr&gt;                         &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1 Consultoría / servicios prof…    39          3.75            2.60         1.15
-2 Educación                        50          3.81            2.57         1.24
-3 Salud y servicios sociales       50          3.76            2.57         1.18</code></pre>
+<pre><code># A tibble: 3 × 2
+  area_trabajo_grupo                        n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Consultoría / servicios profesionales    39
+2 Educación                                50
+3 Salud y servicios sociales               50</code></pre>
 </div>
 </div>
 </section>
-<section id="idea-metodológica" class="level2">
-<h2 class="anchored" data-anchor-id="idea-metodológica">Idea metodológica</h2>
-<p>Una variable no siempre viene lista en el dataset.</p>
-<p>Muchas veces tenemos que construir indicadores a partir de varias columnas. Esa construcción requiere una decisión teórica y metodológica.</p>
-<p>En este caso distinguimos entre:</p>
+<section id="calcular-porcentajes" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-porcentajes">Calcular porcentajes</h2>
+<p>También podemos calcular porcentajes. Para eso, después de contar, creamos una nueva columna con <code>mutate()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  frecuencia_uso_ia     n porcentaje
+  &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+1 esporadicamente      25      18.0 
+2 frecuente            54      38.8 
+3 nunca                 6       4.32
+4 ocasional            54      38.8 </code></pre>
+</div>
+</div>
+<p>Con esta tabla ya no vemos solamente cuántas personas hay en cada categoría, sino también qué porcentaje representa cada una sobre el total.</p>
+<p>Si queremos redondear el porcentaje, podemos usar <code>round()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  frecuencia_uso_ia     n porcentaje
+  &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+1 esporadicamente      25       18  
+2 frecuente            54       38.8
+3 nunca                 6        4.3
+4 ocasional            54       38.8</code></pre>
+</div>
+</div>
+</section>
+<section id="primera-lectura-descriptiva" class="level2">
+<h2 class="anchored" data-anchor-id="primera-lectura-descriptiva">Primera lectura descriptiva</h2>
+<p>Con estas operaciones podemos empezar a responder algunas preguntas básicas:</p>
 <ul>
-<li>actitud general hacia la IA;</li>
-<li>creencias sobre capacidades específicas;</li>
-<li>distancia entre ambas dimensiones.</li>
+<li>¿cuántas personas hay en cada grupo de edad?</li>
+<li>¿cómo se distribuyen las áreas de trabajo?</li>
+<li>¿con qué frecuencia usan IA las personas encuestadas?</li>
+<li>¿qué categorías tienen más casos?</li>
+<li>¿qué categorías tienen pocos casos y conviene interpretar con cuidado?</li>
 </ul>
+<p>Este tipo de exploración no es un trámite previo al análisis. Es parte del análisis.</p>
+<p>Antes de comparar grupos, calcular indicadores o hacer gráficos, necesitamos saber cómo está compuesta la base. Si un grupo tiene muy pocos casos, por ejemplo, sus resultados pueden ser poco estables. Si una categoría concentra la mayoría de las respuestas, eso también condiciona la interpretación.</p>
 </section>
-<section id="ejercicio-breve" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-breve">Ejercicio breve</h2>
-<p>Calculá la actitud media por grupo de edad.</p>
+<section id="seleccionar-columnas" class="level2">
+<h2 class="anchored" data-anchor-id="seleccionar-columnas">Seleccionar columnas</h2>
+<p>Una operación muy común es quedarnos solamente con algunas columnas de la base. Para eso usamos <code>select()</code>.</p>
+<p>Por ejemplo, podemos seleccionar las variables sociodemográficas y de uso:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(grupo_edad) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 5
-  grupo_edad     n actitud_media creencias_media brecha_media
-  &lt;chr&gt;      &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1 18-29         15          3.7             2.87        0.833
-2 30-44         54          3.82            2.49        1.33 
-3 45-59         50          3.74            2.55        1.20 
-4 60+           20          3.78            2.69        1.08 </code></pre>
+<pre><code># A tibble: 139 × 4
+    edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1    45 45-59      Educación          ocasional        
+ 2    57 45-59      Educación          frecuente        
+ 3    45 45-59      Educación          esporadicamente  
+ 4    60 60+        Educación          frecuente        
+ 5    55 45-59      Educación          frecuente        
+ 6    30 30-44      Educación          ocasional        
+ 7    65 60+        Educación          ocasional        
+ 8    68 60+        Educación          frecuente        
+ 9    59 45-59      Educación          frecuente        
+10    19 18-29      Educación          ocasional        
+# ℹ 129 more rows</code></pre>
+</div>
+</div>
+<p>También podemos seleccionar todas las variables que empiezan con una palabra. Por ejemplo, las variables de actitud:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"actitud_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 139 × 4
+   actitud_positiva actitud_trabajo_estudio actitud_vida_cotidiana
+              &lt;dbl&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;
+ 1                3                       3                      4
+ 2                4                       5                      5
+ 3                3                       4                      4
+ 4                3                       1                      1
+ 5                3                       4                      4
+ 6                4                       4                      5
+ 7                1                       4                      4
+ 8                5                       5                      5
+ 9                5                       5                      5
+10                4                       4                      4
+# ℹ 129 more rows
+# ℹ 1 more variable: actitud_aprender_ia &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Y las variables de creencias:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"creencia_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 139 × 6
+   creencia_decisiones_justas creencia_respuestas_certe…¹ creencia_orientacion…²
+                        &lt;dbl&gt;                       &lt;dbl&gt;                  &lt;dbl&gt;
+ 1                          1                           2                      1
+ 2                          3                           2                      2
+ 3                          3                           3                      1
+ 4                          2                           3                      2
+ 5                          2                           2                      1
+ 6                          3                           4                      3
+ 7                          4                           5                      4
+ 8                          5                           5                      3
+ 9                          1                           2                      1
+10                          3                           4                      1
+# ℹ 129 more rows
+# ℹ abbreviated names: ¹​creencia_respuestas_certeras,
+#   ²​creencia_orientacion_psicologica
+# ℹ 3 more variables: creencia_compania &lt;dbl&gt;, creencia_investigacion &lt;dbl&gt;,
+#   creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Esto es útil porque nuestro dataset tiene grupos de variables que comparten un prefijo. Más adelante vamos a usar esta organización para construir indicadores.</p>
+</section>
+<section id="filtrar-casos" class="level2">
+<h2 class="anchored" data-anchor-id="filtrar-casos">Filtrar casos</h2>
+<p>Otra operación básica es filtrar filas. Para eso usamos <code>filter()</code>.</p>
+<p>Por ejemplo, podemos quedarnos solamente con las personas que trabajan en educación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 15
+   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1       1    45 45-59      Educación          ocasional        
+ 2       2    57 45-59      Educación          frecuente        
+ 3       3    45 45-59      Educación          esporadicamente  
+ 4       4    60 60+        Educación          frecuente        
+ 5       5    55 45-59      Educación          frecuente        
+ 6       6    30 30-44      Educación          ocasional        
+ 7       7    65 60+        Educación          ocasional        
+ 8       8    68 60+        Educación          frecuente        
+ 9       9    59 45-59      Educación          frecuente        
+10      10    19 18-29      Educación          ocasional        
+# ℹ 40 more rows
+# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>También podemos quedarnos con quienes usan IA frecuentemente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 54 × 15
+   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1       2    57 45-59      Educación          frecuente        
+ 2       4    60 60+        Educación          frecuente        
+ 3       5    55 45-59      Educación          frecuente        
+ 4       8    68 60+        Educación          frecuente        
+ 5       9    59 45-59      Educación          frecuente        
+ 6      11    45 45-59      Educación          frecuente        
+ 7      13    43 30-44      Educación          frecuente        
+ 8      17    39 30-44      Educación          frecuente        
+ 9      18    61 60+        Educación          frecuente        
+10      19    65 60+        Educación          frecuente        
+# ℹ 44 more rows
+# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Y podemos combinar condiciones. Por ejemplo: personas del área de educación que usan IA frecuentemente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 15
+   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1       2    57 45-59      Educación          frecuente        
+ 2       4    60 60+        Educación          frecuente        
+ 3       5    55 45-59      Educación          frecuente        
+ 4       8    68 60+        Educación          frecuente        
+ 5       9    59 45-59      Educación          frecuente        
+ 6      11    45 45-59      Educación          frecuente        
+ 7      13    43 30-44      Educación          frecuente        
+ 8      17    39 30-44      Educación          frecuente        
+ 9      18    61 60+        Educación          frecuente        
+10      19    65 60+        Educación          frecuente        
+# ℹ 12 more rows
+# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>En <code>filter()</code>, la coma funciona como un <strong>y</strong> lógico: se conservan los casos que cumplen todas las condiciones.</p>
+</section>
+<section id="contar-después-de-filtrar" class="level2">
+<h2 class="anchored" data-anchor-id="contar-después-de-filtrar">Contar después de filtrar</h2>
+<p>Filtrar no es solo “recortar” la base. Muchas veces filtramos para responder preguntas más específicas.</p>
+<p>Por ejemplo:</p>
+<blockquote class="blockquote">
+<p>Entre quienes trabajan en educación, ¿con qué frecuencia se usa IA?</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  frecuencia_uso_ia     n porcentaje
+  &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+1 esporadicamente       7         14
+2 frecuente            22         44
+3 nunca                 1          2
+4 ocasional            20         40</code></pre>
+</div>
+</div>
+<p>Leído paso a paso:</p>
+<ol type="1">
+<li>tomamos la base <code>encuesta_ia</code>;</li>
+<li>filtramos los casos del área de educación;</li>
+<li>contamos la frecuencia de uso de IA;</li>
+<li>calculamos el porcentaje.</li>
+</ol>
+<p>Esta forma de escribir código nos permite transformar una pregunta en una secuencia ordenada de operaciones.</p>
+</section>
+<section id="crear-nuevas-variables" class="level2">
+<h2 class="anchored" data-anchor-id="crear-nuevas-variables">Crear nuevas variables</h2>
+<p>Para crear nuevas columnas usamos <code>mutate()</code>.</p>
+<p>Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mayor_45 =</span> edad <span class="sc">&gt;=</span> <span class="dv">45</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora podemos contar esta nueva variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, mayor_45)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  mayor_45     n
+  &lt;lgl&gt;    &lt;int&gt;
+1 FALSE       69
+2 TRUE        70</code></pre>
+</div>
+</div>
+<p>La nueva columna <code>mayor_45</code> toma valores <code>TRUE</code> o <code>FALSE</code>.</p>
+<ul>
+<li><code>TRUE</code>: la condición se cumple;</li>
+<li><code>FALSE</code>: la condición no se cumple.</li>
+</ul>
+<p>También podemos crear una variable con categorías de texto usando <code>case_when()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensidad_uso =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"nunca"</span>, <span class="st">"esporadicamente"</span>) <span class="sc">~</span> <span class="st">"baja"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">==</span> <span class="st">"ocasional"</span> <span class="sc">~</span> <span class="st">"media"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span> <span class="sc">~</span> <span class="st">"alta"</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y luego contarla:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, intensidad_uso)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  intensidad_uso     n
+  &lt;chr&gt;          &lt;int&gt;
+1 alta              54
+2 baja              31
+3 media             54</code></pre>
+</div>
+</div>
+<p>Esta operación muestra algo importante: muchas veces las variables que usamos en el análisis no vienen directamente en la base, sino que las construimos a partir de decisiones analíticas.</p>
+</section>
+<section id="renombrar-variables" class="level2">
+<h2 class="anchored" data-anchor-id="renombrar-variables">Renombrar variables</h2>
+<p>A veces queremos cambiar el nombre de una variable para que sea más corto o más claro. Para eso usamos <code>rename()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> area_trabajo_grupo,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frecuencia =</span> frecuencia_uso_ia</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 139 × 17
+   id_caso  edad grupo_edad area      frecuencia      actitud_positiva
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;
+ 1       1    45 45-59      Educación ocasional                      3
+ 2       2    57 45-59      Educación frecuente                      4
+ 3       3    45 45-59      Educación esporadicamente                3
+ 4       4    60 60+        Educación frecuente                      3
+ 5       5    55 45-59      Educación frecuente                      3
+ 6       6    30 30-44      Educación ocasional                      4
+ 7       7    65 60+        Educación ocasional                      1
+ 8       8    68 60+        Educación frecuente                      5
+ 9       9    59 45-59      Educación frecuente                      5
+10      10    19 18-29      Educación ocasional                      4
+# ℹ 129 more rows
+# ℹ 11 more variables: actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, mayor_45 &lt;lgl&gt;,
+#   intensidad_uso &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>En este caso, el cambio se ve en la salida, pero no queda guardado en el objeto original porque no usamos asignación.</p>
+<p>Si quisiéramos guardar esos cambios, tendríamos que hacer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia_renombrada <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> area_trabajo_grupo,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frecuencia =</span> frecuencia_uso_ia</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="seleccionar-filtrar-y-ordenar" class="level2">
+<h2 class="anchored" data-anchor-id="seleccionar-filtrar-y-ordenar">Seleccionar, filtrar y ordenar</h2>
+<p>Podemos combinar varios verbos en una misma secuencia.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(edad)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 54 × 4
+    edad grupo_edad area_trabajo_grupo                    frecuencia_uso_ia
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                                 &lt;chr&gt;            
+ 1    25 18-29      Educación                             frecuente        
+ 2    25 18-29      Consultoría / servicios profesionales frecuente        
+ 3    26 18-29      Consultoría / servicios profesionales frecuente        
+ 4    27 18-29      Salud y servicios sociales            frecuente        
+ 5    28 18-29      Consultoría / servicios profesionales frecuente        
+ 6    30 30-44      Consultoría / servicios profesionales frecuente        
+ 7    31 30-44      Educación                             frecuente        
+ 8    31 30-44      Salud y servicios sociales            frecuente        
+ 9    33 30-44      Consultoría / servicios profesionales frecuente        
+10    33 30-44      Consultoría / servicios profesionales frecuente        
+# ℹ 44 more rows</code></pre>
+</div>
+</div>
+<p>Leído paso a paso:</p>
+<ol type="1">
+<li>tomamos la base;</li>
+<li>filtramos a quienes usan IA frecuentemente;</li>
+<li>seleccionamos algunas columnas;</li>
+<li>ordenamos por edad.</li>
+</ol>
+<p>El orden de las operaciones importa. No es lo mismo seleccionar primero, filtrar después, o crear una variable antes de hacer un conteo.</p>
+</section>
+<section id="mini-ejercicios" class="level2">
+<h2 class="anchored" data-anchor-id="mini-ejercicios">Mini-ejercicios</h2>
+<p>Probá responder estas preguntas con código:</p>
+<ol type="1">
+<li>¿Cuántas personas de cada área usan IA frecuentemente?</li>
+<li>¿Cuál es la distribución de grupos de edad entre quienes usan IA ocasionalmente?</li>
+<li>¿Qué porcentaje de la base tiene 45 años o más?</li>
+<li>¿Cómo cambia la frecuencia de uso si miramos solo el área de salud y servicios sociales?</li>
+</ol>
+<p>Una posible respuesta para la primera pregunta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  area_trabajo_grupo                        n porcentaje
+  &lt;chr&gt;                                 &lt;int&gt;      &lt;dbl&gt;
+1 Educación                                22       40.7
+2 Consultoría / servicios profesionales    16       29.6
+3 Salud y servicios sociales               16       29.6</code></pre>
 </div>
 </div>
 </section>
 <section id="cierre" class="level2">
 <h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
-<p>En este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos.</p>
-</section>
-<section id="objetivo-1" class="level2">
-<h2 class="anchored" data-anchor-id="objetivo-1">Objetivo</h2>
-<p>Producir tablas, gráficos e interpretaciones descriptivas.</p>
-</section>
-<section id="cargar-datos-1" class="level2">
-<h2 class="anchored" data-anchor-id="cargar-datos-1">Cargar datos</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/encuesta_ia_subset.csv"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> <span class="fu">rowMeans</span>(</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        actitud_positiva,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        actitud_trabajo_estudio,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        actitud_vida_cotidiana,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        actitud_aprender_ia</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">rowMeans</span>(</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        creencia_decisiones_justas,</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        creencia_respuestas_certeras,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        creencia_orientacion_psicologica,</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        creencia_compania,</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        creencia_investigacion,</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        creencia_ensenanza</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_actitud_creencias =</span> actitud_ia <span class="sc">-</span> creencias_media</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 139 Columns: 15
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia
-dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
-<section id="tabla-descriptiva-general" class="level2">
-<h2 class="anchored" data-anchor-id="tabla-descriptiva-general">Tabla descriptiva general</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">casos =</span> <span class="fu">n</span>(),</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">edad_media =</span> <span class="fu">mean</span>(edad),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 5
-  casos edad_media actitud_media creencias_media brecha_media
-  &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1   139       45.3          3.77            2.58         1.19</code></pre>
-</div>
-</div>
-</section>
-<section id="actitud-según-frecuencia-de-uso" class="level2">
-<h2 class="anchored" data-anchor-id="actitud-según-frecuencia-de-uso">Actitud según frecuencia de uso</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 5
-  frecuencia_uso_ia     n actitud_media creencias_media brecha_media
-  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1 esporadicamente      25          3.42            2.33        1.09 
-2 frecuente            54          4.04            2.71        1.33 
-3 nunca                 6          2.67            2.03        0.639
-4 ocasional            54          3.80            2.63        1.17 </code></pre>
-</div>
-</div>
-</section>
-<section id="gráfico-de-actitud-según-frecuencia-de-uso" class="level2">
-<h2 class="anchored" data-anchor-id="gráfico-de-actitud-según-frecuencia-de-uso">Gráfico de actitud según frecuencia de uso</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> frecuencia_uso_ia, <span class="at">y =</span> actitud_media)) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frecuencia de uso de IA"</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Actitud media hacia la IA"</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Actitud hacia la IA según frecuencia de uso"</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="modulo-3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="comparación-entre-actitud-y-creencias" class="level2">
-<h2 class="anchored" data-anchor-id="comparación-entre-actitud-y-creencias">Comparación entre actitud y creencias</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tabla_comparacion <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> <span class="fu">mean</span>(actitud_ia),</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"media"</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>tabla_comparacion</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  variable        media
-  &lt;chr&gt;           &lt;dbl&gt;
-1 actitud_ia       3.77
-2 creencias_media  2.58</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tabla_comparacion <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable, <span class="at">y =</span> media)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media"</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Actitud general y creencias específicas hacia la IA"</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="modulo-3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="creencias-por-dimensión" class="level2">
-<h2 class="anchored" data-anchor-id="creencias-por-dimensión">Creencias por dimensión</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"creencia_"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"creencia"</span>,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valor"</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="sc">%&gt;%</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(valor)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  creencia                         media
-  &lt;chr&gt;                            &lt;dbl&gt;
-1 creencia_ensenanza                3.50
-2 creencia_investigacion            2.95
-3 creencia_respuestas_certeras      2.53
-4 creencia_decisiones_justas        2.40
-5 creencia_compania                 2.27
-6 creencia_orientacion_psicologica  1.82</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(valor)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(creencia, media), <span class="at">y =</span> media)) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media"</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias sobre capacidades específicas de la IA"</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="modulo-3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="interpretación" class="level2">
-<h2 class="anchored" data-anchor-id="interpretación">Interpretación</h2>
-<p>Los resultados descriptivos permiten discutir una tensión central:</p>
-<blockquote class="blockquote">
-<p>La actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.</p>
-</blockquote>
-<p>Esto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella.</p>
-</section>
-<section id="ejercicio-final" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-final">Ejercicio final</h2>
-<p>Elegí una pregunta y respondela con una tabla y un gráfico.</p>
-<p>Ejemplos:</p>
-<ul>
-<li>¿La actitud hacia la IA cambia según el área de trabajo?</li>
-<li>¿La brecha entre actitud y creencias cambia según frecuencia de uso?</li>
-<li>¿Qué grupo de edad muestra mayor actitud promedio?</li>
-<li>¿Qué creencia específica tiene el promedio más bajo?</li>
-</ul>
-</section>
-<section id="cierre-1" class="level2">
-<h2 class="anchored" data-anchor-id="cierre-1">Cierre</h2>
-<p>El análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas.</p>
+<p>En este tutorial aprendimos a manipular una tabla con operaciones básicas:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>count()</code></td>
+<td>contar casos por categoría</td>
+</tr>
+<tr class="even">
+<td><code>arrange()</code></td>
+<td>ordenar resultados</td>
+</tr>
+<tr class="odd">
+<td><code>mutate()</code></td>
+<td>crear nuevas variables</td>
+</tr>
+<tr class="even">
+<td><code>select()</code></td>
+<td>seleccionar columnas</td>
+</tr>
+<tr class="odd">
+<td><code>filter()</code></td>
+<td>filtrar filas</td>
+</tr>
+<tr class="even">
+<td><code>rename()</code></td>
+<td>cambiar nombres de variables</td>
+</tr>
+</tbody>
+</table>
+<p>Estas funciones son herramientas básicas para empezar a construir un análisis. Pero todavía estamos trabajando con variables tomadas de manera separada.</p>
+<p>En el próximo tutorial vamos a avanzar un paso más: construiremos indicadores a partir de varias columnas para responder una pregunta de investigación sobre actitudes y creencias hacia la inteligencia artificial.</p>
 
 
 </section>
