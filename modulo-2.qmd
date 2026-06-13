@@ -132,7 +132,7 @@ Nos informa:
 Así, podemos ver que en este dataset tenemos variables de tres tipos:
 
 | Grupo de variables | Variables |
-|----|----|
+|------------------------------------|------------------------------------|
 | Sociodemográficas | `edad`, `grupo_edad`, `area_trabajo_grupo`, `frecuencia_uso_ia`, generalmente con textos |
 | Actitudes | empiezan con `actitud_` y tienen valores numéricos entre 1 y 5 |
 | Creencias | empiezan con `creencia_` y tienen valores numéricos entre 1 y 5 |
@@ -141,7 +141,7 @@ Así, podemos ver que en este dataset tenemos variables de tres tipos:
 
 Para tener unas primeras estadísticas de las numéricas, podemos pedir un `summary()`.
 
-``` r
+```{r, eval=FALSE}
 summary(encuesta_ia)
 ```
 
