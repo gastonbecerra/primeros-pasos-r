@@ -4,7 +4,7 @@ title: "Primer paso. Preparar el entorno de trabajo"
 
 ## Objetivo
 
-En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.
+En este primer paso vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.
 
 Puntualmente, vamos a ver:
 

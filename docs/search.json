@@ -18,70 +18,42 @@
     "href": "modulo-2.html",
     "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
-    "text": "En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
+    "text": "En este pasito vamos a empezar a explorar una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
   },
   {
-    "objectID": "modulo-2.html#cargar-nuestra-base-de-datos",
-    "href": "modulo-2.html#cargar-nuestra-base-de-datos",
+    "objectID": "modulo-2.html#objetivo",
+    "href": "modulo-2.html#objetivo",
     "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
-    "text": "Trabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial. Cada fila de la tabla corresponde a una persona encuestada, y cada columna registra una variable.\nAntes de mirar los datos, formulemos algunas preguntas iniciales:\n\n¿Cuántos casos tiene la base?\n¿Qué y cuántas variables tiene?\n¿Qué tipo de variables tenemos?\n¿Qué primeros grupos o categorías aparecen?\n\nPara cargar los datos vamos a usar la función read_csv().\nencuesta_ia &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv\"\n)\nCon esta línea hacemos tres cosas:\n\nleemos un archivo .csv alojado en internet;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nPodemos ver que el objeto aparece en el panel Environment.\nSi escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:\nencuesta_ia"
+    "text": "En este pasito vamos a empezar a explorar una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
   },
   {
-    "objectID": "modulo-2.html#cuántos-casos-y-variables-tiene-la-base",
-    "href": "modulo-2.html#cuántos-casos-y-variables-tiene-la-base",
+    "objectID": "modulo-2.html#cómo-cargamos-los-datos",
+    "href": "modulo-2.html#cómo-cargamos-los-datos",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cuántos casos y variables tiene la base?",
-    "text": "¿Cuántos casos y variables tiene la base?\nPara conocer el tamaño de la tabla podemos usar dim().\ndim(encuesta_ia)\nEsta función devuelve dos números:\nfilas columnas\nLas filas corresponden a los casos.\nLas columnas corresponden a las variables.\nTambién podemos consultar cada dimensión por separado:\nnrow(encuesta_ia)\nncol(encuesta_ia)\nnrow() muestra la cantidad de filas.\nncol() muestra la cantidad de columnas."
+    "section": "¿Cómo cargamos los datos?",
+    "text": "¿Cómo cargamos los datos?\nAntes de empezar a trabajar, cargamos los paquetes que vamos a usar:\n\nlibrary(tidyverse)\nlibrary(janitor)\n\nPara cargar los datos vamos a usar la función read_csv(). En R, una función es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función read_csv(), por ejemplo, sirve para leer archivos .csv y viene incluida en el paquete readr, que forma parte del tidyverse.\n\nencuesta_ia &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv\",\n  show_col_types = FALSE\n)\n\nCon esta línea hacemos tres cosas:\n\nleemos un archivo .csv alojado en internet;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nPodemos ver que el objeto encuesta_ia aparece en el panel Environment. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo.\nEn R, un objeto es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, encuesta_ia es un objeto que contiene una tabla de datos.\nMás específicamente, encuesta_ia es un tibble: una versión moderna del data.frame, usada por el tidyverse, que organiza datos en filas y columnas, pero los muestra de forma más ordenada y compacta en la consola.\nSi escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:\n\nencuesta_ia\n\n# A tibble: 139 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       1    45 45-59      Educación          ocasional        \n 2       2    57 45-59      Educación          frecuente        \n 3       3    45 45-59      Educación          esporadicamente  \n 4       4    60 60+        Educación          frecuente        \n 5       5    55 45-59      Educación          frecuente        \n 6       6    30 30-44      Educación          ocasional        \n 7       7    65 60+        Educación          ocasional        \n 8       8    68 60+        Educación          frecuente        \n 9       9    59 45-59      Educación          frecuente        \n10      10    19 18-29      Educación          ocasional        \n# ℹ 129 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\nEn una tabla de datos:\n\ncada fila representa un caso u observación (una persona encuestada);\ncada columna representa una variable;\ncada celda contiene el valor de una variable para un caso."
   },
   {
-    "objectID": "modulo-2.html#cómo-vemos-los-primeros-registros",
-    "href": "modulo-2.html#cómo-vemos-los-primeros-registros",
+    "objectID": "modulo-2.html#cuál-es-el-tamaño-de-nuestra-base",
+    "href": "modulo-2.html#cuál-es-el-tamaño-de-nuestra-base",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cómo vemos los primeros registros?",
-    "text": "¿Cómo vemos los primeros registros?\nPara mirar las primeras filas usamos head().\nhead(encuesta_ia)\nPor defecto, head() muestra los primeros 6 registros de la tabla.\nSi queremos ver más filas, podemos indicarlo con el argumento n:\nhead(encuesta_ia, n = 10)\nEsto nos permite hacer una primera inspección rápida:\n\nver nombres de columnas;\nmirar valores concretos;\ndetectar si la tabla se cargó correctamente;\nreconocer cómo están codificadas algunas variables.\n\nNo se trata todavía de analizar. Se trata de mirar la tabla con cuidado."
+    "section": "¿Cuál es el tamaño de nuestra base?",
+    "text": "¿Cuál es el tamaño de nuestra base?\nPara conocer el tamaño de la tabla podemos usar dim().\n\ndim(encuesta_ia)\n\n[1] 139  15\n\n\nEsta función devuelve dos números:\n\nel primero indica la cantidad de filas;\nel segundo indica la cantidad de columnas.\n\nLas filas corresponden a los casos.\nLas columnas corresponden a las variables.\nTambién podemos consultar cada dimensión por separado con las funciones nrow() y ncol().\n\nnrow(encuesta_ia)\n\n[1] 139\n\n\n\nncol(encuesta_ia)\n\n[1] 15"
   },
   {
-    "objectID": "modulo-2.html#cómo-vemos-la-estructura-de-la-tabla",
-    "href": "modulo-2.html#cómo-vemos-la-estructura-de-la-tabla",
+    "objectID": "modulo-2.html#cómo-vemos-los-datos",
+    "href": "modulo-2.html#cómo-vemos-los-datos",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cómo vemos la estructura de la tabla?",
-    "text": "¿Cómo vemos la estructura de la tabla?\nUna función muy útil para explorar datos es glimpse().\nglimpse(encuesta_ia)\nglimpse() muestra la estructura de la tabla de una forma compacta.\nNos informa:\n\ncuántas filas tiene;\ncuántas columnas tiene;\nel nombre de cada variable;\nel tipo de dato de cada variable;\nalgunos valores iniciales.\n\nPor ejemplo, podemos encontrar distintos tipos de columnas:\n\n\n\nTipo\nSignificado\n\n\n\n\n&lt;int&gt;\nnúmeros enteros\n\n\n&lt;dbl&gt;\nnúmeros con decimales\n\n\n&lt;chr&gt;\ntexto\n\n\n&lt;fct&gt;\nvariable categórica\n\n\n&lt;ord&gt;\nvariable categórica ordenada\n\n\n\nEn nuestro caso, algunas variables son numéricas, como edad o los ítems de actitud y creencias. Otras variables son categóricas, como grupo_edad, area_trabajo_grupo y frecuencia_uso_ia."
+    "section": "¿Cómo vemos los datos?",
+    "text": "¿Cómo vemos los datos?\nPara mirar las primeras filas usamos head().\n\nhead(encuesta_ia)\n\n# A tibble: 6 × 15\n  id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia actitud_positiva\n    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                        &lt;dbl&gt;\n1       1    45 45-59      Educación          ocasional                        3\n2       2    57 45-59      Educación          frecuente                        4\n3       3    45 45-59      Educación          esporadicamente                  3\n4       4    60 60+        Educación          frecuente                        3\n5       5    55 45-59      Educación          frecuente                        3\n6       6    30 30-44      Educación          ocasional                        4\n# ℹ 9 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\nPor defecto, head() muestra los primeros registros de la tabla.\nSi queremos ver más filas, podemos indicarlo con el argumento n:\n\nhead(encuesta_ia, n = 10)\n\n# A tibble: 10 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       1    45 45-59      Educación          ocasional        \n 2       2    57 45-59      Educación          frecuente        \n 3       3    45 45-59      Educación          esporadicamente  \n 4       4    60 60+        Educación          frecuente        \n 5       5    55 45-59      Educación          frecuente        \n 6       6    30 30-44      Educación          ocasional        \n 7       7    65 60+        Educación          ocasional        \n 8       8    68 60+        Educación          frecuente        \n 9       9    59 45-59      Educación          frecuente        \n10      10    19 18-29      Educación          ocasional        \n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\nEsto nos permite hacer una primera inspección rápida:\n\nver nombres de columnas;\nmirar valores concretos;\ndetectar si la tabla se cargó correctamente;\nreconocer cómo están codificadas algunas variables.\n\nTambién podemos abrir la tabla en una vista similar a una planilla con View().\nView(encuesta_ia)\nEsto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.\nEsta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.\nImportante: R distingue mayúsculas y minúsculas. La función correcta es View() con V mayúscula."
   },
   {
-    "objectID": "modulo-2.html#cómo-abrimos-la-tabla-como-una-planilla",
-    "href": "modulo-2.html#cómo-abrimos-la-tabla-como-una-planilla",
+    "objectID": "modulo-2.html#qué-tipos-de-datos-tenemos",
+    "href": "modulo-2.html#qué-tipos-de-datos-tenemos",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cómo abrimos la tabla como una planilla?",
-    "text": "¿Cómo abrimos la tabla como una planilla?\nTambién podemos abrir la tabla en una vista similar a una planilla con View().\nView(encuesta_ia)\nEsto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.\nEsta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.\nImportante: R distingue mayúsculas y minúsculas. La función correcta es View() con V mayúscula."
-  },
-  {
-    "objectID": "modulo-2.html#qué-variables-tenemos",
-    "href": "modulo-2.html#qué-variables-tenemos",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Qué variables tenemos?",
-    "text": "¿Qué variables tenemos?\nPara ver los nombres de las columnas usamos names().\nnames(encuesta_ia)\nEsto nos devuelve el listado de variables disponibles.\nEn este dataset tenemos variables de tres tipos:\n\nvariables sociodemográficas o de contexto;\nvariables sobre frecuencia de uso de IA;\nvariables de actitud y creencias hacia la IA.\n\nPor ejemplo:\n\n\n\nGrupo de variables\nVariables\n\n\n\n\nContexto\nedad, grupo_edad, area_trabajo_grupo\n\n\nUso de IA\nfrecuencia_uso_ia\n\n\nActitudes\nvariables que empiezan con actitud_\n\n\nCreencias\nvariables que empiezan con creencia_\n\n\n\nEsta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas."
-  },
-  {
-    "objectID": "modulo-2.html#qué-representa-cada-columna",
-    "href": "modulo-2.html#qué-representa-cada-columna",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Qué representa cada columna?",
-    "text": "¿Qué representa cada columna?\nPara entender mejor la base, podemos cargar el diccionario de variables.\ndiccionario &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/diccionario_variables.csv\"\n)\nLuego lo mostramos:\ndiccionario\nEl diccionario nos dice qué mide cada variable, qué tipo de variable es y qué valores puede tomar.\nAntes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación."
-  },
-  {
-    "objectID": "modulo-2.html#primeras-preguntas-descriptivas",
-    "href": "modulo-2.html#primeras-preguntas-descriptivas",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Primeras preguntas descriptivas",
-    "text": "Primeras preguntas descriptivas\nAhora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.\nPor ejemplo:\n\n¿cuántas personas hay en cada área de trabajo?\n¿cuántas personas hay en cada grupo de edad?\n¿con qué frecuencia usan IA?\n¿qué variables nos permitirán construir una medida de actitud hacia la IA?\n¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?\n\nTodavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.\ncount(encuesta_ia, area_trabajo_grupo)\ncount(encuesta_ia, grupo_edad)\ncount(encuesta_ia, frecuencia_uso_ia)\nLa función count() cuenta cuántos registros hay en cada categoría de una variable.\nEstos primeros conteos nos ayudan a conocer la composición de la base."
-  },
-  {
-    "objectID": "modulo-2.html#una-primera-lectura",
-    "href": "modulo-2.html#una-primera-lectura",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Una primera lectura",
-    "text": "Una primera lectura\nAhora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.\nPor ejemplo:\n\n¿cuántas personas hay en cada área de trabajo?\n¿cuántas personas hay en cada grupo de edad?\n¿con qué frecuencia usan IA?\n¿qué variables nos permitirán construir una medida de actitud hacia la IA?\n¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?\n\nTodavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.\ncount(encuesta_ia, area_trabajo_grupo)\ncount(encuesta_ia, grupo_edad)\ncount(encuesta_ia, frecuencia_uso_ia)\nLa función count() cuenta cuántos registros hay en cada categoría de una variable.\nCon estas operaciones todavía no hicimos un análisis completo, pero ya sabemos varias cosas:\n\ncuántos casos tiene la base;\ncuántas variables incluye;\nqué tipos de datos contiene;\nqué categorías aparecen en algunas variables;\nqué columnas vamos a necesitar para responder nuestras preguntas.\n\nEste primer paso es fundamental. Antes de transformar o graficar datos, necesitamos entender qué tenemos delante.\nEn el próximo módulo vamos a avanzar sobre la manipulación de datos: seleccionar columnas, filtrar casos, crear variables y ordenar resultados.\n````"
+    "section": "¿Qué tipos de datos tenemos?",
+    "text": "¿Qué tipos de datos tenemos?\nglimpse() muestra la estructura de la tabla de una forma compacta.\n\nglimpse(encuesta_ia)\n\nRows: 139\nColumns: 15\n$ id_caso                          &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…\n$ edad                             &lt;dbl&gt; 45, 57, 45, 60, 55, 30, 65, 68, 59, 1…\n$ grupo_edad                       &lt;chr&gt; \"45-59\", \"45-59\", \"45-59\", \"60+\", \"45…\n$ area_trabajo_grupo               &lt;chr&gt; \"Educación\", \"Educación\", \"Educación\"…\n$ frecuencia_uso_ia                &lt;chr&gt; \"ocasional\", \"frecuente\", \"esporadica…\n$ actitud_positiva                 &lt;dbl&gt; 3, 4, 3, 3, 3, 4, 1, 5, 5, 4, 4, 2, 4…\n$ actitud_trabajo_estudio          &lt;dbl&gt; 3, 5, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4…\n$ actitud_vida_cotidiana           &lt;dbl&gt; 4, 5, 4, 1, 4, 5, 4, 5, 5, 4, 5, 4, 4…\n$ actitud_aprender_ia              &lt;dbl&gt; 4, 4, 4, 3, 3, 4, 4, 5, 5, 3, 3, 3, 4…\n$ creencia_decisiones_justas       &lt;dbl&gt; 1, 3, 3, 2, 2, 3, 4, 5, 1, 3, 1, 2, 2…\n$ creencia_respuestas_certeras     &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 5, 5, 2, 4, 4, 2, 1…\n$ creencia_orientacion_psicologica &lt;dbl&gt; 1, 2, 1, 2, 1, 3, 4, 3, 1, 1, 2, 2, 2…\n$ creencia_compania                &lt;dbl&gt; 3, 2, 1, 4, 1, 3, 4, 2, 1, 2, 4, 2, 2…\n$ creencia_investigacion           &lt;dbl&gt; 4, 3, 3, 1, 4, 4, 2, 5, 2, 4, 2, 2, 2…\n$ creencia_ensenanza               &lt;dbl&gt; 4, 5, 4, 4, 4, 1, 4, 5, 4, 4, 4, 4, 4…\n\n\nNos informa:\n\ncuántas filas tiene;\ncuántas columnas tiene;\nel nombre de cada variable;\nel tipo de dato de cada variable;\nalgunos valores iniciales.\n\nAsí, podemos ver que en este dataset tenemos variables de tres tipos:\n\n\n\n\n\n\n\nGrupo de variables\nVariables\n\n\n\n\nSociodemográficas\nedad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia, generalmente con textos\n\n\nActitudes\nempiezan con actitud_ y tienen valores numéricos entre 1 y 5\n\n\nCreencias\nempiezan con creencia_ y tienen valores numéricos entre 1 y 5\n\n\n\nPara tener unas primeras estadísticas de las numéricas, podemos pedir un summary().\nsummary(encuesta_ia)\n\n\n\n\n\n\n\nMedida\nSignificado\n\n\n\n\nMin.\nvalor mínimo\n\n\n1st Qu.\nprimer cuartil: valor por debajo del cual está el 25% de los casos\n\n\nMedian\nmediana: valor central de la distribución\n\n\nMean\nmedia o promedio\n\n\n3rd Qu.\ntercer cuartil: valor por debajo del cual está el 75% de los casos\n\n\nMax.\nvalor máximo\n\n\n\nPor ejemplo, en la variable edad, el resumen nos permite ver rápidamente que la persona más joven tiene 19 años, la mayor tiene 74, y la edad promedio es aproximadamente 45 años.\nEn cambio, para variables guardadas como texto, como grupo_edad, area_trabajo_grupo o frecuencia_uso_ia, summary() muestra información más general: cantidad de valores, clase y modo. Para conocer mejor esas variables categóricas vamos a usar luego funciones como count().\nTambién podemos mirar los ítems de actitud y creencias. Como están medidos en una escala de 1 a 5, sus medias nos dan una primera orientación. En esta salida se observa que algunas variables de actitud tienen promedios relativamente altos, como actitud_vida_cotidiana, mientras que algunas creencias específicas tienen promedios más bajos, como creencia_orientacion_psicologica."
   },
   {
     "objectID": "index.html",
@@ -109,14 +81,14 @@
     "href": "modulo-1.html",
     "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
+    "text": "En este primer paso vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
   },
   {
     "objectID": "modulo-1.html#objetivo",
     "href": "modulo-1.html#objetivo",
     "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
+    "text": "En este primer paso vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
   },
   {
     "objectID": "modulo-1.html#qué-es-r",
@@ -133,39 +105,25 @@
     "text": "¿Qué es un IDE? / ¿Qué es RStudio?\nR puede usarse directamente desde una consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código.\nEntre los posibles IDEs para R, vamos a usar RStudio, el cual se encuentra disponible en Posit.Cloud.\nSi estás trabajando en local, podés descargar gratuitamente RStudio versión escritorio.\nEn Posit.CLoud, un proyecto es la unidad de trabajo, donde se reúne código, datos, y archivos en un mismo espacio. Hay distintos tipo de Proyectos, pero aquí vamos a usar RStudio.\n\nGuía oficial: Get Started with Posit Cloud."
   },
   {
-    "objectID": "modulo-1.html#la-interfaz-de-rstudio",
-    "href": "modulo-1.html#la-interfaz-de-rstudio",
+    "objectID": "modulo-1.html#cómo-usar-rstudio",
+    "href": "modulo-1.html#cómo-usar-rstudio",
     "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "La interfaz de RStudio",
-    "text": "La interfaz de RStudio\nCuando se abre RStudio, la pantalla se organiza en paneles.\n\nLos cuatro paneles principales son:\n\n\n\n\n\n\n\nPanel\nPara qué sirve\n\n\n\n\nSource\nEscribir y guardar código en scripts (archivos de texto)\n\n\nConsole\nEjecutar comandos de R y mostrar resultados / respuestas\n\n\nEnvironment\nVer objetos cargados en memoria\n\n\nOutput\nVer archivos, gráficos, paquetes, ayuda y visualizaciones\n\n\n\nGuía oficial: RStudio User Guide - Pane Layout."
+    "section": "¿Cómo usar RStudio?",
+    "text": "¿Cómo usar RStudio?\nCuando se abre RStudio, la pantalla se organiza en paneles.\n\nLos cuatro paneles principales son:\n\n\n\n\n\n\n\nPanel\nPara qué sirve\n\n\n\n\nSource\nEscribir y guardar código en scripts (archivos de texto)\n\n\nConsole\nEjecutar comandos de R y mostrar resultados / respuestas\n\n\nEnvironment\nVer objetos cargados en memoria\n\n\nOutput\nVer archivos, gráficos, paquetes, ayuda y visualizaciones\n\n\n\nGuía oficial: RStudio User Guide - Pane Layout.\nEn este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de Files que está en el panel de Outputs:"
   },
   {
-    "objectID": "modulo-1.html#cargar-archivos",
-    "href": "modulo-1.html#cargar-archivos",
+    "objectID": "modulo-1.html#dónde-va-nuestro-código",
+    "href": "modulo-1.html#dónde-va-nuestro-código",
     "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "Cargar archivos",
-    "text": "Cargar archivos\nEn este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de Files que está en el panel de Outputs:"
+    "section": "¿Dónde va nuestro código?",
+    "text": "¿Dónde va nuestro código?\nPara empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.\nEn RStudio podemos ejecutar código de dos maneras:\n\nescribiendo directamente en la Console;\nescribiendo en un script y ejecutando línea por línea.\n\nEn este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.\nPara crear un script nuevo:\nFile &gt; New File &gt; R Script\nTambién se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.\nUna vez abierto el script, escribimos:\n2 + 2\nPara ejecutar esa línea, ubicamos el cursor sobre ella y usamos:\nCtrl + Enter\nTambién podemos hacer clic en el botón Run. El resultado aparece en la Console:\n[1] 4\nR también nos permite guardar valores en objetos (variables), utilizando el operador de asignación &lt;- .\nmi_numero &lt;- 10\nmi_otro_numero &lt;- 15\nmi_texto &lt;- \"Hola, R\"\nCuando ejecutamos este código, el objeto aparece en el panel Environment. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.\nLuego, podemos ver estos objetos, u operar sobre ellos.\nmi_numero # si no hacemos nada, se muestra en pantalla\nmi_texto\n\nmi_numero &gt; mi_otro_numero # si hacemos una operacion muestra el resultado\n\nmi_nuevo_numero &lt;- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva\nmi_nuevo_numero"
   },
   {
-    "objectID": "modulo-1.html#nuestro-primer-código",
-    "href": "modulo-1.html#nuestro-primer-código",
+    "objectID": "modulo-1.html#qué-son-los-paquetes",
+    "href": "modulo-1.html#qué-son-los-paquetes",
     "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "Nuestro primer código",
-    "text": "Nuestro primer código\nPara empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.\nEn RStudio podemos ejecutar código de dos maneras:\n\nescribiendo directamente en la Console;\nescribiendo en un script y ejecutando línea por línea.\n\nEn este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.\nPara crear un script nuevo:\nFile &gt; New File &gt; R Script\nTambién se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.\nUna vez abierto el script, escribimos:\n2 + 2\nPara ejecutar esa línea, ubicamos el cursor sobre ella y usamos:\nCtrl + Enter\nTambién podemos hacer clic en el botón Run. El resultado aparece en la Console:\n[1] 4\nR también nos permite guardar valores en objetos (variables), utilizando el operador de asignación &lt;- .\nmi_numero &lt;- 10\nmi_otro_numero &lt;- 15\nmi_texto &lt;- \"Hola, R\"\nCuando ejecutamos este código, el objeto aparece en el panel Environment. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.\nLuego, podemos ver estos objetos, u operar sobre ellos.\nmi_numero # si no hacemos nada, se muestra en pantalla\nmi_texto\n\nmi_numero &gt; mi_otro_numero # si hacemos una operacion muestra el resultado\n\nmi_nuevo_numero &lt;- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva\nmi_nuevo_numero"
-  },
-  {
-    "objectID": "modulo-1.html#trabajar-con-paquetes",
-    "href": "modulo-1.html#trabajar-con-paquetes",
-    "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "Trabajar con paquetes",
-    "text": "Trabajar con paquetes\nR viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un paquete es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.\nEn este taller vamos a usar principalmente el paquete tidyverse, que reúne varias herramientas para leer, transformar, analizar y graficar datos.\nPara instalarlo, ejecutamos:\ninstall.packages(\"tidyverse\")\nTambién vamos a instalar janitor, que sirve para algunas tareas simples de limpieza de datos:\ninstall.packages(\"janitor\")\nLa instalación se hace una sola vez en cada entorno de trabajo."
-  },
-  {
-    "objectID": "modulo-1.html#cargar-paquetes",
-    "href": "modulo-1.html#cargar-paquetes",
-    "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "Cargar paquetes",
-    "text": "Cargar paquetes\nDespués de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.\nlibrary(tidyverse)\nlibrary(janitor)\nEsta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)"
+    "section": "¿Qué son los paquetes?",
+    "text": "¿Qué son los paquetes?\nR viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un paquete es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.\nEn este taller vamos a usar principalmente el paquete tidyverse, que reúne varias herramientas para leer, transformar, analizar y graficar datos.\nPara instalarlo, ejecutamos:\ninstall.packages(\"tidyverse\")\nTambién vamos a instalar janitor, que sirve para algunas tareas simples de limpieza de datos:\ninstall.packages(\"janitor\")\nLa instalación se hace una sola vez en cada entorno de trabajo.\nDespués de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.\nlibrary(tidyverse)\nlibrary(janitor)\nEsta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)"
   },
   {
     "objectID": "modulo-3.html",
@@ -327,61 +285,5 @@
     "title": "Módulo 3. Preguntas de investigación y construcción de variables",
     "section": "Cierre",
     "text": "Cierre\nEl análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas."
-  },
-  {
-    "objectID": "modulo-1.html#cómo-usar-rstudio",
-    "href": "modulo-1.html#cómo-usar-rstudio",
-    "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "¿Cómo usar RStudio?",
-    "text": "¿Cómo usar RStudio?\nCuando se abre RStudio, la pantalla se organiza en paneles.\n\nLos cuatro paneles principales son:\n\n\n\n\n\n\n\nPanel\nPara qué sirve\n\n\n\n\nSource\nEscribir y guardar código en scripts (archivos de texto)\n\n\nConsole\nEjecutar comandos de R y mostrar resultados / respuestas\n\n\nEnvironment\nVer objetos cargados en memoria\n\n\nOutput\nVer archivos, gráficos, paquetes, ayuda y visualizaciones\n\n\n\nGuía oficial: RStudio User Guide - Pane Layout.\nEn este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de Files que está en el panel de Outputs:"
-  },
-  {
-    "objectID": "modulo-1.html#dónde-va-nuestro-código",
-    "href": "modulo-1.html#dónde-va-nuestro-código",
-    "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "¿Dónde va nuestro código?",
-    "text": "¿Dónde va nuestro código?\nPara empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.\nEn RStudio podemos ejecutar código de dos maneras:\n\nescribiendo directamente en la Console;\nescribiendo en un script y ejecutando línea por línea.\n\nEn este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.\nPara crear un script nuevo:\nFile &gt; New File &gt; R Script\nTambién se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.\nUna vez abierto el script, escribimos:\n2 + 2\nPara ejecutar esa línea, ubicamos el cursor sobre ella y usamos:\nCtrl + Enter\nTambién podemos hacer clic en el botón Run. El resultado aparece en la Console:\n[1] 4\nR también nos permite guardar valores en objetos (variables), utilizando el operador de asignación &lt;- .\nmi_numero &lt;- 10\nmi_otro_numero &lt;- 15\nmi_texto &lt;- \"Hola, R\"\nCuando ejecutamos este código, el objeto aparece en el panel Environment. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.\nLuego, podemos ver estos objetos, u operar sobre ellos.\nmi_numero # si no hacemos nada, se muestra en pantalla\nmi_texto\n\nmi_numero &gt; mi_otro_numero # si hacemos una operacion muestra el resultado\n\nmi_nuevo_numero &lt;- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva\nmi_nuevo_numero"
-  },
-  {
-    "objectID": "modulo-1.html#qué-son-los-paquetes",
-    "href": "modulo-1.html#qué-son-los-paquetes",
-    "title": "Primer paso. Preparar el entorno de trabajo",
-    "section": "¿Qué son los paquetes?",
-    "text": "¿Qué son los paquetes?\nR viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un paquete es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.\nEn este taller vamos a usar principalmente el paquete tidyverse, que reúne varias herramientas para leer, transformar, analizar y graficar datos.\nPara instalarlo, ejecutamos:\ninstall.packages(\"tidyverse\")\nTambién vamos a instalar janitor, que sirve para algunas tareas simples de limpieza de datos:\ninstall.packages(\"janitor\")\nLa instalación se hace una sola vez en cada entorno de trabajo.\nDespués de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.\nlibrary(tidyverse)\nlibrary(janitor)\nEsta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)"
-  },
-  {
-    "objectID": "modulo-2.html#objetivo",
-    "href": "modulo-2.html#objetivo",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "",
-    "text": "En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
-  },
-  {
-    "objectID": "modulo-2.html#cómo-cargamos-los-datos",
-    "href": "modulo-2.html#cómo-cargamos-los-datos",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cómo cargamos los datos?",
-    "text": "¿Cómo cargamos los datos?\nAntes de empezar a trabajar, cargamos los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)\nPara cargar los datos vamos a usar la función read_csv(). En R, una función es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función read_csv(), por ejemplo, sirve para leer archivos .csv y viene incluida en el paquete readr, que forma parte del tidyverse.\nencuesta_ia &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv\"\n)\nCon esta línea hacemos tres cosas:\n\nleemos un archivo .csv alojado en internet;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nEn R, un objeto es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, encuesta_ia es un objeto que contiene una tabla de datos.\nSi escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:\nencuesta_ia\nMás específicamente, encuesta_ia es un data frame. Un data frame es el tipo de objeto más habitual para trabajar con datos en R: organiza la información en filas y columnas, de manera similar a una planilla de cálculo.\nEn un data frame:\n\ncada fila representa un caso u observación;\ncada columna representa una variable;\ncada celda contiene el valor de una variable para un caso.\n\nEn nuestro dataset:\n\ncada fila representa una persona encuestada;\ncada columna representa una variable de la encuesta;\ncada celda contiene una respuesta o dato de esa persona.\n\nPor ejemplo, una columna puede registrar la edad, otra el área de trabajo, otra la frecuencia de uso de IA, y otras distintos ítems de actitud o creencias sobre la inteligencia artificial.\nPodemos ver que el objeto encuesta_ia aparece en el panel Environment. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo."
-  },
-  {
-    "objectID": "modulo-2.html#cómo-es-nuestra-base",
-    "href": "modulo-2.html#cómo-es-nuestra-base",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cómo es nuestra base?",
-    "text": "¿Cómo es nuestra base?\nPara conocer el tamaño de la tabla podemos usar dim().\ndim(encuesta_ia)\nEsta función devuelve dos números:\n\nLas filas corresponden a los casos.\n\nLas columnas corresponden a las variables.\n\nTambién podemos consultar cada dimensión por separado con las funciones nrow() y ncol()."
-  },
-  {
-    "objectID": "modulo-2.html#veamos-un-poco-los-datos",
-    "href": "modulo-2.html#veamos-un-poco-los-datos",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Veamos un poco los datos",
-    "text": "Veamos un poco los datos\nPara mirar las primeras filas usamos head().\nhead(encuesta_ia)\nPor defecto, head() muestra los primeros registros de la tabla.\nSi queremos ver más filas, podemos indicarlo con el argumento n:\nhead(encuesta_ia, n = 10)\nEsto nos permite hacer una primera inspección rápida:\n\nver nombres de columnas;\nmirar valores concretos;\ndetectar si la tabla se cargó correctamente;\nreconocer cómo están codificadas algunas variables.\n\nTambién podemos abrir la tabla en una vista similar a una planilla con View().\nView(encuesta_ia)\nEsto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.\nEsta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.\nImportante: R distingue mayúsculas y minúsculas. La función correcta es View() con V mayúscula."
-  },
-  {
-    "objectID": "modulo-2.html#cuál-es-la-estructura-de-nuestra-tabla",
-    "href": "modulo-2.html#cuál-es-la-estructura-de-nuestra-tabla",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "¿Cuál es la estructura de nuestra tabla?",
-    "text": "¿Cuál es la estructura de nuestra tabla?\nglimpse() muestra la estructura de la tabla de una forma compacta.\nglimpse(encuesta_ia)\nNos informa:\n\ncuántas filas tiene;\ncuántas columnas tiene;\nel nombre de cada variable;\nel tipo de dato de cada variable;\nalgunos valores iniciales.\n\nPor ejemplo, podemos encontrar distintos tipos de columnas:\n\n\n\nTipo\nSignificado\n\n\n\n\n&lt;int&gt;\nnúmeros enteros\n\n\n&lt;dbl&gt;\nnúmeros con decimales\n\n\n&lt;chr&gt;\ntexto\n\n\n&lt;fct&gt;\nvariable categórica\n\n\n&lt;ord&gt;\nvariable categórica ordenada\n\n\n\nEn nuestro caso, algunas variables son numéricas, como edad o los ítems de actitud y creencias. Otras variables son categóricas, como grupo_edad, area_trabajo_grupo y frecuencia_uso_ia.\nEn este dataset tenemos variables de tres tipos:\n\nvariables sociodemográficas o de contexto;\nvariables sobre frecuencia de uso de IA;\nvariables de actitud y creencias hacia la IA.\n\nPor ejemplo:\n\n\n\nGrupo de variables\nVariables\n\n\n\n\nContexto\nedad, grupo_edad, area_trabajo_grupo\n\n\nUso de IA\nfrecuencia_uso_ia\n\n\nActitudes\nvariables que empiezan con actitud_\n\n\nCreencias\nvariables que empiezan con creencia_\n\n\n\nEsta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas."
   }
 ]

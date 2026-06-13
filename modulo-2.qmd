@@ -4,7 +4,7 @@ title: "Segundo paso. Exploración y manipulación de datasets"
 
 ## Objetivo
 
-En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.
+En este pasito vamos a empezar a explorar una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.
 
 Trabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial.
 
@@ -12,72 +12,77 @@ Trabajaremos con una base de datos construida a partir de una encuesta sobre act
 
 Antes de empezar a trabajar, cargamos los paquetes que vamos a usar:
 
-```r
+```{r}
+#| message: false
+#| warning: false
 library(tidyverse)
 library(janitor)
 ```
 
 Para cargar los datos vamos a usar la función `read_csv()`. En R, una **función** es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función `read_csv()`, por ejemplo, sirve para leer archivos `.csv` y viene incluida en el paquete `readr`, que forma parte del `tidyverse`.
 
-```r
+```{r}
 encuesta_ia <- read_csv(
-  "https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv"
+  "https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv",
+  show_col_types = FALSE
 )
 ```
 
 Con esta línea hacemos tres cosas:
 
-1. leemos un archivo `.csv` alojado en internet;
-2. lo cargamos en R;
-3. lo guardamos en un objeto llamado `encuesta_ia`.
-
-En R, un **objeto** es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, `encuesta_ia` es un objeto que contiene una tabla de datos.
-
-Si escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:
-
-```r
-encuesta_ia
-```
-
-Más específicamente, `encuesta_ia` es un **data frame** o **tibble**. Un data frame es el tipo de objeto más habitual para trabajar con datos en R: organiza la información en filas y columnas, de manera similar a una planilla de cálculo.
-
-En un data frame:
-
-- cada **fila** representa un caso u observación;
-- cada **columna** representa una variable;
-- cada **celda** contiene el valor de una variable para un caso.
-
-En nuestro dataset:
-
-- cada fila representa una persona encuestada;
-- cada columna representa una variable de la encuesta;
-- cada celda contiene una respuesta o dato de esa persona.
-
-Por ejemplo, una columna puede registrar la edad, otra el área de trabajo, otra la frecuencia de uso de IA, y otras distintos ítems de actitud o creencias sobre la inteligencia artificial.
+1.  leemos un archivo `.csv` alojado en internet;
+2.  lo cargamos en R;
+3.  lo guardamos en un objeto llamado `encuesta_ia`.
 
 Podemos ver que el objeto `encuesta_ia` aparece en el panel **Environment**. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo.
 
+En R, un **objeto** es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, `encuesta_ia` es un objeto que contiene una tabla de datos.
 
-## ¿Cómo es nuestra base?
+Más específicamente, `encuesta_ia` es un **tibble**: una versión moderna del `data.frame`, usada por el `tidyverse`, que organiza datos en filas y columnas, pero los muestra de forma más ordenada y compacta en la consola.
+
+Si escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:
+
+```{r}
+encuesta_ia
+```
+
+En una tabla de datos:
+
+- cada **fila** representa un caso u observación (una persona encuestada);
+- cada **columna** representa una variable;
+- cada **celda** contiene el valor de una variable para un caso.
+
+## ¿Cuál es el tamaño de nuestra base?
 
 Para conocer el tamaño de la tabla podemos usar `dim()`.
 
-```r
+```{r}
 dim(encuesta_ia)
 ```
 
 Esta función devuelve dos números:
 
-- Las filas corresponden a los casos.  
-- Las columnas corresponden a las variables.
+- el primero indica la cantidad de filas;
+- el segundo indica la cantidad de columnas.
+
+Las filas corresponden a los casos.\
+Las columnas corresponden a las variables.
 
 También podemos consultar cada dimensión por separado con las funciones `nrow()` y `ncol()`.
+
+```{r}
+nrow(encuesta_ia)
+```
+
+```{r}
+ncol(encuesta_ia)
+```
 
 ## ¿Cómo vemos los datos?
 
 Para mirar las primeras filas usamos `head()`.
 
-```r
+```{r}
 head(encuesta_ia)
 ```
 
@@ -85,7 +90,7 @@ Por defecto, `head()` muestra los primeros registros de la tabla.
 
 Si queremos ver más filas, podemos indicarlo con el argumento `n`:
 
-```r
+```{r}
 head(encuesta_ia, n = 10)
 ```
 
@@ -98,7 +103,7 @@ Esto nos permite hacer una primera inspección rápida:
 
 También podemos abrir la tabla en una vista similar a una planilla con `View()`.
 
-```r
+``` r
 View(encuesta_ia)
 ```
 
@@ -108,12 +113,11 @@ Esta función es útil para inspeccionar los datos, pero no reemplaza el código
 
 Importante: R distingue mayúsculas y minúsculas. La función correcta es `View()` con **V mayúscula**.
 
-
-## ¿Cuál es la estructura de nuestra tabla?
+## ¿Qué tipos de datos tenemos?
 
 `glimpse()` muestra la estructura de la tabla de una forma compacta.
 
-```r
+```{r}
 glimpse(encuesta_ia)
 ```
 
@@ -125,73 +129,41 @@ Nos informa:
 - el tipo de dato de cada variable;
 - algunos valores iniciales.
 
-Por ejemplo, podemos encontrar distintos tipos de columnas:
-
-| Tipo | Significado |
-|---|---|
-| `<int>` | números enteros |
-| `<dbl>` | números con decimales |
-| `<chr>` | texto |
-| `<fct>` | variable categórica |
-| `<ord>` | variable categórica ordenada |
-
-En nuestro caso, algunas variables son numéricas, como `edad` o los ítems de actitud y creencias. Otras variables son categóricas, como `grupo_edad`, `area_trabajo_grupo` y `frecuencia_uso_ia`.
-
-En este dataset tenemos variables de tres tipos:
-
-1. variables sociodemográficas o de contexto;
-2. variables sobre frecuencia de uso de IA;
-3. variables de actitud y creencias hacia la IA.
-
-Por ejemplo:
+Así, podemos ver que en este dataset tenemos variables de tres tipos:
 
 | Grupo de variables | Variables |
-|---|---|
-| Contexto | `edad`, `grupo_edad`, `area_trabajo_grupo` |
-| Uso de IA | `frecuencia_uso_ia` |
-| Actitudes | variables que empiezan con `actitud_` |
-| Creencias | variables que empiezan con `creencia_` |
+|----|----|
+| Sociodemográficas | `edad`, `grupo_edad`, `area_trabajo_grupo`, `frecuencia_uso_ia`, generalmente con textos |
+| Actitudes | empiezan con `actitud_` y tienen valores numéricos entre 1 y 5 |
+| Creencias | empiezan con `creencia_` y tienen valores numéricos entre 1 y 5 |
 
-Esta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas.
+## ¿Qué dicen nuestros datos?
 
-## Una primera lectura
+Para tener unas primeras estadísticas de las numéricas, podemos pedir un `summary()`.
 
-Ahora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.
-
-Por ejemplo:
-
-- ¿cuántas personas hay en cada área de trabajo?
-- ¿cuántas personas hay en cada grupo de edad?
-- ¿con qué frecuencia usan IA?
-- ¿qué variables nos permitirán construir una medida de actitud hacia la IA?
-- ¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?
-
-Todavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.
-
-```r
-count(encuesta_ia, area_trabajo_grupo)
+``` r
+summary(encuesta_ia)
 ```
 
-```r
+Con esto podemos empezar a decir algo sobre nuestros datos. Sobre la variable `edad` podemos decir que la persona más joven tiene 19 años, la mayor tiene 74, y la edad promedio es aproximadamente 45 años. También podemos mirar los ítems de actitud y creencias. Como están medidos en una escala de 1 a 5, sus medias nos dan una primera orientación. En esta salida se observa que algunas variables de actitud tienen promedios relativamente altos, como `actitud_vida_cotidiana`, mientras que algunas creencias específicas tienen promedios más bajos, como `creencia_orientacion_psicologica`.
+
+En cambio, para variables guardadas como texto, como `grupo_edad`, `area_trabajo_grupo` o `frecuencia_uso_ia`, `summary()` no podemos usar la estadística, asi que vamos a recurrir a algo más básico: vamos a asumir que los textos son categorías y vamos, simplemente, a contarlas.
+
+Para eso usamos la función `count()`, que nos pide como primer argumento que le indiquemos un objeto, y luego que indiquemos qué variable (columna) queremos contar.
+
+```{r}
 count(encuesta_ia, grupo_edad)
 ```
 
-```r
+También podemos contar las áreas de trabaj, o la frecuencia de uso de IA:
+
+```{r}
+count(encuesta_ia, area_trabajo_grupo)
 count(encuesta_ia, frecuencia_uso_ia)
 ```
 
-La función `count()` cuenta cuántos registros hay en cada categoría de una variable.
+Estas tablas son simples, pero ya nos permiten empezar a describir la composición de la base. Por ejemplo, podemos ver si los grupos están equilibrados, si hay categorías con pocos casos, o si alguna respuesta concentra la mayor parte de la muestra. Ah! y también podemos contar dos columnas juntas, para cruzarlas:
 
-Con estas operaciones todavía no hicimos un análisis completo, pero ya sabemos varias cosas:
-
-- cuántos casos tiene la base;
-- cuántas variables incluye;
-- qué tipos de datos contiene;
-- qué categorías aparecen en algunas variables;
-- qué columnas vamos a necesitar para responder nuestras preguntas.
-
-Este primer paso es fundamental. Antes de transformar o graficar datos, necesitamos entender qué tenemos delante.
-
-En el próximo módulo vamos a avanzar sobre la manipulación de datos: seleccionar columnas, filtrar casos, crear variables y ordenar resultados.
-
-````
+```{r}
+count(encuesta_ia, area_trabajo_grupo, frecuencia_uso_ia)
+```

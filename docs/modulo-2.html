@@ -169,10 +169,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
   <li><a href="#cómo-cargamos-los-datos" id="toc-cómo-cargamos-los-datos" class="nav-link" data-scroll-target="#cómo-cargamos-los-datos">¿Cómo cargamos los datos?</a></li>
-  <li><a href="#cómo-es-nuestra-base" id="toc-cómo-es-nuestra-base" class="nav-link" data-scroll-target="#cómo-es-nuestra-base">¿Cómo es nuestra base?</a></li>
-  <li><a href="#veamos-un-poco-los-datos" id="toc-veamos-un-poco-los-datos" class="nav-link" data-scroll-target="#veamos-un-poco-los-datos">Veamos un poco los datos</a></li>
-  <li><a href="#cuál-es-la-estructura-de-nuestra-tabla" id="toc-cuál-es-la-estructura-de-nuestra-tabla" class="nav-link" data-scroll-target="#cuál-es-la-estructura-de-nuestra-tabla">¿Cuál es la estructura de nuestra tabla?</a></li>
-  <li><a href="#una-primera-lectura" id="toc-una-primera-lectura" class="nav-link" data-scroll-target="#una-primera-lectura">Una primera lectura</a></li>
+  <li><a href="#cuál-es-el-tamaño-de-nuestra-base" id="toc-cuál-es-el-tamaño-de-nuestra-base" class="nav-link" data-scroll-target="#cuál-es-el-tamaño-de-nuestra-base">¿Cuál es el tamaño de nuestra base?</a></li>
+  <li><a href="#cómo-vemos-los-datos" id="toc-cómo-vemos-los-datos" class="nav-link" data-scroll-target="#cómo-vemos-los-datos">¿Cómo vemos los datos?</a></li>
+  <li><a href="#qué-tipos-de-datos-tenemos" id="toc-qué-tipos-de-datos-tenemos" class="nav-link" data-scroll-target="#qué-tipos-de-datos-tenemos">¿Qué tipos de datos tenemos?</a></li>
   </ul>
 </nav>
     </div>
@@ -200,62 +199,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.</p>
+<p>En este pasito vamos a empezar a explorar una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.</p>
 <p>Trabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial.</p>
 </section>
 <section id="cómo-cargamos-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="cómo-cargamos-los-datos">¿Cómo cargamos los datos?</h2>
 <p>Antes de empezar a trabajar, cargamos los paquetes que vamos a usar:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Para cargar los datos vamos a usar la función <code>read_csv()</code>. En R, una <strong>función</strong> es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función <code>read_csv()</code>, por ejemplo, sirve para leer archivos <code>.csv</code> y viene incluida en el paquete <code>readr</code>, que forma parte del <code>tidyverse</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Con esta línea hacemos tres cosas:</p>
 <ol type="1">
 <li>leemos un archivo <code>.csv</code> alojado en internet;</li>
 <li>lo cargamos en R;</li>
 <li>lo guardamos en un objeto llamado <code>encuesta_ia</code>.</li>
 </ol>
+<p>Podemos ver que el objeto <code>encuesta_ia</code> aparece en el panel <strong>Environment</strong>. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo.</p>
 <p>En R, un <strong>objeto</strong> es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, <code>encuesta_ia</code> es un objeto que contiene una tabla de datos.</p>
+<p>Más específicamente, <code>encuesta_ia</code> es un <strong>tibble</strong>: una versión moderna del <code>data.frame</code>, usada por el <code>tidyverse</code>, que organiza datos en filas y columnas, pero los muestra de forma más ordenada y compacta en la consola.</p>
 <p>Si escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Más específicamente, <code>encuesta_ia</code> es un <strong>data frame</strong>. Un data frame es el tipo de objeto más habitual para trabajar con datos en R: organiza la información en filas y columnas, de manera similar a una planilla de cálculo.</p>
-<p>En un data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 139 × 15
+   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1       1    45 45-59      Educación          ocasional        
+ 2       2    57 45-59      Educación          frecuente        
+ 3       3    45 45-59      Educación          esporadicamente  
+ 4       4    60 60+        Educación          frecuente        
+ 5       5    55 45-59      Educación          frecuente        
+ 6       6    30 30-44      Educación          ocasional        
+ 7       7    65 60+        Educación          ocasional        
+ 8       8    68 60+        Educación          frecuente        
+ 9       9    59 45-59      Educación          frecuente        
+10      10    19 18-29      Educación          ocasional        
+# ℹ 129 more rows
+# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>En una tabla de datos:</p>
 <ul>
-<li>cada <strong>fila</strong> representa un caso u observación;</li>
+<li>cada <strong>fila</strong> representa un caso u observación (una persona encuestada);</li>
 <li>cada <strong>columna</strong> representa una variable;</li>
 <li>cada <strong>celda</strong> contiene el valor de una variable para un caso.</li>
 </ul>
-<p>En nuestro dataset:</p>
-<ul>
-<li>cada fila representa una persona encuestada;</li>
-<li>cada columna representa una variable de la encuesta;</li>
-<li>cada celda contiene una respuesta o dato de esa persona.</li>
-</ul>
-<p>Por ejemplo, una columna puede registrar la edad, otra el área de trabajo, otra la frecuencia de uso de IA, y otras distintos ítems de actitud o creencias sobre la inteligencia artificial.</p>
-<p>Podemos ver que el objeto <code>encuesta_ia</code> aparece en el panel <strong>Environment</strong>. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo.</p>
 </section>
-<section id="cómo-es-nuestra-base" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-es-nuestra-base">¿Cómo es nuestra base?</h2>
+<section id="cuál-es-el-tamaño-de-nuestra-base" class="level2">
+<h2 class="anchored" data-anchor-id="cuál-es-el-tamaño-de-nuestra-base">¿Cuál es el tamaño de nuestra base?</h2>
 <p>Para conocer el tamaño de la tabla podemos usar <code>dim()</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 139  15</code></pre>
+</div>
+</div>
 <p>Esta función devuelve dos números:</p>
 <ul>
-<li>Las filas corresponden a los casos.<br>
-</li>
-<li>Las columnas corresponden a las variables.</li>
+<li>el primero indica la cantidad de filas;</li>
+<li>el segundo indica la cantidad de columnas.</li>
 </ul>
+<p>Las filas corresponden a los casos.<br>
+Las columnas corresponden a las variables.</p>
 <p>También podemos consultar cada dimensión por separado con las funciones <code>nrow()</code> y <code>ncol()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 139</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
 </section>
-<section id="veamos-un-poco-los-datos" class="level2">
-<h2 class="anchored" data-anchor-id="veamos-un-poco-los-datos">Veamos un poco los datos</h2>
+<section id="cómo-vemos-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-vemos-los-datos">¿Cómo vemos los datos?</h2>
 <p>Para mirar las primeras filas usamos <code>head()</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 15
+  id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia actitud_positiva
+    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                        &lt;dbl&gt;
+1       1    45 45-59      Educación          ocasional                        3
+2       2    57 45-59      Educación          frecuente                        4
+3       3    45 45-59      Educación          esporadicamente                  3
+4       4    60 60+        Educación          frecuente                        3
+5       5    55 45-59      Educación          frecuente                        3
+6       6    30 30-44      Educación          ocasional                        4
+# ℹ 9 more variables: actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
 <p>Por defecto, <code>head()</code> muestra los primeros registros de la tabla.</p>
 <p>Si queremos ver más filas, podemos indicarlo con el argumento <code>n</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(encuesta_ia, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 15
+   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
+ 1       1    45 45-59      Educación          ocasional        
+ 2       2    57 45-59      Educación          frecuente        
+ 3       3    45 45-59      Educación          esporadicamente  
+ 4       4    60 60+        Educación          frecuente        
+ 5       5    55 45-59      Educación          frecuente        
+ 6       6    30 30-44      Educación          ocasional        
+ 7       7    65 60+        Educación          ocasional        
+ 8       8    68 60+        Educación          frecuente        
+ 9       9    59 45-59      Educación          frecuente        
+10      10    19 18-29      Educación          ocasional        
+# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
+#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
+#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+</div>
+</div>
 <p>Esto nos permite hacer una primera inspección rápida:</p>
 <ul>
 <li>ver nombres de columnas;</li>
@@ -264,15 +342,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>reconocer cómo están codificadas algunas variables.</li>
 </ul>
 <p>También podemos abrir la tabla en una vista similar a una planilla con <code>View()</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Esto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.</p>
 <p>Esta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.</p>
 <p>Importante: R distingue mayúsculas y minúsculas. La función correcta es <code>View()</code> con <strong>V mayúscula</strong>.</p>
 </section>
-<section id="cuál-es-la-estructura-de-nuestra-tabla" class="level2">
-<h2 class="anchored" data-anchor-id="cuál-es-la-estructura-de-nuestra-tabla">¿Cuál es la estructura de nuestra tabla?</h2>
+<section id="qué-tipos-de-datos-tenemos" class="level2">
+<h2 class="anchored" data-anchor-id="qué-tipos-de-datos-tenemos">¿Qué tipos de datos tenemos?</h2>
 <p><code>glimpse()</code> muestra la estructura de la tabla de una forma compacta.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 139
+Columns: 15
+$ id_caso                          &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…
+$ edad                             &lt;dbl&gt; 45, 57, 45, 60, 55, 30, 65, 68, 59, 1…
+$ grupo_edad                       &lt;chr&gt; "45-59", "45-59", "45-59", "60+", "45…
+$ area_trabajo_grupo               &lt;chr&gt; "Educación", "Educación", "Educación"…
+$ frecuencia_uso_ia                &lt;chr&gt; "ocasional", "frecuente", "esporadica…
+$ actitud_positiva                 &lt;dbl&gt; 3, 4, 3, 3, 3, 4, 1, 5, 5, 4, 4, 2, 4…
+$ actitud_trabajo_estudio          &lt;dbl&gt; 3, 5, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4…
+$ actitud_vida_cotidiana           &lt;dbl&gt; 4, 5, 4, 1, 4, 5, 4, 5, 5, 4, 5, 4, 4…
+$ actitud_aprender_ia              &lt;dbl&gt; 4, 4, 4, 3, 3, 4, 4, 5, 5, 3, 3, 3, 4…
+$ creencia_decisiones_justas       &lt;dbl&gt; 1, 3, 3, 2, 2, 3, 4, 5, 1, 3, 1, 2, 2…
+$ creencia_respuestas_certeras     &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 5, 5, 2, 4, 4, 2, 1…
+$ creencia_orientacion_psicologica &lt;dbl&gt; 1, 2, 1, 2, 1, 3, 4, 3, 1, 1, 2, 2, 2…
+$ creencia_compania                &lt;dbl&gt; 3, 2, 1, 4, 1, 3, 4, 2, 1, 2, 4, 2, 2…
+$ creencia_investigacion           &lt;dbl&gt; 4, 3, 3, 1, 4, 4, 2, 5, 2, 4, 2, 2, 2…
+$ creencia_ensenanza               &lt;dbl&gt; 4, 5, 4, 4, 4, 1, 4, 5, 4, 4, 4, 4, 4…</code></pre>
+</div>
+</div>
 <p>Nos informa:</p>
 <ul>
 <li>cuántas filas tiene;</li>
@@ -281,46 +380,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>el tipo de dato de cada variable;</li>
 <li>algunos valores iniciales.</li>
 </ul>
-<p>Por ejemplo, podemos encontrar distintos tipos de columnas:</p>
+<p>Así, podemos ver que en este dataset tenemos variables de tres tipos:</p>
 <table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Tipo</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>&lt;int&gt;</code></td>
-<td>números enteros</td>
-</tr>
-<tr class="even">
-<td><code>&lt;dbl&gt;</code></td>
-<td>números con decimales</td>
-</tr>
-<tr class="odd">
-<td><code>&lt;chr&gt;</code></td>
-<td>texto</td>
-</tr>
-<tr class="even">
-<td><code>&lt;fct&gt;</code></td>
-<td>variable categórica</td>
-</tr>
-<tr class="odd">
-<td><code>&lt;ord&gt;</code></td>
-<td>variable categórica ordenada</td>
-</tr>
-</tbody>
-</table>
-<p>En nuestro caso, algunas variables son numéricas, como <code>edad</code> o los ítems de actitud y creencias. Otras variables son categóricas, como <code>grupo_edad</code>, <code>area_trabajo_grupo</code> y <code>frecuencia_uso_ia</code>.</p>
-<p>En este dataset tenemos variables de tres tipos:</p>
-<ol type="1">
-<li>variables sociodemográficas o de contexto;</li>
-<li>variables sobre frecuencia de uso de IA;</li>
-<li>variables de actitud y creencias hacia la IA.</li>
-</ol>
-<p>Por ejemplo:</p>
-<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Grupo de variables</th>
@@ -329,52 +394,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>Contexto</td>
-<td><code>edad</code>, <code>grupo_edad</code>, <code>area_trabajo_grupo</code></td>
+<td>Sociodemográficas</td>
+<td><code>edad</code>, <code>grupo_edad</code>, <code>area_trabajo_grupo</code>, <code>frecuencia_uso_ia</code>, generalmente con textos</td>
 </tr>
 <tr class="even">
-<td>Uso de IA</td>
-<td><code>frecuencia_uso_ia</code></td>
+<td>Actitudes</td>
+<td>empiezan con <code>actitud_</code> y tienen valores numéricos entre 1 y 5</td>
 </tr>
 <tr class="odd">
-<td>Actitudes</td>
-<td>variables que empiezan con <code>actitud_</code></td>
-</tr>
-<tr class="even">
 <td>Creencias</td>
-<td>variables que empiezan con <code>creencia_</code></td>
+<td>empiezan con <code>creencia_</code> y tienen valores numéricos entre 1 y 5</td>
 </tr>
 </tbody>
 </table>
-<p>Esta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas.</p>
-</section>
-<section id="una-primera-lectura" class="level2">
-<h2 class="anchored" data-anchor-id="una-primera-lectura">Una primera lectura</h2>
-<p>Ahora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.</p>
-<p>Por ejemplo:</p>
-<ul>
-<li>¿cuántas personas hay en cada área de trabajo?</li>
-<li>¿cuántas personas hay en cada grupo de edad?</li>
-<li>¿con qué frecuencia usan IA?</li>
-<li>¿qué variables nos permitirán construir una medida de actitud hacia la IA?</li>
-<li>¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?</li>
-</ul>
-<p>Todavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, grupo_edad)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>La función <code>count()</code> cuenta cuántos registros hay en cada categoría de una variable.</p>
-<p>Con estas operaciones todavía no hicimos un análisis completo, pero ya sabemos varias cosas:</p>
-<ul>
-<li>cuántos casos tiene la base;</li>
-<li>cuántas variables incluye;</li>
-<li>qué tipos de datos contiene;</li>
-<li>qué categorías aparecen en algunas variables;</li>
-<li>qué columnas vamos a necesitar para responder nuestras preguntas.</li>
-</ul>
-<p>Este primer paso es fundamental. Antes de transformar o graficar datos, necesitamos entender qué tenemos delante.</p>
-<p>En el próximo módulo vamos a avanzar sobre la manipulación de datos: seleccionar columnas, filtrar casos, crear variables y ordenar resultados.</p>
-<p>````</p>
+<p>Para tener unas primeras estadísticas de las numéricas, podemos pedir un <code>summary()</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Min.</code></td>
+<td>valor mínimo</td>
+</tr>
+<tr class="even">
+<td><code>1st Qu.</code></td>
+<td>primer cuartil: valor por debajo del cual está el 25% de los casos</td>
+</tr>
+<tr class="odd">
+<td><code>Median</code></td>
+<td>mediana: valor central de la distribución</td>
+</tr>
+<tr class="even">
+<td><code>Mean</code></td>
+<td>media o promedio</td>
+</tr>
+<tr class="odd">
+<td><code>3rd Qu.</code></td>
+<td>tercer cuartil: valor por debajo del cual está el 75% de los casos</td>
+</tr>
+<tr class="even">
+<td><code>Max.</code></td>
+<td>valor máximo</td>
+</tr>
+</tbody>
+</table>
+<p>Por ejemplo, en la variable <code>edad</code>, el resumen nos permite ver rápidamente que la persona más joven tiene 19 años, la mayor tiene 74, y la edad promedio es aproximadamente 45 años.</p>
+<p>En cambio, para variables guardadas como texto, como <code>grupo_edad</code>, <code>area_trabajo_grupo</code> o <code>frecuencia_uso_ia</code>, <code>summary()</code> muestra información más general: cantidad de valores, clase y modo. Para conocer mejor esas variables categóricas vamos a usar luego funciones como <code>count()</code>.</p>
+<p>También podemos mirar los ítems de actitud y creencias. Como están medidos en una escala de 1 a 5, sus medias nos dan una primera orientación. En esta salida se observa que algunas variables de actitud tienen promedios relativamente altos, como <code>actitud_vida_cotidiana</code>, mientras que algunas creencias específicas tienen promedios más bajos, como <code>creencia_orientacion_psicologica</code>.</p>
 
 
 </section>

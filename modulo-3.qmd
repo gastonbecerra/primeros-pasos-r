@@ -1,303 +1,299 @@
 ---
-title: "Módulo 3. Preguntas de investigación y construcción de variables"
+title: "Tercer paso. Manipulación de datasets"
 ---
 
 ## Objetivo
 
-Construir variables analíticas para responder preguntas de investigación.
+En este tutorial vamos a aprender a manipular una tabla de datos con algunos verbos básicos de `dplyr`. Para el final, vas a poder ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.
 
-## Pregunta general
+La idea es avanzar desde una primera exploración de la base hacia operaciones que nos permitan preparar los datos para responder preguntas de investigación.
 
-¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+## Cargamos paquetes y datos
 
-Para responder esta pregunta vamos a construir tres variables:
+Como siempre, empezamos cargando los paquetes que vamos a usar:
 
-| Variable | Significado |
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+library(janitor)
+```
+
+Luego cargamos nuevamente la base de datos:
+
+```{r}
+encuesta_ia <- read_csv(
+  "https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv",
+  show_col_types = FALSE
+)
+```
+
+## Ordenar resultados
+
+En el tutorial anterior usamos `count()` para contar cuántos casos hay en cada categoría.
+
+Por ejemplo:
+
+```{r}
+count(encuesta_ia, area_trabajo_grupo)
+```
+
+Muchas veces conviene ordenar los resultados de mayor a menor. Para eso agregamos `arrange()`:
+
+```{r}
+count(encuesta_ia, area_trabajo_grupo) %>%
+  arrange(desc(n))
+```
+
+Acá aparece un operador nuevo: `%>%`.
+
+Este operador se llama **pipe** y permite encadenar operaciones. Podemos leerlo como “después”. Entonces, el código anterior puede leerse así:
+
+> contá los casos por área de trabajo y después ordená el resultado de mayor a menor.
+
+También podemos ordenar de menor a mayor:
+
+```{r}
+count(encuesta_ia, area_trabajo_grupo) %>%
+  arrange(n)
+```
+
+## Calcular porcentajes
+
+También podemos calcular porcentajes. Para eso, después de contar, creamos una nueva columna con `mutate()`:
+
+```{r}
+count(encuesta_ia, frecuencia_uso_ia) %>%
+  mutate(porcentaje = n / sum(n) * 100)
+```
+
+Con esta tabla ya no vemos solamente cuántas personas hay en cada categoría, sino también qué porcentaje representa cada una sobre el total.
+
+Si queremos redondear el porcentaje, podemos usar `round()`:
+
+```{r}
+count(encuesta_ia, frecuencia_uso_ia) %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1))
+```
+
+## Primera lectura descriptiva
+
+Con estas operaciones podemos empezar a responder algunas preguntas básicas:
+
+- ¿cuántas personas hay en cada grupo de edad?
+- ¿cómo se distribuyen las áreas de trabajo?
+- ¿con qué frecuencia usan IA las personas encuestadas?
+- ¿qué categorías tienen más casos?
+- ¿qué categorías tienen pocos casos y conviene interpretar con cuidado?
+
+Este tipo de exploración no es un trámite previo al análisis. Es parte del análisis.
+
+Antes de comparar grupos, calcular indicadores o hacer gráficos, necesitamos saber cómo está compuesta la base. Si un grupo tiene muy pocos casos, por ejemplo, sus resultados pueden ser poco estables. Si una categoría concentra la mayoría de las respuestas, eso también condiciona la interpretación.
+
+## Seleccionar columnas
+
+Una operación muy común es quedarnos solamente con algunas columnas de la base. Para eso usamos `select()`.
+
+Por ejemplo, podemos seleccionar las variables sociodemográficas y de uso:
+
+```{r}
+encuesta_ia %>%
+  select(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia)
+```
+
+También podemos seleccionar todas las variables que empiezan con una palabra. Por ejemplo, las variables de actitud:
+
+```{r}
+encuesta_ia %>%
+  select(starts_with("actitud_"))
+```
+
+Y las variables de creencias:
+
+```{r}
+encuesta_ia %>%
+  select(starts_with("creencia_"))
+```
+
+Esto es útil porque nuestro dataset tiene grupos de variables que comparten un prefijo. Más adelante vamos a usar esta organización para construir indicadores.
+
+## Filtrar casos
+
+Otra operación básica es filtrar filas. Para eso usamos `filter()`.
+
+Por ejemplo, podemos quedarnos solamente con las personas que trabajan en educación:
+
+```{r}
+encuesta_ia %>%
+  filter(area_trabajo_grupo == "Educación")
+```
+
+También podemos quedarnos con quienes usan IA frecuentemente:
+
+```{r}
+encuesta_ia %>%
+  filter(frecuencia_uso_ia == "frecuente")
+```
+
+Y podemos combinar condiciones. Por ejemplo: personas del área de educación que usan IA frecuentemente.
+
+```{r}
+encuesta_ia %>%
+  filter(
+    area_trabajo_grupo == "Educación",
+    frecuencia_uso_ia == "frecuente"
+  )
+```
+
+En `filter()`, la coma funciona como un **y** lógico: se conservan los casos que cumplen todas las condiciones.
+
+## Contar después de filtrar
+
+Filtrar no es solo “recortar” la base. Muchas veces filtramos para responder preguntas más específicas.
+
+Por ejemplo:
+
+> Entre quienes trabajan en educación, ¿con qué frecuencia se usa IA?
+
+```{r}
+encuesta_ia %>%
+  filter(area_trabajo_grupo == "Educación") %>%
+  count(frecuencia_uso_ia) %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1))
+```
+
+Leído paso a paso:
+
+1. tomamos la base `encuesta_ia`;
+2. filtramos los casos del área de educación;
+3. contamos la frecuencia de uso de IA;
+4. calculamos el porcentaje.
+
+Esta forma de escribir código nos permite transformar una pregunta en una secuencia ordenada de operaciones.
+
+## Crear nuevas variables
+
+Para crear nuevas columnas usamos `mutate()`.
+
+Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más:
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    mayor_45 = edad >= 45
+  )
+```
+
+Ahora podemos contar esta nueva variable:
+
+```{r}
+count(encuesta_ia, mayor_45)
+```
+
+La nueva columna `mayor_45` toma valores `TRUE` o `FALSE`.
+
+- `TRUE`: la condición se cumple;
+- `FALSE`: la condición no se cumple.
+
+También podemos crear una variable con categorías de texto usando `case_when()`.
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    intensidad_uso = case_when(
+      frecuencia_uso_ia %in% c("nunca", "esporadicamente") ~ "baja",
+      frecuencia_uso_ia == "ocasional" ~ "media",
+      frecuencia_uso_ia == "frecuente" ~ "alta"
+    )
+  )
+```
+
+Y luego contarla:
+
+```{r}
+count(encuesta_ia, intensidad_uso)
+```
+
+Esta operación muestra algo importante: muchas veces las variables que usamos en el análisis no vienen directamente en la base, sino que las construimos a partir de decisiones analíticas.
+
+## Renombrar variables
+
+A veces queremos cambiar el nombre de una variable para que sea más corto o más claro. Para eso usamos `rename()`.
+
+```{r}
+encuesta_ia %>%
+  rename(
+    area = area_trabajo_grupo,
+    frecuencia = frecuencia_uso_ia
+  )
+```
+
+En este caso, el cambio se ve en la salida, pero no queda guardado en el objeto original porque no usamos asignación.
+
+Si quisiéramos guardar esos cambios, tendríamos que hacer:
+
+```{r}
+encuesta_ia_renombrada <- encuesta_ia %>%
+  rename(
+    area = area_trabajo_grupo,
+    frecuencia = frecuencia_uso_ia
+  )
+```
+
+## Seleccionar, filtrar y ordenar
+
+Podemos combinar varios verbos en una misma secuencia.
+
+Por ejemplo:
+
+```{r}
+encuesta_ia %>%
+  filter(frecuencia_uso_ia == "frecuente") %>%
+  select(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia) %>%
+  arrange(edad)
+```
+
+Leído paso a paso:
+
+1. tomamos la base;
+2. filtramos a quienes usan IA frecuentemente;
+3. seleccionamos algunas columnas;
+4. ordenamos por edad.
+
+El orden de las operaciones importa. No es lo mismo seleccionar primero, filtrar después, o crear una variable antes de hacer un conteo.
+
+## Mini-ejercicios
+
+Probá responder estas preguntas con código:
+
+1. ¿Cuántas personas de cada área usan IA frecuentemente?
+2. ¿Cuál es la distribución de grupos de edad entre quienes usan IA ocasionalmente?
+3. ¿Qué porcentaje de la base tiene 45 años o más?
+4. ¿Cómo cambia la frecuencia de uso si miramos solo el área de salud y servicios sociales?
+
+Una posible respuesta para la primera pregunta:
+
+```{r}
+encuesta_ia %>%
+  filter(frecuencia_uso_ia == "frecuente") %>%
+  count(area_trabajo_grupo) %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  arrange(desc(n))
+```
+
+## Cierre
+
+En este tutorial aprendimos a manipular una tabla con operaciones básicas:
+
+| Función | Para qué sirve |
 |---|---|
-| `actitud_ia` | promedio de los ítems de actitud general |
-| `creencias_media` | promedio de las creencias sobre capacidades específicas |
-| `brecha_actitud_creencias` | diferencia entre actitud general y creencias específicas |
+| `count()` | contar casos por categoría |
+| `arrange()` | ordenar resultados |
+| `mutate()` | crear nuevas variables |
+| `select()` | seleccionar columnas |
+| `filter()` | filtrar filas |
+| `rename()` | cambiar nombres de variables |
 
-## Cargar datos
+Estas funciones son herramientas básicas para empezar a construir un análisis. Pero todavía estamos trabajando con variables tomadas de manera separada.
 
-```{r}
-library(tidyverse)
-
-encuesta_ia <- read_csv("data/encuesta_ia_subset.csv")
-```
-
-## Calcular actitud general
-
-```{r}
-encuesta_ia <- encuesta_ia %>%
-  mutate(
-    actitud_ia = rowMeans(
-      pick(
-        actitud_positiva,
-        actitud_trabajo_estudio,
-        actitud_vida_cotidiana,
-        actitud_aprender_ia
-      ),
-      na.rm = TRUE
-    )
-  )
-```
-
-## Calcular creencias sobre capacidades específicas
-
-```{r}
-encuesta_ia <- encuesta_ia %>%
-  mutate(
-    creencias_media = rowMeans(
-      pick(
-        creencia_decisiones_justas,
-        creencia_respuestas_certeras,
-        creencia_orientacion_psicologica,
-        creencia_compania,
-        creencia_investigacion,
-        creencia_ensenanza
-      ),
-      na.rm = TRUE
-    )
-  )
-```
-
-## Calcular la brecha
-
-```{r}
-encuesta_ia <- encuesta_ia %>%
-  mutate(
-    brecha_actitud_creencias = actitud_ia - creencias_media
-  )
-```
-
-## Explorar las nuevas variables
-
-```{r}
-encuesta_ia %>%
-  summarise(
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-```
-
-## Comparar por frecuencia de uso
-
-```{r}
-encuesta_ia %>%
-  group_by(frecuencia_uso_ia) %>%
-  summarise(
-    n = n(),
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-```
-
-## Comparar por área de trabajo
-
-```{r}
-encuesta_ia %>%
-  group_by(area_trabajo_grupo) %>%
-  summarise(
-    n = n(),
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-```
-
-## Idea metodológica
-
-Una variable no siempre viene lista en el dataset.
-
-Muchas veces tenemos que construir indicadores a partir de varias columnas. Esa construcción requiere una decisión teórica y metodológica.
-
-En este caso distinguimos entre:
-
-- actitud general hacia la IA;
-- creencias sobre capacidades específicas;
-- distancia entre ambas dimensiones.
-
-## Ejercicio breve
-
-Calculá la actitud media por grupo de edad.
-
-```{r}
-encuesta_ia %>%
-  group_by(grupo_edad) %>%
-  summarise(
-    n = n(),
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-```
-
-## Cierre
-
-En este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos.
-
-
-
-## Objetivo
-
-Producir tablas, gráficos e interpretaciones descriptivas.
-
-## Cargar datos
-
-```{r}
-library(tidyverse)
-
-encuesta_ia <- read_csv("data/encuesta_ia_subset.csv") %>%
-  mutate(
-    actitud_ia = rowMeans(
-      pick(
-        actitud_positiva,
-        actitud_trabajo_estudio,
-        actitud_vida_cotidiana,
-        actitud_aprender_ia
-      ),
-      na.rm = TRUE
-    ),
-    creencias_media = rowMeans(
-      pick(
-        creencia_decisiones_justas,
-        creencia_respuestas_certeras,
-        creencia_orientacion_psicologica,
-        creencia_compania,
-        creencia_investigacion,
-        creencia_ensenanza
-      ),
-      na.rm = TRUE
-    ),
-    brecha_actitud_creencias = actitud_ia - creencias_media
-  )
-```
-
-## Tabla descriptiva general
-
-```{r}
-encuesta_ia %>%
-  summarise(
-    casos = n(),
-    edad_media = mean(edad),
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-```
-
-## Actitud según frecuencia de uso
-
-```{r}
-tabla_frecuencia <- encuesta_ia %>%
-  group_by(frecuencia_uso_ia) %>%
-  summarise(
-    n = n(),
-    actitud_media = mean(actitud_ia),
-    creencias_media = mean(creencias_media),
-    brecha_media = mean(brecha_actitud_creencias)
-  )
-
-tabla_frecuencia
-```
-
-## Gráfico de actitud según frecuencia de uso
-
-```{r}
-tabla_frecuencia %>%
-  ggplot(aes(x = frecuencia_uso_ia, y = actitud_media)) +
-  geom_col() +
-  labs(
-    x = "Frecuencia de uso de IA",
-    y = "Actitud media hacia la IA",
-    title = "Actitud hacia la IA según frecuencia de uso"
-  ) +
-  theme_minimal()
-```
-
-## Comparación entre actitud y creencias
-
-```{r}
-tabla_comparacion <- encuesta_ia %>%
-  summarise(
-    actitud_ia = mean(actitud_ia),
-    creencias_media = mean(creencias_media)
-  ) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = "variable",
-    values_to = "media"
-  )
-
-tabla_comparacion
-```
-
-```{r}
-tabla_comparacion %>%
-  ggplot(aes(x = variable, y = media)) +
-  geom_col() +
-  labs(
-    x = NULL,
-    y = "Media",
-    title = "Actitud general y creencias específicas hacia la IA"
-  ) +
-  theme_minimal()
-```
-
-## Creencias por dimensión
-
-```{r}
-creencias_largo <- encuesta_ia %>%
-  select(starts_with("creencia_")) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = "creencia",
-    values_to = "valor"
-  )
-
-creencias_largo %>%
-  group_by(creencia) %>%
-  summarise(media = mean(valor)) %>%
-  arrange(desc(media))
-```
-
-```{r}
-creencias_largo %>%
-  group_by(creencia) %>%
-  summarise(media = mean(valor)) %>%
-  ggplot(aes(x = reorder(creencia, media), y = media)) +
-  geom_col() +
-  coord_flip() +
-  labs(
-    x = NULL,
-    y = "Media",
-    title = "Creencias sobre capacidades específicas de la IA"
-  ) +
-  theme_minimal()
-```
-
-## Interpretación
-
-Los resultados descriptivos permiten discutir una tensión central:
-
-> La actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.
-
-Esto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella.
-
-## Ejercicio final
-
-Elegí una pregunta y respondela con una tabla y un gráfico.
-
-Ejemplos:
-
-- ¿La actitud hacia la IA cambia según el área de trabajo?
-- ¿La brecha entre actitud y creencias cambia según frecuencia de uso?
-- ¿Qué grupo de edad muestra mayor actitud promedio?
-- ¿Qué creencia específica tiene el promedio más bajo?
-
-## Cierre
-
-El análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas.
+En el próximo tutorial vamos a avanzar un paso más: construiremos indicadores a partir de varias columnas para responder una pregunta de investigación sobre actitudes y creencias hacia la inteligencia artificial.
