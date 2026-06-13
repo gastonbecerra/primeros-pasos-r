@@ -2,184 +2,86 @@
   {
     "objectID": "modulo-4.html",
     "href": "modulo-4.html",
-    "title": "Módulo 4. Análisis descriptivo",
+    "title": "xxxx",
     "section": "",
-    "text": "Producir tablas, gráficos e interpretaciones descriptivas."
+    "text": "xxxxxx"
   },
   {
     "objectID": "modulo-4.html#objetivo",
     "href": "modulo-4.html#objetivo",
-    "title": "Módulo 4. Análisis descriptivo",
+    "title": "xxxx",
     "section": "",
-    "text": "Producir tablas, gráficos e interpretaciones descriptivas."
-  },
-  {
-    "objectID": "modulo-4.html#cargar-datos",
-    "href": "modulo-4.html#cargar-datos",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Cargar datos",
-    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\") %&gt;%\n  mutate(\n    actitud_ia = rowMeans(\n      pick(\n        actitud_positiva,\n        actitud_trabajo_estudio,\n        actitud_vida_cotidiana,\n        actitud_aprender_ia\n      ),\n      na.rm = TRUE\n    ),\n    creencias_media = rowMeans(\n      pick(\n        creencia_decisiones_justas,\n        creencia_respuestas_certeras,\n        creencia_orientacion_psicologica,\n        creencia_compania,\n        creencia_investigacion,\n        creencia_ensenanza\n      ),\n      na.rm = TRUE\n    ),\n    brecha_actitud_creencias = actitud_ia - creencias_media\n  )\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "modulo-4.html#tabla-descriptiva-general",
-    "href": "modulo-4.html#tabla-descriptiva-general",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Tabla descriptiva general",
-    "text": "Tabla descriptiva general\n\nencuesta_ia %&gt;%\n  summarise(\n    casos = n(),\n    edad_media = mean(edad),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 1 × 5\n  casos edad_media actitud_media creencias_media brecha_media\n  &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1   139       45.3          3.77            2.58         1.19"
-  },
-  {
-    "objectID": "modulo-4.html#actitud-según-frecuencia-de-uso",
-    "href": "modulo-4.html#actitud-según-frecuencia-de-uso",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Actitud según frecuencia de uso",
-    "text": "Actitud según frecuencia de uso\n\ntabla_frecuencia &lt;- encuesta_ia %&gt;%\n  group_by(frecuencia_uso_ia) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\ntabla_frecuencia\n\n# A tibble: 4 × 5\n  frecuencia_uso_ia     n actitud_media creencias_media brecha_media\n  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 esporadicamente      25          3.42            2.33        1.09 \n2 frecuente            54          4.04            2.71        1.33 \n3 nunca                 6          2.67            2.03        0.639\n4 ocasional            54          3.80            2.63        1.17"
-  },
-  {
-    "objectID": "modulo-4.html#gráfico-de-actitud-según-frecuencia-de-uso",
-    "href": "modulo-4.html#gráfico-de-actitud-según-frecuencia-de-uso",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Gráfico de actitud según frecuencia de uso",
-    "text": "Gráfico de actitud según frecuencia de uso\n\ntabla_frecuencia %&gt;%\n  ggplot(aes(x = frecuencia_uso_ia, y = actitud_media)) +\n  geom_col() +\n  labs(\n    x = \"Frecuencia de uso de IA\",\n    y = \"Actitud media hacia la IA\",\n    title = \"Actitud hacia la IA según frecuencia de uso\"\n  ) +\n  theme_minimal()"
-  },
-  {
-    "objectID": "modulo-4.html#comparación-entre-actitud-y-creencias",
-    "href": "modulo-4.html#comparación-entre-actitud-y-creencias",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Comparación entre actitud y creencias",
-    "text": "Comparación entre actitud y creencias\n\ntabla_comparacion &lt;- encuesta_ia %&gt;%\n  summarise(\n    actitud_ia = mean(actitud_ia),\n    creencias_media = mean(creencias_media)\n  ) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"variable\",\n    values_to = \"media\"\n  )\n\ntabla_comparacion\n\n# A tibble: 2 × 2\n  variable        media\n  &lt;chr&gt;           &lt;dbl&gt;\n1 actitud_ia       3.77\n2 creencias_media  2.58\n\n\n\ntabla_comparacion %&gt;%\n  ggplot(aes(x = variable, y = media)) +\n  geom_col() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Actitud general y creencias específicas hacia la IA\"\n  ) +\n  theme_minimal()"
-  },
-  {
-    "objectID": "modulo-4.html#creencias-por-dimensión",
-    "href": "modulo-4.html#creencias-por-dimensión",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Creencias por dimensión",
-    "text": "Creencias por dimensión\n\ncreencias_largo &lt;- encuesta_ia %&gt;%\n  select(starts_with(\"creencia_\")) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"creencia\",\n    values_to = \"valor\"\n  )\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  arrange(desc(media))\n\n# A tibble: 6 × 2\n  creencia                         media\n  &lt;chr&gt;                            &lt;dbl&gt;\n1 creencia_ensenanza                3.50\n2 creencia_investigacion            2.95\n3 creencia_respuestas_certeras      2.53\n4 creencia_decisiones_justas        2.40\n5 creencia_compania                 2.27\n6 creencia_orientacion_psicologica  1.82\n\n\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  ggplot(aes(x = reorder(creencia, media), y = media)) +\n  geom_col() +\n  coord_flip() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Creencias sobre capacidades específicas de la IA\"\n  ) +\n  theme_minimal()"
-  },
-  {
-    "objectID": "modulo-4.html#interpretación",
-    "href": "modulo-4.html#interpretación",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Interpretación",
-    "text": "Interpretación\nLos resultados descriptivos permiten discutir una tensión central:\n\nLa actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.\n\nEsto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella."
-  },
-  {
-    "objectID": "modulo-4.html#ejercicio-final",
-    "href": "modulo-4.html#ejercicio-final",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Ejercicio final",
-    "text": "Ejercicio final\nElegí una pregunta y respondela con una tabla y un gráfico.\nEjemplos:\n\n¿La actitud hacia la IA cambia según el área de trabajo?\n¿La brecha entre actitud y creencias cambia según frecuencia de uso?\n¿Qué grupo de edad muestra mayor actitud promedio?\n¿Qué creencia específica tiene el promedio más bajo?"
-  },
-  {
-    "objectID": "modulo-4.html#cierre",
-    "href": "modulo-4.html#cierre",
-    "title": "Módulo 4. Análisis descriptivo",
-    "section": "Cierre",
-    "text": "Cierre\nEl análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas."
+    "text": "xxxxxx"
   },
   {
     "objectID": "modulo-2.html",
     "href": "modulo-2.html",
     "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
-    "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
+    "text": "En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
   },
   {
-    "objectID": "modulo-2.html#objetivo",
-    "href": "modulo-2.html#objetivo",
+    "objectID": "modulo-2.html#cargar-nuestra-base-de-datos",
+    "href": "modulo-2.html#cargar-nuestra-base-de-datos",
     "title": "Segundo paso. Exploración y manipulación de datasets",
     "section": "",
-    "text": "Conocer la estructura del dataset y usar los principales verbos de dplyr para transformarlo."
+    "text": "Trabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial. Cada fila de la tabla corresponde a una persona encuestada, y cada columna registra una variable.\nAntes de mirar los datos, formulemos algunas preguntas iniciales:\n\n¿Cuántos casos tiene la base?\n¿Qué y cuántas variables tiene?\n¿Qué tipo de variables tenemos?\n¿Qué primeros grupos o categorías aparecen?\n\nPara cargar los datos vamos a usar la función read_csv().\nencuesta_ia &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv\"\n)\nCon esta línea hacemos tres cosas:\n\nleemos un archivo .csv alojado en internet;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nPodemos ver que el objeto aparece en el panel Environment.\nSi escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:\nencuesta_ia"
   },
   {
-    "objectID": "modulo-2.html#en-este-módulo",
-    "href": "modulo-2.html#en-este-módulo",
+    "objectID": "modulo-2.html#cuántos-casos-y-variables-tiene-la-base",
+    "href": "modulo-2.html#cuántos-casos-y-variables-tiene-la-base",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "En este módulo",
-    "text": "En este módulo\nVamos a trabajar con:\n\nselect();\nfilter();\nrename();\nmutate();\ncount();\narrange()."
+    "section": "¿Cuántos casos y variables tiene la base?",
+    "text": "¿Cuántos casos y variables tiene la base?\nPara conocer el tamaño de la tabla podemos usar dim().\ndim(encuesta_ia)\nEsta función devuelve dos números:\nfilas columnas\nLas filas corresponden a los casos.\nLas columnas corresponden a las variables.\nTambién podemos consultar cada dimensión por separado:\nnrow(encuesta_ia)\nncol(encuesta_ia)\nnrow() muestra la cantidad de filas.\nncol() muestra la cantidad de columnas."
   },
   {
-    "objectID": "modulo-2.html#cargar-datos",
-    "href": "modulo-2.html#cargar-datos",
+    "objectID": "modulo-2.html#cómo-vemos-los-primeros-registros",
+    "href": "modulo-2.html#cómo-vemos-los-primeros-registros",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Cargar datos",
-    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.4.3\n\n\nWarning: package 'purrr' was built under R version 4.4.3\n\n\nWarning: package 'stringr' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "section": "¿Cómo vemos los primeros registros?",
+    "text": "¿Cómo vemos los primeros registros?\nPara mirar las primeras filas usamos head().\nhead(encuesta_ia)\nPor defecto, head() muestra los primeros 6 registros de la tabla.\nSi queremos ver más filas, podemos indicarlo con el argumento n:\nhead(encuesta_ia, n = 10)\nEsto nos permite hacer una primera inspección rápida:\n\nver nombres de columnas;\nmirar valores concretos;\ndetectar si la tabla se cargó correctamente;\nreconocer cómo están codificadas algunas variables.\n\nNo se trata todavía de analizar. Se trata de mirar la tabla con cuidado."
   },
   {
-    "objectID": "modulo-2.html#seleccionar-columnas",
-    "href": "modulo-2.html#seleccionar-columnas",
+    "objectID": "modulo-2.html#cómo-vemos-la-estructura-de-la-tabla",
+    "href": "modulo-2.html#cómo-vemos-la-estructura-de-la-tabla",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Seleccionar columnas",
-    "text": "Seleccionar columnas\n\nencuesta_ia %&gt;%\n  select(edad, grupo_edad, area_trabajo_grupo)\n\n# A tibble: 139 × 3\n    edad grupo_edad area_trabajo_grupo\n   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;             \n 1    45 45-59      Educación         \n 2    57 45-59      Educación         \n 3    45 45-59      Educación         \n 4    60 60+        Educación         \n 5    55 45-59      Educación         \n 6    30 30-44      Educación         \n 7    65 60+        Educación         \n 8    68 60+        Educación         \n 9    59 45-59      Educación         \n10    19 18-29      Educación         \n# ℹ 129 more rows"
+    "section": "¿Cómo vemos la estructura de la tabla?",
+    "text": "¿Cómo vemos la estructura de la tabla?\nUna función muy útil para explorar datos es glimpse().\nglimpse(encuesta_ia)\nglimpse() muestra la estructura de la tabla de una forma compacta.\nNos informa:\n\ncuántas filas tiene;\ncuántas columnas tiene;\nel nombre de cada variable;\nel tipo de dato de cada variable;\nalgunos valores iniciales.\n\nPor ejemplo, podemos encontrar distintos tipos de columnas:\n\n\n\nTipo\nSignificado\n\n\n\n\n&lt;int&gt;\nnúmeros enteros\n\n\n&lt;dbl&gt;\nnúmeros con decimales\n\n\n&lt;chr&gt;\ntexto\n\n\n&lt;fct&gt;\nvariable categórica\n\n\n&lt;ord&gt;\nvariable categórica ordenada\n\n\n\nEn nuestro caso, algunas variables son numéricas, como edad o los ítems de actitud y creencias. Otras variables son categóricas, como grupo_edad, area_trabajo_grupo y frecuencia_uso_ia."
   },
   {
-    "objectID": "modulo-2.html#filtrar-casos",
-    "href": "modulo-2.html#filtrar-casos",
+    "objectID": "modulo-2.html#cómo-abrimos-la-tabla-como-una-planilla",
+    "href": "modulo-2.html#cómo-abrimos-la-tabla-como-una-planilla",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Filtrar casos",
-    "text": "Filtrar casos\n\nencuesta_ia %&gt;%\n  filter(area_trabajo_grupo == \"Educación\")\n\n# A tibble: 50 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       1    45 45-59      Educación          ocasional        \n 2       2    57 45-59      Educación          frecuente        \n 3       3    45 45-59      Educación          esporadicamente  \n 4       4    60 60+        Educación          frecuente        \n 5       5    55 45-59      Educación          frecuente        \n 6       6    30 30-44      Educación          ocasional        \n 7       7    65 60+        Educación          ocasional        \n 8       8    68 60+        Educación          frecuente        \n 9       9    59 45-59      Educación          frecuente        \n10      10    19 18-29      Educación          ocasional        \n# ℹ 40 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;\n\n\n\nencuesta_ia %&gt;%\n  filter(frecuencia_uso_ia == \"frecuente\")\n\n# A tibble: 54 × 15\n   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            \n 1       2    57 45-59      Educación          frecuente        \n 2       4    60 60+        Educación          frecuente        \n 3       5    55 45-59      Educación          frecuente        \n 4       8    68 60+        Educación          frecuente        \n 5       9    59 45-59      Educación          frecuente        \n 6      11    45 45-59      Educación          frecuente        \n 7      13    43 30-44      Educación          frecuente        \n 8      17    39 30-44      Educación          frecuente        \n 9      18    61 60+        Educación          frecuente        \n10      19    65 60+        Educación          frecuente        \n# ℹ 44 more rows\n# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;"
+    "section": "¿Cómo abrimos la tabla como una planilla?",
+    "text": "¿Cómo abrimos la tabla como una planilla?\nTambién podemos abrir la tabla en una vista similar a una planilla con View().\nView(encuesta_ia)\nEsto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.\nEsta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.\nImportante: R distingue mayúsculas y minúsculas. La función correcta es View() con V mayúscula."
   },
   {
-    "objectID": "modulo-2.html#contar-categorías",
-    "href": "modulo-2.html#contar-categorías",
+    "objectID": "modulo-2.html#qué-variables-tenemos",
+    "href": "modulo-2.html#qué-variables-tenemos",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Contar categorías",
-    "text": "Contar categorías\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo)\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Consultoría / servicios profesionales    39\n2 Educación                                50\n3 Salud y servicios sociales               50\n\n\n\nencuesta_ia %&gt;%\n  count(frecuencia_uso_ia)\n\n# A tibble: 4 × 2\n  frecuencia_uso_ia     n\n  &lt;chr&gt;             &lt;int&gt;\n1 esporadicamente      25\n2 frecuente            54\n3 nunca                 6\n4 ocasional            54\n\n\n\nencuesta_ia %&gt;%\n  count(grupo_edad)\n\n# A tibble: 4 × 2\n  grupo_edad     n\n  &lt;chr&gt;      &lt;int&gt;\n1 18-29         15\n2 30-44         54\n3 45-59         50\n4 60+           20"
+    "section": "¿Qué variables tenemos?",
+    "text": "¿Qué variables tenemos?\nPara ver los nombres de las columnas usamos names().\nnames(encuesta_ia)\nEsto nos devuelve el listado de variables disponibles.\nEn este dataset tenemos variables de tres tipos:\n\nvariables sociodemográficas o de contexto;\nvariables sobre frecuencia de uso de IA;\nvariables de actitud y creencias hacia la IA.\n\nPor ejemplo:\n\n\n\nGrupo de variables\nVariables\n\n\n\n\nContexto\nedad, grupo_edad, area_trabajo_grupo\n\n\nUso de IA\nfrecuencia_uso_ia\n\n\nActitudes\nvariables que empiezan con actitud_\n\n\nCreencias\nvariables que empiezan con creencia_\n\n\n\nEsta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas."
   },
   {
-    "objectID": "modulo-2.html#ordenar-resultados",
-    "href": "modulo-2.html#ordenar-resultados",
+    "objectID": "modulo-2.html#qué-representa-cada-columna",
+    "href": "modulo-2.html#qué-representa-cada-columna",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Ordenar resultados",
-    "text": "Ordenar resultados\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo) %&gt;%\n  arrange(desc(n))\n\n# A tibble: 3 × 2\n  area_trabajo_grupo                        n\n  &lt;chr&gt;                                 &lt;int&gt;\n1 Educación                                50\n2 Salud y servicios sociales               50\n3 Consultoría / servicios profesionales    39"
+    "section": "¿Qué representa cada columna?",
+    "text": "¿Qué representa cada columna?\nPara entender mejor la base, podemos cargar el diccionario de variables.\ndiccionario &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/diccionario_variables.csv\"\n)\nLuego lo mostramos:\ndiccionario\nEl diccionario nos dice qué mide cada variable, qué tipo de variable es y qué valores puede tomar.\nAntes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación."
   },
   {
-    "objectID": "modulo-2.html#crear-nuevas-variables",
-    "href": "modulo-2.html#crear-nuevas-variables",
+    "objectID": "modulo-2.html#primeras-preguntas-descriptivas",
+    "href": "modulo-2.html#primeras-preguntas-descriptivas",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Crear nuevas variables",
-    "text": "Crear nuevas variables\n\nencuesta_ia &lt;- encuesta_ia %&gt;%\n  mutate(\n    edad_mayor_45 = edad &gt;= 45\n  )\n\n\nencuesta_ia %&gt;%\n  count(edad_mayor_45)\n\n# A tibble: 2 × 2\n  edad_mayor_45     n\n  &lt;lgl&gt;         &lt;int&gt;\n1 FALSE            69\n2 TRUE             70"
+    "section": "Primeras preguntas descriptivas",
+    "text": "Primeras preguntas descriptivas\nAhora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.\nPor ejemplo:\n\n¿cuántas personas hay en cada área de trabajo?\n¿cuántas personas hay en cada grupo de edad?\n¿con qué frecuencia usan IA?\n¿qué variables nos permitirán construir una medida de actitud hacia la IA?\n¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?\n\nTodavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.\ncount(encuesta_ia, area_trabajo_grupo)\ncount(encuesta_ia, grupo_edad)\ncount(encuesta_ia, frecuencia_uso_ia)\nLa función count() cuenta cuántos registros hay en cada categoría de una variable.\nEstos primeros conteos nos ayudan a conocer la composición de la base."
   },
   {
-    "objectID": "modulo-2.html#renombrar-variables",
-    "href": "modulo-2.html#renombrar-variables",
+    "objectID": "modulo-2.html#una-primera-lectura",
+    "href": "modulo-2.html#una-primera-lectura",
     "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Renombrar variables",
-    "text": "Renombrar variables\n\nencuesta_ia %&gt;%\n  rename(\n    area = area_trabajo_grupo,\n    frecuencia = frecuencia_uso_ia\n  )\n\n# A tibble: 139 × 16\n   id_caso  edad grupo_edad area      frecuencia      actitud_positiva\n     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;\n 1       1    45 45-59      Educación ocasional                      3\n 2       2    57 45-59      Educación frecuente                      4\n 3       3    45 45-59      Educación esporadicamente                3\n 4       4    60 60+        Educación frecuente                      3\n 5       5    55 45-59      Educación frecuente                      3\n 6       6    30 30-44      Educación ocasional                      4\n 7       7    65 60+        Educación ocasional                      1\n 8       8    68 60+        Educación frecuente                      5\n 9       9    59 45-59      Educación frecuente                      5\n10      10    19 18-29      Educación ocasional                      4\n# ℹ 129 more rows\n# ℹ 10 more variables: actitud_trabajo_estudio &lt;dbl&gt;,\n#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,\n#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,\n#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,\n#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, edad_mayor_45 &lt;lgl&gt;"
-  },
-  {
-    "objectID": "modulo-2.html#idea-metodológica",
-    "href": "modulo-2.html#idea-metodológica",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Idea metodológica",
-    "text": "Idea metodológica\nManipular datos no es una tarea meramente técnica.\nCada vez que filtramos, agrupamos, recodificamos o creamos una variable, estamos tomando una decisión analítica.\nPor eso conviene preguntarnos:\n\n¿Esta transformación ayuda a responder mi pregunta de investigación?"
-  },
-  {
-    "objectID": "modulo-2.html#ejercicio-breve",
-    "href": "modulo-2.html#ejercicio-breve",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Ejercicio breve",
-    "text": "Ejercicio breve\nConstruí una tabla que muestre cuántas personas hay por área de trabajo y frecuencia de uso de IA.\n\nencuesta_ia %&gt;%\n  count(area_trabajo_grupo, frecuencia_uso_ia)\n\n# A tibble: 12 × 3\n   area_trabajo_grupo                    frecuencia_uso_ia     n\n   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;\n 1 Consultoría / servicios profesionales esporadicamente       7\n 2 Consultoría / servicios profesionales frecuente            16\n 3 Consultoría / servicios profesionales nunca                 2\n 4 Consultoría / servicios profesionales ocasional            14\n 5 Educación                             esporadicamente       7\n 6 Educación                             frecuente            22\n 7 Educación                             nunca                 1\n 8 Educación                             ocasional            20\n 9 Salud y servicios sociales            esporadicamente      11\n10 Salud y servicios sociales            frecuente            16\n11 Salud y servicios sociales            nunca                 3\n12 Salud y servicios sociales            ocasional            20"
-  },
-  {
-    "objectID": "modulo-2.html#cierre",
-    "href": "modulo-2.html#cierre",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Cierre",
-    "text": "Cierre\nEn este módulo aprendimos a transformar la tabla. En el próximo vamos a construir variables analíticas para responder preguntas de investigación."
-  },
-  {
-    "objectID": "modulo-2.html#cargar-nuestra-primera-base",
-    "href": "modulo-2.html#cargar-nuestra-primera-base",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Cargar nuestra primera base",
-    "text": "Cargar nuestra primera base\nAhora vamos a cargar el dataset del taller.\nPrimero cargamos los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)\nLuego leemos el archivo .csv con la función read_csv():\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\")\nCon esta línea estamos haciendo tres cosas:\n\nleemos un archivo de datos;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nPodemos ver que el objeto aparece en el panel Environment.\nPara mostrar la tabla, escribimos el nombre del objeto:\nencuesta_ia\nTambién podemos inspeccionarla con algunas funciones básicas:\nglimpse(encuesta_ia)\nhead(encuesta_ia)\nnames(encuesta_ia)\nEstas funciones nos permiten responder preguntas iniciales:\n\n¿cuántas filas tiene la tabla?\n¿cuántas columnas?\n¿qué nombres tienen las variables?\n¿qué tipo de datos contiene cada columna?\n\nTambién podemos ver sus dimensiones:\nnrow(encuesta_ia)\nncol(encuesta_ia)\ndim(encuesta_ia)"
-  },
-  {
-    "objectID": "modulo-2.html#leer-el-diccionario-de-variables",
-    "href": "modulo-2.html#leer-el-diccionario-de-variables",
-    "title": "Segundo paso. Exploración y manipulación de datasets",
-    "section": "Leer el diccionario de variables",
-    "text": "Leer el diccionario de variables\nAdemás del dataset, tenemos un diccionario de variables. Este archivo explica qué significa cada columna de la tabla.\ndiccionario &lt;- read_csv(\"data/diccionario_variables.csv\")\n\ndiccionario\nAntes de analizar datos, necesitamos saber qué representa cada columna. El diccionario funciona como un puente entre la tabla y la pregunta de investigación."
+    "section": "Una primera lectura",
+    "text": "Una primera lectura\nAhora que conocemos la estructura general de la tabla, podemos hacer algunas preguntas descriptivas simples.\nPor ejemplo:\n\n¿cuántas personas hay en cada área de trabajo?\n¿cuántas personas hay en cada grupo de edad?\n¿con qué frecuencia usan IA?\n¿qué variables nos permitirán construir una medida de actitud hacia la IA?\n¿qué variables nos permitirán construir una medida de creencias sobre capacidades específicas?\n\nTodavía no vamos a responder todas estas preguntas. Pero podemos empezar con conteos básicos.\ncount(encuesta_ia, area_trabajo_grupo)\ncount(encuesta_ia, grupo_edad)\ncount(encuesta_ia, frecuencia_uso_ia)\nLa función count() cuenta cuántos registros hay en cada categoría de una variable.\nCon estas operaciones todavía no hicimos un análisis completo, pero ya sabemos varias cosas:\n\ncuántos casos tiene la base;\ncuántas variables incluye;\nqué tipos de datos contiene;\nqué categorías aparecen en algunas variables;\nqué columnas vamos a necesitar para responder nuestras preguntas.\n\nEste primer paso es fundamental. Antes de transformar o graficar datos, necesitamos entender qué tenemos delante.\nEn el próximo módulo vamos a avanzar sobre la manipulación de datos: seleccionar columnas, filtrar casos, crear variables y ordenar resultados.\n````"
   },
   {
     "objectID": "index.html",
@@ -207,14 +109,14 @@
     "href": "modulo-1.html",
     "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar una interfaz de trabajo;\ncómo cargar un archivo .csv;\ncómo hacer una primera inspección de nuestra tabla."
+    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
   },
   {
     "objectID": "modulo-1.html#objetivo",
     "href": "modulo-1.html#objetivo",
     "title": "Primer paso. Preparar el entorno de trabajo",
     "section": "",
-    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar una interfaz de trabajo;\ncómo cargar un archivo .csv;\ncómo hacer una primera inspección de nuestra tabla."
+    "text": "En este primer módulo vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.\nPuntualmente, vamos a ver:\n\nqué es R;\ncómo usarlo en la nube;\ncómo utilizar la interfaz de Rstudio;\ncómo cargar paquetes."
   },
   {
     "objectID": "modulo-1.html#qué-es-r",
@@ -355,5 +257,131 @@
     "title": "Módulo 3. Preguntas de investigación y construcción de variables",
     "section": "Cierre",
     "text": "Cierre\nEn este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos."
+  },
+  {
+    "objectID": "modulo-3.html#objetivo-1",
+    "href": "modulo-3.html#objetivo-1",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Objetivo",
+    "text": "Objetivo\nProducir tablas, gráficos e interpretaciones descriptivas."
+  },
+  {
+    "objectID": "modulo-3.html#cargar-datos-1",
+    "href": "modulo-3.html#cargar-datos-1",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Cargar datos",
+    "text": "Cargar datos\n\nlibrary(tidyverse)\n\nencuesta_ia &lt;- read_csv(\"data/encuesta_ia_subset.csv\") %&gt;%\n  mutate(\n    actitud_ia = rowMeans(\n      pick(\n        actitud_positiva,\n        actitud_trabajo_estudio,\n        actitud_vida_cotidiana,\n        actitud_aprender_ia\n      ),\n      na.rm = TRUE\n    ),\n    creencias_media = rowMeans(\n      pick(\n        creencia_decisiones_justas,\n        creencia_respuestas_certeras,\n        creencia_orientacion_psicologica,\n        creencia_compania,\n        creencia_investigacion,\n        creencia_ensenanza\n      ),\n      na.rm = TRUE\n    ),\n    brecha_actitud_creencias = actitud_ia - creencias_media\n  )\n\nRows: 139 Columns: 15\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia\ndbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "modulo-3.html#tabla-descriptiva-general",
+    "href": "modulo-3.html#tabla-descriptiva-general",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Tabla descriptiva general",
+    "text": "Tabla descriptiva general\n\nencuesta_ia %&gt;%\n  summarise(\n    casos = n(),\n    edad_media = mean(edad),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\n# A tibble: 1 × 5\n  casos edad_media actitud_media creencias_media brecha_media\n  &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1   139       45.3          3.77            2.58         1.19"
+  },
+  {
+    "objectID": "modulo-3.html#actitud-según-frecuencia-de-uso",
+    "href": "modulo-3.html#actitud-según-frecuencia-de-uso",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Actitud según frecuencia de uso",
+    "text": "Actitud según frecuencia de uso\n\ntabla_frecuencia &lt;- encuesta_ia %&gt;%\n  group_by(frecuencia_uso_ia) %&gt;%\n  summarise(\n    n = n(),\n    actitud_media = mean(actitud_ia),\n    creencias_media = mean(creencias_media),\n    brecha_media = mean(brecha_actitud_creencias)\n  )\n\ntabla_frecuencia\n\n# A tibble: 4 × 5\n  frecuencia_uso_ia     n actitud_media creencias_media brecha_media\n  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;\n1 esporadicamente      25          3.42            2.33        1.09 \n2 frecuente            54          4.04            2.71        1.33 \n3 nunca                 6          2.67            2.03        0.639\n4 ocasional            54          3.80            2.63        1.17"
+  },
+  {
+    "objectID": "modulo-3.html#gráfico-de-actitud-según-frecuencia-de-uso",
+    "href": "modulo-3.html#gráfico-de-actitud-según-frecuencia-de-uso",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Gráfico de actitud según frecuencia de uso",
+    "text": "Gráfico de actitud según frecuencia de uso\n\ntabla_frecuencia %&gt;%\n  ggplot(aes(x = frecuencia_uso_ia, y = actitud_media)) +\n  geom_col() +\n  labs(\n    x = \"Frecuencia de uso de IA\",\n    y = \"Actitud media hacia la IA\",\n    title = \"Actitud hacia la IA según frecuencia de uso\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-3.html#comparación-entre-actitud-y-creencias",
+    "href": "modulo-3.html#comparación-entre-actitud-y-creencias",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Comparación entre actitud y creencias",
+    "text": "Comparación entre actitud y creencias\n\ntabla_comparacion &lt;- encuesta_ia %&gt;%\n  summarise(\n    actitud_ia = mean(actitud_ia),\n    creencias_media = mean(creencias_media)\n  ) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"variable\",\n    values_to = \"media\"\n  )\n\ntabla_comparacion\n\n# A tibble: 2 × 2\n  variable        media\n  &lt;chr&gt;           &lt;dbl&gt;\n1 actitud_ia       3.77\n2 creencias_media  2.58\n\n\n\ntabla_comparacion %&gt;%\n  ggplot(aes(x = variable, y = media)) +\n  geom_col() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Actitud general y creencias específicas hacia la IA\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-3.html#creencias-por-dimensión",
+    "href": "modulo-3.html#creencias-por-dimensión",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Creencias por dimensión",
+    "text": "Creencias por dimensión\n\ncreencias_largo &lt;- encuesta_ia %&gt;%\n  select(starts_with(\"creencia_\")) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"creencia\",\n    values_to = \"valor\"\n  )\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  arrange(desc(media))\n\n# A tibble: 6 × 2\n  creencia                         media\n  &lt;chr&gt;                            &lt;dbl&gt;\n1 creencia_ensenanza                3.50\n2 creencia_investigacion            2.95\n3 creencia_respuestas_certeras      2.53\n4 creencia_decisiones_justas        2.40\n5 creencia_compania                 2.27\n6 creencia_orientacion_psicologica  1.82\n\n\n\ncreencias_largo %&gt;%\n  group_by(creencia) %&gt;%\n  summarise(media = mean(valor)) %&gt;%\n  ggplot(aes(x = reorder(creencia, media), y = media)) +\n  geom_col() +\n  coord_flip() +\n  labs(\n    x = NULL,\n    y = \"Media\",\n    title = \"Creencias sobre capacidades específicas de la IA\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "modulo-3.html#interpretación",
+    "href": "modulo-3.html#interpretación",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Interpretación",
+    "text": "Interpretación\nLos resultados descriptivos permiten discutir una tensión central:\n\nLa actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.\n\nEsto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella."
+  },
+  {
+    "objectID": "modulo-3.html#ejercicio-final",
+    "href": "modulo-3.html#ejercicio-final",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Ejercicio final",
+    "text": "Ejercicio final\nElegí una pregunta y respondela con una tabla y un gráfico.\nEjemplos:\n\n¿La actitud hacia la IA cambia según el área de trabajo?\n¿La brecha entre actitud y creencias cambia según frecuencia de uso?\n¿Qué grupo de edad muestra mayor actitud promedio?\n¿Qué creencia específica tiene el promedio más bajo?"
+  },
+  {
+    "objectID": "modulo-3.html#cierre-1",
+    "href": "modulo-3.html#cierre-1",
+    "title": "Módulo 3. Preguntas de investigación y construcción de variables",
+    "section": "Cierre",
+    "text": "Cierre\nEl análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas."
+  },
+  {
+    "objectID": "modulo-1.html#cómo-usar-rstudio",
+    "href": "modulo-1.html#cómo-usar-rstudio",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "¿Cómo usar RStudio?",
+    "text": "¿Cómo usar RStudio?\nCuando se abre RStudio, la pantalla se organiza en paneles.\n\nLos cuatro paneles principales son:\n\n\n\n\n\n\n\nPanel\nPara qué sirve\n\n\n\n\nSource\nEscribir y guardar código en scripts (archivos de texto)\n\n\nConsole\nEjecutar comandos de R y mostrar resultados / respuestas\n\n\nEnvironment\nVer objetos cargados en memoria\n\n\nOutput\nVer archivos, gráficos, paquetes, ayuda y visualizaciones\n\n\n\nGuía oficial: RStudio User Guide - Pane Layout.\nEn este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de Files que está en el panel de Outputs:"
+  },
+  {
+    "objectID": "modulo-1.html#dónde-va-nuestro-código",
+    "href": "modulo-1.html#dónde-va-nuestro-código",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "¿Dónde va nuestro código?",
+    "text": "¿Dónde va nuestro código?\nPara empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.\nEn RStudio podemos ejecutar código de dos maneras:\n\nescribiendo directamente en la Console;\nescribiendo en un script y ejecutando línea por línea.\n\nEn este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.\nPara crear un script nuevo:\nFile &gt; New File &gt; R Script\nTambién se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.\nUna vez abierto el script, escribimos:\n2 + 2\nPara ejecutar esa línea, ubicamos el cursor sobre ella y usamos:\nCtrl + Enter\nTambién podemos hacer clic en el botón Run. El resultado aparece en la Console:\n[1] 4\nR también nos permite guardar valores en objetos (variables), utilizando el operador de asignación &lt;- .\nmi_numero &lt;- 10\nmi_otro_numero &lt;- 15\nmi_texto &lt;- \"Hola, R\"\nCuando ejecutamos este código, el objeto aparece en el panel Environment. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.\nLuego, podemos ver estos objetos, u operar sobre ellos.\nmi_numero # si no hacemos nada, se muestra en pantalla\nmi_texto\n\nmi_numero &gt; mi_otro_numero # si hacemos una operacion muestra el resultado\n\nmi_nuevo_numero &lt;- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva\nmi_nuevo_numero"
+  },
+  {
+    "objectID": "modulo-1.html#qué-son-los-paquetes",
+    "href": "modulo-1.html#qué-son-los-paquetes",
+    "title": "Primer paso. Preparar el entorno de trabajo",
+    "section": "¿Qué son los paquetes?",
+    "text": "¿Qué son los paquetes?\nR viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un paquete es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.\nEn este taller vamos a usar principalmente el paquete tidyverse, que reúne varias herramientas para leer, transformar, analizar y graficar datos.\nPara instalarlo, ejecutamos:\ninstall.packages(\"tidyverse\")\nTambién vamos a instalar janitor, que sirve para algunas tareas simples de limpieza de datos:\ninstall.packages(\"janitor\")\nLa instalación se hace una sola vez en cada entorno de trabajo.\nDespués de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.\nlibrary(tidyverse)\nlibrary(janitor)\nEsta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)"
+  },
+  {
+    "objectID": "modulo-2.html#objetivo",
+    "href": "modulo-2.html#objetivo",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "",
+    "text": "En este tutorial vamos a empezar a explorar y manipular una base de datos en R. Para el final, vas a poder cargar un dataset, reconocer su estructura, identificar sus variables principales y realizar primeras operaciones de inspección.\nTrabajaremos con una base de datos construida a partir de una encuesta sobre actitudes, creencias y usos de inteligencia artificial."
+  },
+  {
+    "objectID": "modulo-2.html#cómo-cargamos-los-datos",
+    "href": "modulo-2.html#cómo-cargamos-los-datos",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "¿Cómo cargamos los datos?",
+    "text": "¿Cómo cargamos los datos?\nAntes de empezar a trabajar, cargamos los paquetes que vamos a usar:\nlibrary(tidyverse)\nlibrary(janitor)\nPara cargar los datos vamos a usar la función read_csv(). En R, una función es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función read_csv(), por ejemplo, sirve para leer archivos .csv y viene incluida en el paquete readr, que forma parte del tidyverse.\nencuesta_ia &lt;- read_csv(\n  \"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv\"\n)\nCon esta línea hacemos tres cosas:\n\nleemos un archivo .csv alojado en internet;\nlo cargamos en R;\nlo guardamos en un objeto llamado encuesta_ia.\n\nEn R, un objeto es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, encuesta_ia es un objeto que contiene una tabla de datos.\nSi escribimos el nombre del objeto, R nos muestra una vista resumida de la tabla:\nencuesta_ia\nMás específicamente, encuesta_ia es un data frame. Un data frame es el tipo de objeto más habitual para trabajar con datos en R: organiza la información en filas y columnas, de manera similar a una planilla de cálculo.\nEn un data frame:\n\ncada fila representa un caso u observación;\ncada columna representa una variable;\ncada celda contiene el valor de una variable para un caso.\n\nEn nuestro dataset:\n\ncada fila representa una persona encuestada;\ncada columna representa una variable de la encuesta;\ncada celda contiene una respuesta o dato de esa persona.\n\nPor ejemplo, una columna puede registrar la edad, otra el área de trabajo, otra la frecuencia de uso de IA, y otras distintos ítems de actitud o creencias sobre la inteligencia artificial.\nPodemos ver que el objeto encuesta_ia aparece en el panel Environment. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo."
+  },
+  {
+    "objectID": "modulo-2.html#cómo-es-nuestra-base",
+    "href": "modulo-2.html#cómo-es-nuestra-base",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "¿Cómo es nuestra base?",
+    "text": "¿Cómo es nuestra base?\nPara conocer el tamaño de la tabla podemos usar dim().\ndim(encuesta_ia)\nEsta función devuelve dos números:\n\nLas filas corresponden a los casos.\n\nLas columnas corresponden a las variables.\n\nTambién podemos consultar cada dimensión por separado con las funciones nrow() y ncol()."
+  },
+  {
+    "objectID": "modulo-2.html#veamos-un-poco-los-datos",
+    "href": "modulo-2.html#veamos-un-poco-los-datos",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "Veamos un poco los datos",
+    "text": "Veamos un poco los datos\nPara mirar las primeras filas usamos head().\nhead(encuesta_ia)\nPor defecto, head() muestra los primeros registros de la tabla.\nSi queremos ver más filas, podemos indicarlo con el argumento n:\nhead(encuesta_ia, n = 10)\nEsto nos permite hacer una primera inspección rápida:\n\nver nombres de columnas;\nmirar valores concretos;\ndetectar si la tabla se cargó correctamente;\nreconocer cómo están codificadas algunas variables.\n\nTambién podemos abrir la tabla en una vista similar a una planilla con View().\nView(encuesta_ia)\nEsto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.\nEsta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.\nImportante: R distingue mayúsculas y minúsculas. La función correcta es View() con V mayúscula."
+  },
+  {
+    "objectID": "modulo-2.html#cuál-es-la-estructura-de-nuestra-tabla",
+    "href": "modulo-2.html#cuál-es-la-estructura-de-nuestra-tabla",
+    "title": "Segundo paso. Exploración y manipulación de datasets",
+    "section": "¿Cuál es la estructura de nuestra tabla?",
+    "text": "¿Cuál es la estructura de nuestra tabla?\nglimpse() muestra la estructura de la tabla de una forma compacta.\nglimpse(encuesta_ia)\nNos informa:\n\ncuántas filas tiene;\ncuántas columnas tiene;\nel nombre de cada variable;\nel tipo de dato de cada variable;\nalgunos valores iniciales.\n\nPor ejemplo, podemos encontrar distintos tipos de columnas:\n\n\n\nTipo\nSignificado\n\n\n\n\n&lt;int&gt;\nnúmeros enteros\n\n\n&lt;dbl&gt;\nnúmeros con decimales\n\n\n&lt;chr&gt;\ntexto\n\n\n&lt;fct&gt;\nvariable categórica\n\n\n&lt;ord&gt;\nvariable categórica ordenada\n\n\n\nEn nuestro caso, algunas variables son numéricas, como edad o los ítems de actitud y creencias. Otras variables son categóricas, como grupo_edad, area_trabajo_grupo y frecuencia_uso_ia.\nEn este dataset tenemos variables de tres tipos:\n\nvariables sociodemográficas o de contexto;\nvariables sobre frecuencia de uso de IA;\nvariables de actitud y creencias hacia la IA.\n\nPor ejemplo:\n\n\n\nGrupo de variables\nVariables\n\n\n\n\nContexto\nedad, grupo_edad, area_trabajo_grupo\n\n\nUso de IA\nfrecuencia_uso_ia\n\n\nActitudes\nvariables que empiezan con actitud_\n\n\nCreencias\nvariables que empiezan con creencia_\n\n\n\nEsta distinción es importante porque más adelante vamos a construir indicadores a partir de algunas de estas columnas."
   }
 ]

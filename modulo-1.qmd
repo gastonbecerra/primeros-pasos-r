@@ -10,9 +10,8 @@ Puntualmente, vamos a ver:
 
 - qué es R;
 - cómo usarlo en la nube;
-- cómo utilizar una interfaz de trabajo;
-- cómo cargar un archivo .csv;
-- cómo hacer una primera inspección de nuestra tabla.
+- cómo utilizar la interfaz de Rstudio;
+- cómo cargar paquetes.
 
 ## ¿Qué es R?
 
@@ -41,7 +40,7 @@ En Posit.CLoud, un **proyecto** es la unidad de trabajo, donde se reúne código
 
 Guía oficial: [Get Started with Posit Cloud](https://docs.posit.co/cloud/get_started/).
 
-## La interfaz de RStudio
+## ¿Cómo usar RStudio?
 
 Cuando se abre RStudio, la pantalla se organiza en paneles.
 
@@ -58,13 +57,11 @@ Los cuatro paneles principales son:
 
 Guía oficial: [RStudio User Guide - Pane Layout](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).
 
-## Cargar archivos
-
 En este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de `Files` que está en el panel de Outputs:
 
 ![](images/upload.png)
 
-## Nuestro primer código
+## ¿Dónde va nuestro código?
 
 Para empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.
 
@@ -123,7 +120,7 @@ mi_nuevo_numero <- mi_numero + mi_otro_numero # o podemos guardar el resultado d
 mi_nuevo_numero
 ```
 
-## Trabajar con paquetes
+## ¿Qué son los paquetes?
 
 R viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un **paquete** es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.
 
@@ -142,8 +139,6 @@ install.packages("janitor")
 ```
 
 La instalación se hace una sola vez en cada entorno de trabajo.
-
-## Cargar paquetes
 
 Después de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.
 

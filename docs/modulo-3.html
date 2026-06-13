@@ -179,6 +179,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#idea-metodológica" id="toc-idea-metodológica" class="nav-link" data-scroll-target="#idea-metodológica">Idea metodológica</a></li>
   <li><a href="#ejercicio-breve" id="toc-ejercicio-breve" class="nav-link" data-scroll-target="#ejercicio-breve">Ejercicio breve</a></li>
   <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
+  <li><a href="#objetivo-1" id="toc-objetivo-1" class="nav-link" data-scroll-target="#objetivo-1">Objetivo</a></li>
+  <li><a href="#cargar-datos-1" id="toc-cargar-datos-1" class="nav-link" data-scroll-target="#cargar-datos-1">Cargar datos</a></li>
+  <li><a href="#tabla-descriptiva-general" id="toc-tabla-descriptiva-general" class="nav-link" data-scroll-target="#tabla-descriptiva-general">Tabla descriptiva general</a></li>
+  <li><a href="#actitud-según-frecuencia-de-uso" id="toc-actitud-según-frecuencia-de-uso" class="nav-link" data-scroll-target="#actitud-según-frecuencia-de-uso">Actitud según frecuencia de uso</a></li>
+  <li><a href="#gráfico-de-actitud-según-frecuencia-de-uso" id="toc-gráfico-de-actitud-según-frecuencia-de-uso" class="nav-link" data-scroll-target="#gráfico-de-actitud-según-frecuencia-de-uso">Gráfico de actitud según frecuencia de uso</a></li>
+  <li><a href="#comparación-entre-actitud-y-creencias" id="toc-comparación-entre-actitud-y-creencias" class="nav-link" data-scroll-target="#comparación-entre-actitud-y-creencias">Comparación entre actitud y creencias</a></li>
+  <li><a href="#creencias-por-dimensión" id="toc-creencias-por-dimensión" class="nav-link" data-scroll-target="#creencias-por-dimensión">Creencias por dimensión</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">Interpretación</a></li>
+  <li><a href="#ejercicio-final" id="toc-ejercicio-final" class="nav-link" data-scroll-target="#ejercicio-final">Ejercicio final</a></li>
+  <li><a href="#cierre-1" id="toc-cierre-1" class="nav-link" data-scroll-target="#cierre-1">Cierre</a></li>
   </ul>
 </nav>
     </div>
@@ -422,6 +432,229 @@ dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
 <section id="cierre" class="level2">
 <h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
 <p>En este módulo construimos variables para responder una pregunta. En el próximo vamos a producir tablas y gráficos descriptivos.</p>
+</section>
+<section id="objetivo-1" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo-1">Objetivo</h2>
+<p>Producir tablas, gráficos e interpretaciones descriptivas.</p>
+</section>
+<section id="cargar-datos-1" class="level2">
+<h2 class="anchored" data-anchor-id="cargar-datos-1">Cargar datos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/encuesta_ia_subset.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        actitud_positiva,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        actitud_trabajo_estudio,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        actitud_vida_cotidiana,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        actitud_aprender_ia</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        creencia_decisiones_justas,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        creencia_respuestas_certeras,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        creencia_orientacion_psicologica,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        creencia_compania,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        creencia_investigacion,</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        creencia_ensenanza</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_actitud_creencias =</span> actitud_ia <span class="sc">-</span> creencias_media</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 139 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (3): grupo_edad, area_trabajo_grupo, frecuencia_uso_ia
+dbl (12): id_caso, edad, actitud_positiva, actitud_trabajo_estudio, actitud_...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
+<section id="tabla-descriptiva-general" class="level2">
+<h2 class="anchored" data-anchor-id="tabla-descriptiva-general">Tabla descriptiva general</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">casos =</span> <span class="fu">n</span>(),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">edad_media =</span> <span class="fu">mean</span>(edad),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  casos edad_media actitud_media creencias_media brecha_media
+  &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+1   139       45.3          3.77            2.58         1.19</code></pre>
+</div>
+</div>
+</section>
+<section id="actitud-según-frecuencia-de-uso" class="level2">
+<h2 class="anchored" data-anchor-id="actitud-según-frecuencia-de-uso">Actitud según frecuencia de uso</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">mean</span>(actitud_ia),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">brecha_media =</span> <span class="fu">mean</span>(brecha_actitud_creencias)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  frecuencia_uso_ia     n actitud_media creencias_media brecha_media
+  &lt;chr&gt;             &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+1 esporadicamente      25          3.42            2.33        1.09 
+2 frecuente            54          4.04            2.71        1.33 
+3 nunca                 6          2.67            2.03        0.639
+4 ocasional            54          3.80            2.63        1.17 </code></pre>
+</div>
+</div>
+</section>
+<section id="gráfico-de-actitud-según-frecuencia-de-uso" class="level2">
+<h2 class="anchored" data-anchor-id="gráfico-de-actitud-según-frecuencia-de-uso">Gráfico de actitud según frecuencia de uso</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tabla_frecuencia <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> frecuencia_uso_ia, <span class="at">y =</span> actitud_media)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frecuencia de uso de IA"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Actitud media hacia la IA"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Actitud hacia la IA según frecuencia de uso"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modulo-3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparación-entre-actitud-y-creencias" class="level2">
+<h2 class="anchored" data-anchor-id="comparación-entre-actitud-y-creencias">Comparación entre actitud y creencias</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tabla_comparacion <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> <span class="fu">mean</span>(actitud_ia),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">creencias_media =</span> <span class="fu">mean</span>(creencias_media)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"media"</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>tabla_comparacion</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  variable        media
+  &lt;chr&gt;           &lt;dbl&gt;
+1 actitud_ia       3.77
+2 creencias_media  2.58</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tabla_comparacion <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable, <span class="at">y =</span> media)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Actitud general y creencias específicas hacia la IA"</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modulo-3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="creencias-por-dimensión" class="level2">
+<h2 class="anchored" data-anchor-id="creencias-por-dimensión">Creencias por dimensión</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"creencia_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"creencia"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valor"</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(valor)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  creencia                         media
+  &lt;chr&gt;                            &lt;dbl&gt;
+1 creencia_ensenanza                3.50
+2 creencia_investigacion            2.95
+3 creencia_respuestas_certeras      2.53
+4 creencia_decisiones_justas        2.40
+5 creencia_compania                 2.27
+6 creencia_orientacion_psicologica  1.82</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(valor)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(creencia, media), <span class="at">y =</span> media)) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media"</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias sobre capacidades específicas de la IA"</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modulo-3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretación" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación">Interpretación</h2>
+<p>Los resultados descriptivos permiten discutir una tensión central:</p>
+<blockquote class="blockquote">
+<p>La actitud general hacia la IA puede ser favorable, pero esa valoración no se distribuye igual cuando preguntamos por capacidades concretas.</p>
+</blockquote>
+<p>Esto permite pensar la aceptación de la IA como un fenómeno situado: no se acepta o rechaza “la IA” en abstracto, sino determinados usos, tareas y formas de relación con ella.</p>
+</section>
+<section id="ejercicio-final" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-final">Ejercicio final</h2>
+<p>Elegí una pregunta y respondela con una tabla y un gráfico.</p>
+<p>Ejemplos:</p>
+<ul>
+<li>¿La actitud hacia la IA cambia según el área de trabajo?</li>
+<li>¿La brecha entre actitud y creencias cambia según frecuencia de uso?</li>
+<li>¿Qué grupo de edad muestra mayor actitud promedio?</li>
+<li>¿Qué creencia específica tiene el promedio más bajo?</li>
+</ul>
+</section>
+<section id="cierre-1" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-1">Cierre</h2>
+<p>El análisis descriptivo no agota una investigación, pero permite construir primeras respuestas empíricas y detectar nuevas preguntas.</p>
 
 
 </section>

@@ -170,11 +170,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
   <li><a href="#qué-es-r" id="toc-qué-es-r" class="nav-link" data-scroll-target="#qué-es-r">¿Qué es R?</a></li>
   <li><a href="#qué-es-un-ide-qué-es-rstudio" id="toc-qué-es-un-ide-qué-es-rstudio" class="nav-link" data-scroll-target="#qué-es-un-ide-qué-es-rstudio">¿Qué es un IDE? / ¿Qué es RStudio?</a></li>
-  <li><a href="#la-interfaz-de-rstudio" id="toc-la-interfaz-de-rstudio" class="nav-link" data-scroll-target="#la-interfaz-de-rstudio">La interfaz de RStudio</a></li>
-  <li><a href="#cargar-archivos" id="toc-cargar-archivos" class="nav-link" data-scroll-target="#cargar-archivos">Cargar archivos</a></li>
-  <li><a href="#nuestro-primer-código" id="toc-nuestro-primer-código" class="nav-link" data-scroll-target="#nuestro-primer-código">Nuestro primer código</a></li>
-  <li><a href="#trabajar-con-paquetes" id="toc-trabajar-con-paquetes" class="nav-link" data-scroll-target="#trabajar-con-paquetes">Trabajar con paquetes</a></li>
-  <li><a href="#cargar-paquetes" id="toc-cargar-paquetes" class="nav-link" data-scroll-target="#cargar-paquetes">Cargar paquetes</a></li>
+  <li><a href="#cómo-usar-rstudio" id="toc-cómo-usar-rstudio" class="nav-link" data-scroll-target="#cómo-usar-rstudio">¿Cómo usar RStudio?</a></li>
+  <li><a href="#dónde-va-nuestro-código" id="toc-dónde-va-nuestro-código" class="nav-link" data-scroll-target="#dónde-va-nuestro-código">¿Dónde va nuestro código?</a></li>
+  <li><a href="#qué-son-los-paquetes" id="toc-qué-son-los-paquetes" class="nav-link" data-scroll-target="#qué-son-los-paquetes">¿Qué son los paquetes?</a></li>
   </ul>
 </nav>
     </div>
@@ -207,9 +205,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>qué es R;</li>
 <li>cómo usarlo en la nube;</li>
-<li>cómo utilizar una interfaz de trabajo;</li>
-<li>cómo cargar un archivo .csv;</li>
-<li>cómo hacer una primera inspección de nuestra tabla.</li>
+<li>cómo utilizar la interfaz de Rstudio;</li>
+<li>cómo cargar paquetes.</li>
 </ul>
 </section>
 <section id="qué-es-r" class="level2">
@@ -232,8 +229,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="https://docs.posit.co/cloud/get_started/images/newProjectRStudio.webp" class="img-fluid"></p>
 <p>Guía oficial: <a href="https://docs.posit.co/cloud/get_started/">Get Started with Posit Cloud</a>.</p>
 </section>
-<section id="la-interfaz-de-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="la-interfaz-de-rstudio">La interfaz de RStudio</h2>
+<section id="cómo-usar-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-usar-rstudio">¿Cómo usar RStudio?</h2>
 <p>Cuando se abre RStudio, la pantalla se organiza en paneles.</p>
 <p><img src="https://docs.posit.co/ide/user/ide/guide/ui/images/rstudio-panes-labeled.png" class="img-fluid"></p>
 <p>Los cuatro paneles principales son:</p>
@@ -268,14 +265,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Guía oficial: <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">RStudio User Guide - Pane Layout</a>.</p>
-</section>
-<section id="cargar-archivos" class="level2">
-<h2 class="anchored" data-anchor-id="cargar-archivos">Cargar archivos</h2>
 <p>En este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de <code>Files</code> que está en el panel de Outputs:</p>
 <p><img src="images/upload.png" class="img-fluid"></p>
 </section>
-<section id="nuestro-primer-código" class="level2">
-<h2 class="anchored" data-anchor-id="nuestro-primer-código">Nuestro primer código</h2>
+<section id="dónde-va-nuestro-código" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-va-nuestro-código">¿Dónde va nuestro código?</h2>
 <p>Para empezar, vamos a escribir y ejecutar algunas instrucciones simples en R.</p>
 <p>En RStudio podemos ejecutar código de dos maneras:</p>
 <ol type="1">
@@ -306,8 +300,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero <span class="ot">&lt;-</span> mi_numero <span class="sc">+</span> mi_otro_numero <span class="co"># o podemos guardar el resultado de una operación en una variable nueva</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="trabajar-con-paquetes" class="level2">
-<h2 class="anchored" data-anchor-id="trabajar-con-paquetes">Trabajar con paquetes</h2>
+<section id="qué-son-los-paquetes" class="level2">
+<h2 class="anchored" data-anchor-id="qué-son-los-paquetes">¿Qué son los paquetes?</h2>
 <p>R viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un <strong>paquete</strong> es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.</p>
 <p>En este taller vamos a usar principalmente el paquete <code>tidyverse</code>, que reúne varias herramientas para leer, transformar, analizar y graficar datos.</p>
 <p>Para instalarlo, ejecutamos:</p>
@@ -315,9 +309,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>También vamos a instalar <code>janitor</code>, que sirve para algunas tareas simples de limpieza de datos:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>La instalación se hace una sola vez en cada entorno de trabajo.</p>
-</section>
-<section id="cargar-paquetes" class="level2">
-<h2 class="anchored" data-anchor-id="cargar-paquetes">Cargar paquetes</h2>
 <p>Después de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
