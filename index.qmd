@@ -2,22 +2,39 @@
 title: "Primeros pasos en análisis de datos para ciencias sociales con R"
 ---
 
-Este taller busca acompañarnos en los primeros pasos (pero primeros en serio) del análisis de datos con R.  
-Particularmente, vamos a dar juntos 3 pasitos:
+Este taller busca acompañarnos en los primeros pasos —pero primeros en serio— del análisis de datos con R.
 
-- Primero, preparar un entorno para usar R
-- Segundo, explorar un dataset para que lo analicemos
-- Tercero, transformar un dataset para generar nuevos datos
-- Cuarto, responder preguntas a través del análisis de datos
+La idea es empezar desde cero: preparar el entorno, cargar una base, mirar qué forma tiene, transformarla un poco y usarla para responder preguntas.
+
+## ¿Qué vas a aprender?
+
+Vamos a trabajar sobre cuatro pasos:
+
+- **Primero**, cómo preparar un entorno para usar R.
+- **Segundo**, cómo cargar y explorar un dataset.
+- **Tercero**, cómo transformar una tabla para crear nuevas variables y comparar grupos.
+- **Cuarto**, cómo responder preguntas de investigación con datos.
+
+## ¿Cómo vamos a trabajar?
 
 El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.
 
-## Caso de estudio
+Los materiales quedan disponibles para que puedas recorrerlos a tu ritmo, repetir los ejercicios y volver al código cuando lo necesites.
 
-Para ejercitarnos, vamos a trabajar con un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina. Particularmente, nos vamos a preguntar: ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+En los encuentros vamos a retomar dudas, revisar ejemplos y acompañar el trabajo práctico.
 
-A partir de esta pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos.
+## ¿Con qué vamos a trabajar?
 
-## Sobre este material
+Para ejercitarnos, vamos a usar un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.
 
-Este material se elaboró para un taller gratuito y abierto.
+La pregunta que nos va a guiar es:
+
+> ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+
+A partir de esa pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos.
+
+## ¿Qué necesitás saber antes?
+
+No hace falta experiencia previa en programación. Sí hace falta cierta disposición a probar, equivocarse, leer errores y volver a intentar. El objetivo es empezar a pensar de esta manera:
+
+> tengo una pregunta, tengo una tabla, ¿qué operaciones necesito hacer para construir una respuesta?
