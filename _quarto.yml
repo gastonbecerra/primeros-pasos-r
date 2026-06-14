@@ -15,8 +15,10 @@ website:
         href: modulo-2.qmd
       - text: Tercero
         href: modulo-3.qmd
-      - text: Sigamos!
+      - text: Cuarto
         href: modulo-4.qmd
+      - text: Sigamos!
+        href: modulo-5.qmd
     right:
       - icon: github
         href: https://github.com/gastonbecerra/primeros-pasos-r

@@ -1,5 +1,5 @@
 ---
-title: "Segundo paso. Exploración y manipulación de datasets"
+title: "Segundo paso. Exploración de nuestro datasets"
 ---
 
 ## Objetivo
@@ -137,7 +137,7 @@ Así, podemos ver que en este dataset tenemos variables de tres tipos:
 | Actitudes | empiezan con `actitud_` y tienen valores numéricos entre 1 y 5 |
 | Creencias | empiezan con `creencia_` y tienen valores numéricos entre 1 y 5 |
 
-## ¿Qué dicen nuestros datos?
+## ¿Qué hay en nuestros datos?
 
 Para tener unas primeras estadísticas de las numéricas, podemos pedir un `summary()`.
 

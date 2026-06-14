@@ -1,16 +1,16 @@
 ---
-title: "Tercer paso. Manipulación de datasets"
+title: "Tercer paso. Ordenar, filtrar y transformar datos"
 ---
 
 ## Objetivo
 
-En este tutorial vamos a aprender a manipular una tabla de datos con algunos verbos básicos de `dplyr`. Para el final, vas a poder ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.
+En este tutorial vamos a empezar a manipular nuestra tabla. Ya vimos cómo cargarla, mirar sus dimensiones, inspeccionar sus primeras filas y hacer conteos básicos. Ahora vamos a avanzar un paso más: ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.
 
-La idea es avanzar desde una primera exploración de la base hacia operaciones que nos permitan preparar los datos para responder preguntas de investigación.
+La idea no es aprender funciones de memoria, sino empezar a traducir preguntas simples en operaciones sobre una tabla.
 
 ## Cargamos paquetes y datos
 
-Como siempre, empezamos cargando los paquetes que vamos a usar:
+Como en el paso anterior, primero cargamos los paquetes que vamos a usar.
 
 ```{r}
 #| message: false
@@ -19,7 +19,7 @@ library(tidyverse)
 library(janitor)
 ```
 
-Luego cargamos nuevamente la base de datos:
+Y volvemos a cargar la base.
 
 ```{r}
 encuesta_ia <- read_csv(
@@ -28,114 +28,172 @@ encuesta_ia <- read_csv(
 )
 ```
 
-## Ordenar resultados
+## ¿Cómo encadenamos operaciones?
 
-En el tutorial anterior usamos `count()` para contar cuántos casos hay en cada categoría.
-
-Por ejemplo:
+En el paso anterior usamos funciones sueltas. Por ejemplo, usamos `count()` para contar cuántos casos había en cada categoría:
 
 ```{r}
 count(encuesta_ia, area_trabajo_grupo)
 ```
 
-Muchas veces conviene ordenar los resultados de mayor a menor. Para eso agregamos `arrange()`:
+A medida que el análisis avanza, muchas veces necesitamos hacer varias operaciones seguidas: contar, ordenar, calcular porcentajes, filtrar, seleccionar columnas, etc.
+
+Para eso vamos a usar el operador `%>%`, que se llama **pipe**.
+
+El pipe nos permite escribir el código de izquierda a derecha, empezando por la tabla y agregando operaciones una detrás de otra.
+
+La estructura general es:
+
+```r
+tabla %>%
+  funcion_1() %>%
+  funcion_2() %>%
+  funcion_3()
+```
+
+Podemos leerlo como:
+
+> tomá esta tabla, después aplicá esta función, después aplicá esta otra.
+
+Por ejemplo:
 
 ```{r}
-count(encuesta_ia, area_trabajo_grupo) %>%
+encuesta_ia %>%
+  count(area_trabajo_grupo)
+```
+
+Este código hace lo mismo que:
+
+```{r}
+count(encuesta_ia, area_trabajo_grupo)
+```
+
+Pero la escritura con pipe tiene una ventaja: nos permite seguir agregando pasos sin reescribir toda la operación.
+
+Por ejemplo, después de contar las áreas de trabajo, podemos ordenar el resultado de mayor a menor con `arrange()`:
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo) %>%
   arrange(desc(n))
 ```
 
-Acá aparece un operador nuevo: `%>%`.
+Leído paso a paso:
 
-Este operador se llama **pipe** y permite encadenar operaciones. Podemos leerlo como “después”. Entonces, el código anterior puede leerse así:
+1. tomamos la tabla `encuesta_ia`;
+2. contamos los casos por área de trabajo;
+3. ordenamos el resultado de mayor a menor.
 
-> contá los casos por área de trabajo y después ordená el resultado de mayor a menor.
 
-También podemos ordenar de menor a mayor:
+## ¿Cómo hacemos transformaciones?
 
-```{r}
-count(encuesta_ia, area_trabajo_grupo) %>%
-  arrange(n)
+Hasta ahora venimos contamos casos y ordenamos resultados. Pero para responder preguntas más interesantes vamos a tener que transformar nuestra tabla, agregando columnas nuevas que resulten de alguna operación.
+
+Para eso usamos `mutate()`.
+
+La idea general es:
+
+```r
+tabla %>%
+  mutate(
+    nueva_columna = operacion
+  )
 ```
-
-## Calcular porcentajes
-
-También podemos calcular porcentajes. Para eso, después de contar, creamos una nueva columna con `mutate()`:
-
-```{r}
-count(encuesta_ia, frecuencia_uso_ia) %>%
-  mutate(porcentaje = n / sum(n) * 100)
-```
-
-Con esta tabla ya no vemos solamente cuántas personas hay en cada categoría, sino también qué porcentaje representa cada una sobre el total.
-
-Si queremos redondear el porcentaje, podemos usar `round()`:
-
-```{r}
-count(encuesta_ia, frecuencia_uso_ia) %>%
-  mutate(porcentaje = round(n / sum(n) * 100, 1))
-```
-
-## Primera lectura descriptiva
-
-Con estas operaciones podemos empezar a responder algunas preguntas básicas:
-
-- ¿cuántas personas hay en cada grupo de edad?
-- ¿cómo se distribuyen las áreas de trabajo?
-- ¿con qué frecuencia usan IA las personas encuestadas?
-- ¿qué categorías tienen más casos?
-- ¿qué categorías tienen pocos casos y conviene interpretar con cuidado?
-
-Este tipo de exploración no es un trámite previo al análisis. Es parte del análisis.
-
-Antes de comparar grupos, calcular indicadores o hacer gráficos, necesitamos saber cómo está compuesta la base. Si un grupo tiene muy pocos casos, por ejemplo, sus resultados pueden ser poco estables. Si una categoría concentra la mayoría de las respuestas, eso también condiciona la interpretación.
-
-## Seleccionar columnas
-
-Una operación muy común es quedarnos solamente con algunas columnas de la base. Para eso usamos `select()`.
-
-Por ejemplo, podemos seleccionar las variables sociodemográficas y de uso:
+Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más.
 
 ```{r}
 encuesta_ia %>%
-  select(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia)
+  mutate(
+    mayor_45 = edad >= 45
+  ) %>% 
+  select(id_caso, edad, grupo_edad, mayor_45) # vamos a quedarnos con solo unas columnas
 ```
 
-También podemos seleccionar todas las variables que empiezan con una palabra. Por ejemplo, las variables de actitud:
+La nueva columna `mayor_45` toma dos valores:
+
+- `TRUE`: la condición se cumple;
+- `FALSE`: la condición no se cumple.
+
+Si queremos guardar esa nueva columna dentro de nuestra tabla, tenemos que volver a asignar el resultado al objeto `encuesta_ia`.
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    mayor_45 = edad >= 45
+  )
+```
+
+Ahora podemos contar la nueva variable:
 
 ```{r}
 encuesta_ia %>%
-  select(starts_with("actitud_"))
+  count(mayor_45)
 ```
 
-Y las variables de creencias:
+
+
+## ¿Cómo agrupamos datos?
+
+Por ejemplo, si queremos saber la distribución de personas según su frecuencia de uso de IA, necesitamos agrupar la tabla por esa variable y contar cuántos casos hay en cada grupo.
+
+Para eso podemos usar `group_by()` y `summarise()`.
 
 ```{r}
 encuesta_ia %>%
-  select(starts_with("creencia_"))
+  group_by(frecuencia_uso_ia) %>%
+  summarise(n = n())
 ```
 
-Esto es útil porque nuestro dataset tiene grupos de variables que comparten un prefijo. Más adelante vamos a usar esta organización para construir indicadores.
+Leído paso a paso:
 
-## Filtrar casos
+1. tomamos la tabla `encuesta_ia`;
+2. agrupamos los casos según `frecuencia_uso_ia`;
+3. resumimos cada grupo contando cuántos casos tiene.
 
-Otra operación básica es filtrar filas. Para eso usamos `filter()`.
+La función `n()` cuenta la cantidad de filas dentro de cada grupo.
 
-Por ejemplo, podemos quedarnos solamente con las personas que trabajan en educación:
+Esta operación es tan común que `dplyr` tiene una forma abreviada: `count()`.
 
 ```{r}
 encuesta_ia %>%
-  filter(area_trabajo_grupo == "Educación")
+  count(frecuencia_uso_ia)
 ```
 
-También podemos quedarnos con quienes usan IA frecuentemente:
+Si, además quisiéramos incluir los porcentajes, podríamos hacer: 
 
 ```{r}
 encuesta_ia %>%
-  filter(frecuencia_uso_ia == "frecuente")
+  count(frecuencia_uso_ia) %>%
+  mutate(
+    porcentaje = n / sum(n) * 100
+  )
 ```
 
-Y podemos combinar condiciones. Por ejemplo: personas del área de educación que usan IA frecuentemente.
+donde: 
+
+```r
+n / sum(n) * 100
+```
+
+divide cada frecuencia por el total de casos y multiplicamos por 100.
+
+
+
+## ¿Cómo miramos un grupo específico?
+
+A veces lo que nos interesa no refiere a toda la base, sino a un grupo particular. Por ejemplo:
+
+> ¿Cómo se distribuye la frecuencia de uso de IA entre quienes trabajan en educación?
+
+Para responder eso, primero filtramos la base, trabajando solamente con las filas donde `area_trabajo_grupo` es igual a `"Educación"`.
+
+```{r}
+encuesta_ia %>%
+  filter(area_trabajo_grupo == "Educación") %>%
+  count(frecuencia_uso_ia)
+```
+
+También podemos combinar condiciones:
 
 ```{r}
 encuesta_ia %>%
@@ -145,155 +203,64 @@ encuesta_ia %>%
   )
 ```
 
-En `filter()`, la coma funciona como un **y** lógico: se conservan los casos que cumplen todas las condiciones.
+En `filter()`, la coma funciona como un **y**: conserva los casos que cumplen todas las condiciones.
 
-## Contar después de filtrar
-
-Filtrar no es solo “recortar” la base. Muchas veces filtramos para responder preguntas más específicas.
-
-Por ejemplo:
-
-> Entre quienes trabajan en educación, ¿con qué frecuencia se usa IA?
+También podemos usar condiciones numéricas. Por ejemplo, quedarnos con personas de 45 años o más:
 
 ```{r}
 encuesta_ia %>%
-  filter(area_trabajo_grupo == "Educación") %>%
+  filter(edad >= 45) %>%
   count(frecuencia_uso_ia) %>%
-  mutate(porcentaje = round(n / sum(n) * 100, 1))
+  mutate(
+    porcentaje = round(n / sum(n) * 100, 1)
+  )
+```
+
+
+## ¿Cómo comparamos grupos?
+
+Muchas veces no queremos describir la base completa, sino comparar grupos.
+
+Por ejemplo, podemos preguntarnos:
+
+> ¿La frecuencia de uso de IA cambia según el área de trabajo?
+
+Primero podemos contar los casos cruzando dos variables:
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo, frecuencia_uso_ia)
+```
+
+Esta tabla nos muestra cuántas personas hay en cada combinación de área de trabajo y frecuencia de uso de IA. Pero, como los grupos no tienen exactamente la misma cantidad de casos, conviene calcular porcentajes dentro de cada área. Para eso usamos `group_by()` y `mutate()`.
+
+```{r}
+encuesta_ia %>%
+  count(area_trabajo_grupo, frecuencia_uso_ia) %>%
+  group_by(area_trabajo_grupo) %>%
+  mutate(
+    porcentaje = round(n / sum(n) * 100, 1)
+  )
 ```
 
 Leído paso a paso:
 
-1. tomamos la base `encuesta_ia`;
-2. filtramos los casos del área de educación;
-3. contamos la frecuencia de uso de IA;
-4. calculamos el porcentaje.
+1. contamos casos por área de trabajo y frecuencia de uso;
+2. agrupamos la tabla resultante por área de trabajo;
+3. calculamos qué porcentaje representa cada frecuencia dentro de cada área.
 
-Esta forma de escribir código nos permite transformar una pregunta en una secuencia ordenada de operaciones.
+Esto es importante: el `group_by(area_trabajo_grupo)` hace que `sum(n)` se calcule dentro de cada área, no sobre toda la tabla.
 
-## Crear nuevas variables
-
-Para crear nuevas columnas usamos `mutate()`.
-
-Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más:
+Podemos ordenar un poco la salida:
 
 ```{r}
-encuesta_ia <- encuesta_ia %>%
+encuesta_ia %>%
+  count(area_trabajo_grupo, frecuencia_uso_ia) %>%
+  group_by(area_trabajo_grupo) %>%
   mutate(
-    mayor_45 = edad >= 45
-  )
+    porcentaje = round(n / sum(n) * 100, 1)
+  ) %>%
+  arrange(area_trabajo_grupo, frecuencia_uso_ia)
 ```
 
-Ahora podemos contar esta nueva variable:
-
-```{r}
-count(encuesta_ia, mayor_45)
-```
-
-La nueva columna `mayor_45` toma valores `TRUE` o `FALSE`.
-
-- `TRUE`: la condición se cumple;
-- `FALSE`: la condición no se cumple.
-
-También podemos crear una variable con categorías de texto usando `case_when()`.
-
-```{r}
-encuesta_ia <- encuesta_ia %>%
-  mutate(
-    intensidad_uso = case_when(
-      frecuencia_uso_ia %in% c("nunca", "esporadicamente") ~ "baja",
-      frecuencia_uso_ia == "ocasional" ~ "media",
-      frecuencia_uso_ia == "frecuente" ~ "alta"
-    )
-  )
-```
-
-Y luego contarla:
-
-```{r}
-count(encuesta_ia, intensidad_uso)
-```
-
-Esta operación muestra algo importante: muchas veces las variables que usamos en el análisis no vienen directamente en la base, sino que las construimos a partir de decisiones analíticas.
-
-## Renombrar variables
-
-A veces queremos cambiar el nombre de una variable para que sea más corto o más claro. Para eso usamos `rename()`.
-
-```{r}
-encuesta_ia %>%
-  rename(
-    area = area_trabajo_grupo,
-    frecuencia = frecuencia_uso_ia
-  )
-```
-
-En este caso, el cambio se ve en la salida, pero no queda guardado en el objeto original porque no usamos asignación.
-
-Si quisiéramos guardar esos cambios, tendríamos que hacer:
-
-```{r}
-encuesta_ia_renombrada <- encuesta_ia %>%
-  rename(
-    area = area_trabajo_grupo,
-    frecuencia = frecuencia_uso_ia
-  )
-```
-
-## Seleccionar, filtrar y ordenar
-
-Podemos combinar varios verbos en una misma secuencia.
-
-Por ejemplo:
-
-```{r}
-encuesta_ia %>%
-  filter(frecuencia_uso_ia == "frecuente") %>%
-  select(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia) %>%
-  arrange(edad)
-```
-
-Leído paso a paso:
-
-1. tomamos la base;
-2. filtramos a quienes usan IA frecuentemente;
-3. seleccionamos algunas columnas;
-4. ordenamos por edad.
-
-El orden de las operaciones importa. No es lo mismo seleccionar primero, filtrar después, o crear una variable antes de hacer un conteo.
-
-## Mini-ejercicios
-
-Probá responder estas preguntas con código:
-
-1. ¿Cuántas personas de cada área usan IA frecuentemente?
-2. ¿Cuál es la distribución de grupos de edad entre quienes usan IA ocasionalmente?
-3. ¿Qué porcentaje de la base tiene 45 años o más?
-4. ¿Cómo cambia la frecuencia de uso si miramos solo el área de salud y servicios sociales?
-
-Una posible respuesta para la primera pregunta:
-
-```{r}
-encuesta_ia %>%
-  filter(frecuencia_uso_ia == "frecuente") %>%
-  count(area_trabajo_grupo) %>%
-  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
-  arrange(desc(n))
-```
-
-## Cierre
-
-En este tutorial aprendimos a manipular una tabla con operaciones básicas:
-
-| Función | Para qué sirve |
-|---|---|
-| `count()` | contar casos por categoría |
-| `arrange()` | ordenar resultados |
-| `mutate()` | crear nuevas variables |
-| `select()` | seleccionar columnas |
-| `filter()` | filtrar filas |
-| `rename()` | cambiar nombres de variables |
-
-Estas funciones son herramientas básicas para empezar a construir un análisis. Pero todavía estamos trabajando con variables tomadas de manera separada.
-
-En el próximo tutorial vamos a avanzar un paso más: construiremos indicadores a partir de varias columnas para responder una pregunta de investigación sobre actitudes y creencias hacia la inteligencia artificial.
+En educación, la mayor parte de los casos se concentra entre quienes declaran un uso `frecuente` u `ocasional` de IA: 44% y 40%, respectivamente. En consultoría y servicios profesionales también predominan las categorías `frecuente` y `ocasional`, aunque con una distribución levemente distinta: 41% declara un uso frecuente y 35,9% un uso ocasional. Pero en salud y servicios sociales, en cambio, el porcentaje de uso frecuente que se observa en la tabla es menor: 32%. 

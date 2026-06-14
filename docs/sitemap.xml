@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-4.html</loc>
-    <lastmod>2026-06-13T21:08:13.011Z</lastmod>
+    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-5.html</loc>
+    <lastmod>2026-06-14T01:02:46.220Z</lastmod>
   </url>
   <url>
-    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-2.html</loc>
-    <lastmod>2026-06-13T23:04:10.307Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gastonbecerra.github.io/primeros-pasos-r/index.html</loc>
-    <lastmod>2026-06-13T21:05:23.156Z</lastmod>
+    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-3.html</loc>
+    <lastmod>2026-06-14T00:05:21.229Z</lastmod>
   </url>
   <url>
     <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-1.html</loc>
     <lastmod>2026-06-13T22:34:03.410Z</lastmod>
   </url>
   <url>
-    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-3.html</loc>
-    <lastmod>2026-06-13T22:58:52.796Z</lastmod>
+    <loc>https://gastonbecerra.github.io/primeros-pasos-r/index.html</loc>
+    <lastmod>2026-06-14T00:54:22.063Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-2.html</loc>
+    <lastmod>2026-06-13T23:25:54.057Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gastonbecerra.github.io/primeros-pasos-r/modulo-4.html</loc>
+    <lastmod>2026-06-14T00:57:23.322Z</lastmod>
   </url>
 </urlset>

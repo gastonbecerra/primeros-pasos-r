@@ -1,7 +1,380 @@
 ---
-title: "xxxx"
+title: "Cuarto paso. Responder preguntas con datos"
 ---
 
 ## Objetivo
 
-xxxxxx
+En este paso vamos a usar lo que ya aprendimos para responder preguntas de investigación.
+
+Hasta ahora cargamos la base, miramos su estructura y aprendimos a manipularla. Ahora vamos a construir algunas variables nuevas y usarlas para producir respuestas descriptivas.
+
+La pregunta general que nos va a orientar es:
+
+> ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
+
+Para responderla, vamos a trabajar con tres dimensiones:
+
+- actitud general hacia la IA;
+- creencias sobre capacidades específicas de la IA;
+- diferencias entre grupos.
+
+## Cargamos paquetes y datos
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+encuesta_ia <- read_csv(
+  "https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv",
+  show_col_types = FALSE
+)
+```
+
+
+
+
+
+
+## Pregunta 1: ¿qué tan favorable es la actitud general hacia la IA?
+
+En la base tenemos varias variables que miden actitudes hacia la IA.
+
+```{r}
+encuesta_ia %>%
+  select(starts_with("actitud_"))
+```
+
+Cada columna mide un aspecto distinto: una actitud general positiva, la valoración de la IA en el trabajo o el estudio, en la vida cotidiana, y la disposición a aprender más sobre IA.
+
+Pero nuestra pregunta no refiere a cada ítem por separado, sino a una medida general de actitud. Para eso vamos a construir un **indicador**.
+
+Un indicador es una variable nueva que resume varias variables relacionadas.
+
+La forma más directa sería calcular el promedio de los cuatro ítems:
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    actitud_ia = (
+      actitud_positiva +
+      actitud_trabajo_estudio +
+      actitud_vida_cotidiana +
+      actitud_aprender_ia
+    ) / 4
+  )
+```
+
+Con este código agregamos una nueva columna a la base: `actitud_ia`.
+
+Como usamos `<-`, el resultado queda guardado en memoria dentro del objeto `encuesta_ia`. Esto es importante porque vamos a usar esta nueva variable en las preguntas siguientes.
+
+Veamos cómo quedó:
+
+```{r}
+encuesta_ia %>%
+  select(actitud_positiva, actitud_trabajo_estudio, actitud_vida_cotidiana, actitud_aprender_ia, actitud_ia)
+```
+
+Ahora podemos calcular un resumen de la actitud general hacia la IA:
+
+```{r}
+encuesta_ia %>%
+  summarise(
+    actitud_media = round(mean(actitud_ia), 2)
+  )
+```
+
+Como la escala va de 1 a 5, valores por encima de 3 indican una actitud relativamente favorable hacia la IA.
+
+### Una forma más compacta: `rowMeans()`
+
+El cálculo anterior funciona bien. Pero cuando tenemos varias columnas, puede volverse largo escribirlas una por una.
+
+R tiene una función que permite calcular promedios por fila: `rowMeans()`.
+
+Mientras `mean()` calcula el promedio de una columna, `rowMeans()` calcula el promedio de varias columnas para cada fila.
+
+Podemos reconstruir el mismo indicador así:
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    actitud_ia = rowMeans(
+      select(., starts_with("actitud_")),
+      na.rm = TRUE
+    )
+  )
+```
+
+Acá hacemos tres cosas:
+
+1. seleccionamos las columnas que empiezan con `actitud_`;
+2. calculamos el promedio por fila;
+3. guardamos el resultado en una nueva columna llamada `actitud_ia`.
+
+El argumento `na.rm = TRUE` indica que, si hubiera valores perdidos, R los ignore al calcular el promedio.
+
+
+
+
+## Pregunta 2: ¿la actitud cambia según la frecuencia de uso?
+
+Ahora que guardamos `actitud_ia` dentro de la base, podemos usarla para comparar grupos.
+
+La pregunta es:
+
+> ¿La actitud general hacia la IA cambia según la frecuencia de uso?
+
+Primero construimos una tabla resumen.
+
+```{r}
+actitud_por_uso <- encuesta_ia %>%
+  mutate(
+    frecuencia_uso_ia = factor(
+      frecuencia_uso_ia,
+      levels = c("nunca", "esporadicamente", "ocasional", "frecuente")
+    )
+  ) %>%
+  group_by(frecuencia_uso_ia) %>%
+  summarise(
+    n = n(),
+    actitud_media = round(mean(actitud_ia), 2)
+  )
+```
+
+Guardamos el resultado en el objeto `actitud_por_uso`, porque lo vamos a usar para mirar la tabla y también para hacer un gráfico.
+
+```{r}
+actitud_por_uso
+```
+
+La tabla muestra una diferencia clara: quienes declaran usar IA con mayor frecuencia tienen una actitud promedio más favorable. El promedio más bajo aparece entre quienes dicen no usar IA, mientras que el más alto aparece entre quienes la usan de manera frecuente. De todos modos, conviene mirar también la cantidad de casos. La categoría `nunca` tiene pocos casos, por lo que ese valor debe leerse con cuidado.
+
+Para visualizar mejor la comparación, podemos hacer un gráfico sencillo con funciones básicas de R.
+
+```{r}
+barplot(
+  actitud_por_uso$actitud_media,
+  names.arg = actitud_por_uso$frecuencia_uso_ia,
+  ylim = c(0, 5),
+  las = 2,
+  ylab = "Actitud media hacia la IA",
+  xlab = "Frecuencia de uso de IA"
+)
+```
+
+
+
+
+## Pregunta 3: ¿en qué capacidades de la IA se confía más y menos?
+
+Además de las actitudes generales, la base tiene variables sobre creencias en capacidades específicas de la IA.
+
+```{r}
+encuesta_ia %>%
+  select(starts_with("creencia_"))
+```
+
+Estas variables tienen algo en común: todas miden creencias sobre capacidades de la IA y todas usan la misma escala de respuesta.
+
+Eso nos permite compararlas entre sí.
+
+La pregunta es:
+
+> ¿En qué capacidades de la IA se confía más y en cuáles se confía menos?
+
+Para responderla, necesitamos calcular el promedio de cada creencia.
+
+El problema es que, tal como está la base, cada creencia aparece como una columna distinta:
+
+```{r}
+encuesta_ia %>%
+  select(id_caso, starts_with("creencia_"))
+```
+
+Este formato es cómodo para ver la base caso por caso. Pero no es tan cómodo para comparar las creencias entre sí.
+
+Lo que necesitamos es otra estructura: una tabla donde haya una columna que indique **qué creencia** estamos mirando y otra columna que tenga el **valor de la respuesta**.
+
+Es decir, queremos pasar de esto:
+
+| id_caso | creencia_decisiones_justas | creencia_respuestas_certeras |
+|---|---:|---:|
+| 1 | 3 | 4 |
+| 2 | 2 | 5 |
+
+A esto:
+
+| id_caso | creencia | valor |
+|---|---|---:|
+| 1 | creencia_decisiones_justas | 3 |
+| 1 | creencia_respuestas_certeras | 4 |
+| 2 | creencia_decisiones_justas | 2 |
+| 2 | creencia_respuestas_certeras | 5 |
+
+A este cambio se lo suele llamar pasar de formato **ancho** a formato **largo**.
+
+En el formato ancho, las creencias están en los nombres de las columnas.
+
+En el formato largo, las creencias pasan a estar dentro de una variable. Eso nos permite agrupar por creencia y calcular un promedio para cada una.
+
+Para hacer ese cambio usamos `pivot_longer()`:
+
+```{r}
+creencias_largo <- encuesta_ia %>%
+  select(id_caso, starts_with("creencia_")) %>%
+  pivot_longer(
+    cols = starts_with("creencia_"),
+    names_to = "creencia",
+    values_to = "valor"
+  )
+```
+
+Guardamos el resultado en un nuevo objeto llamado `creencias_largo`. No reemplazamos `encuesta_ia`, porque la base original nos sigue sirviendo para otras preguntas. Veamos cómo quedó:
+
+```{r}
+glimpse(creencias_largo)
+```
+
+Ahora cada fila representa una respuesta de una persona a una creencia específica.
+
+Con esta estructura, la comparación es mucho más directa, ya que podemos agrupar por creencias y operar sobre valores:
+
+```{r}
+creencias_largo %>%
+  group_by(creencia) %>%
+  summarise(
+    media = round(mean(valor), 2)
+  ) %>%
+  arrange(desc(media))
+```
+
+
+
+
+
+
+
+
+## Pregunta 4: ¿la actitud general coincide con la confianza en capacidades específicas?
+
+Hasta ahora trabajamos con dos niveles distintos:
+
+- una medida general de actitud hacia la IA;
+- varias creencias sobre capacidades específicas de la IA.
+
+La pregunta ahora es:
+
+> ¿Una actitud general favorable hacia la IA implica confianza en sus capacidades concretas?
+
+Para responderla, primero vamos a construir una medida promedio de creencias específicas.
+
+Así como hicimos con `actitud_ia`, podemos calcular un promedio de las variables que empiezan con `creencia_`.
+
+```{r}
+encuesta_ia <- encuesta_ia %>%
+  mutate(
+    creencias_media = rowMeans(
+      select(., starts_with("creencia_")),
+      na.rm = TRUE
+    )
+  )
+```
+
+Con este código agregamos una nueva columna a la base: `creencias_media`.
+
+Esta variable resume, para cada persona, su nivel promedio de acuerdo con distintas capacidades atribuidas a la IA: tomar decisiones justas, dar respuestas certeras, ofrecer orientación psicológica, brindar compañía, hacer investigación científica y enseñar.
+
+Podemos mirar las dos variables juntas:
+
+```{r}
+encuesta_ia %>%
+  select(id_caso, actitud_ia, creencias_media)
+```
+
+Ahora calculamos la media general de ambas dimensiones.
+
+```{r}
+comparacion_actitud_creencias <- encuesta_ia %>%
+  summarise(
+    actitud_general = round(mean(actitud_ia), 2),
+    creencias_especificas = round(mean(creencias_media), 2)
+  )
+```
+
+Guardamos esta comparación en un objeto porque la vamos a consultar después.
+
+```{r}
+comparacion_actitud_creencias
+```
+
+Esta tabla permite comparar dos niveles de valoración:
+
+- la actitud general hacia la IA;
+- la confianza promedio en sus capacidades específicas.
+
+Pero también podemos hacer una comparación más interesante: mirar cada creencia específica y contrastarla con la actitud general promedio.
+
+Para eso usamos el objeto `creencias_largo`, que construimos en la pregunta anterior.
+
+Primero calculamos la media general de actitud hacia la IA:
+
+```{r}
+actitud_general_media <- encuesta_ia %>%
+  summarise(
+    media = mean(actitud_ia)
+  ) %>%
+  pull(media) # tomamos solo el valor, perdiendo la estructura de la tabla
+```
+
+Después calculamos la media de cada creencia específica:
+
+```{r}
+creencias_resumen <- creencias_largo %>%
+  group_by(creencia) %>%
+  summarise(
+    media = round(mean(valor), 2),
+    .groups = "drop"
+  ) %>%
+  arrange(media)
+```
+
+Veamos la tabla:
+
+```{r}
+creencias_resumen
+```
+
+Ahora podemos hacer un gráfico simple. Cada barra muestra la media de una creencia específica. La línea punteada muestra la actitud general promedio hacia la IA.
+
+```{r}
+op <- par(mar = c(5, 11, 4, 2)) # margenes del grafico xq etiquetas muy largas
+
+barplot(
+  creencias_resumen$media,
+  names.arg = creencias_resumen$creencia,
+  horiz = TRUE,
+  xlim = c(0, 5),
+  las = 1,
+  xlab = "Promedio",
+  main = "Creencias específicas y actitud general"
+)
+
+abline(v = actitud_general_media, lty = 2)
+
+legend(
+  "bottomright",
+  legend = paste("Actitud general:", round(actitud_general_media, 2)),
+  lty = 2,
+  bty = "n"
+)
+
+par(op) # limipio margenes del grafico
+```
+
+
+El gráfico muestra una diferencia clara entre la valoración general de la IA y la confianza en capacidades concretas. Lo que se observa es que la actitud general hacia la IA queda por encima de la mayoría de las creencias específicas. Esto significa que una valoración positiva de la IA no implica necesariamente creer que la IA sea igualmente competente en cualquier tarea. La confianza aparece más alta en tareas vinculadas con conocimiento y aprendizaje, como enseñar o investigar. En cambio, es más baja en capacidades asociadas con dimensiones afectivas o sensibles, como brindar compañía u ofrecer orientación psicológica.

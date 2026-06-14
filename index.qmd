@@ -6,8 +6,9 @@ Este taller busca acompañarnos en los primeros pasos (pero primeros en serio) d
 Particularmente, vamos a dar juntos 3 pasitos:
 
 - Primero, preparar un entorno para usar R
-- Segundo, explorar y preparar un dataset para que lo analicemos
-- Tercero, responder preguntas a través del análisis de datos
+- Segundo, explorar un dataset para que lo analicemos
+- Tercero, transformar un dataset para generar nuevos datos
+- Cuarto, responder preguntas a través del análisis de datos
 
 El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.
 

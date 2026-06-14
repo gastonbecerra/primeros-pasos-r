@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tercer paso. Manipulación de datasets – Primeros pasos en análisis de datos con R</title>
+<title>Tercer paso. Ordenar, filtrar y transformar datos – Primeros pasos en análisis de datos con R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,6 +142,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modulo-4.html"> 
+<span class="menu-text">Cuarto</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./modulo-5.html"> 
 <span class="menu-text">Sigamos!</span></a>
   </li>  
 </ul>
@@ -169,17 +173,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
   <li><a href="#cargamos-paquetes-y-datos" id="toc-cargamos-paquetes-y-datos" class="nav-link" data-scroll-target="#cargamos-paquetes-y-datos">Cargamos paquetes y datos</a></li>
-  <li><a href="#ordenar-resultados" id="toc-ordenar-resultados" class="nav-link" data-scroll-target="#ordenar-resultados">Ordenar resultados</a></li>
-  <li><a href="#calcular-porcentajes" id="toc-calcular-porcentajes" class="nav-link" data-scroll-target="#calcular-porcentajes">Calcular porcentajes</a></li>
-  <li><a href="#primera-lectura-descriptiva" id="toc-primera-lectura-descriptiva" class="nav-link" data-scroll-target="#primera-lectura-descriptiva">Primera lectura descriptiva</a></li>
-  <li><a href="#seleccionar-columnas" id="toc-seleccionar-columnas" class="nav-link" data-scroll-target="#seleccionar-columnas">Seleccionar columnas</a></li>
-  <li><a href="#filtrar-casos" id="toc-filtrar-casos" class="nav-link" data-scroll-target="#filtrar-casos">Filtrar casos</a></li>
-  <li><a href="#contar-después-de-filtrar" id="toc-contar-después-de-filtrar" class="nav-link" data-scroll-target="#contar-después-de-filtrar">Contar después de filtrar</a></li>
-  <li><a href="#crear-nuevas-variables" id="toc-crear-nuevas-variables" class="nav-link" data-scroll-target="#crear-nuevas-variables">Crear nuevas variables</a></li>
-  <li><a href="#renombrar-variables" id="toc-renombrar-variables" class="nav-link" data-scroll-target="#renombrar-variables">Renombrar variables</a></li>
-  <li><a href="#seleccionar-filtrar-y-ordenar" id="toc-seleccionar-filtrar-y-ordenar" class="nav-link" data-scroll-target="#seleccionar-filtrar-y-ordenar">Seleccionar, filtrar y ordenar</a></li>
-  <li><a href="#mini-ejercicios" id="toc-mini-ejercicios" class="nav-link" data-scroll-target="#mini-ejercicios">Mini-ejercicios</a></li>
-  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
+  <li><a href="#cómo-encadenamos-operaciones" id="toc-cómo-encadenamos-operaciones" class="nav-link" data-scroll-target="#cómo-encadenamos-operaciones">¿Cómo encadenamos operaciones?</a></li>
+  <li><a href="#cómo-hacemos-transformaciones" id="toc-cómo-hacemos-transformaciones" class="nav-link" data-scroll-target="#cómo-hacemos-transformaciones">¿Cómo hacemos transformaciones?</a></li>
+  <li><a href="#cómo-agrupamos-datos" id="toc-cómo-agrupamos-datos" class="nav-link" data-scroll-target="#cómo-agrupamos-datos">¿Cómo agrupamos datos?</a></li>
+  <li><a href="#cómo-miramos-un-grupo-específico" id="toc-cómo-miramos-un-grupo-específico" class="nav-link" data-scroll-target="#cómo-miramos-un-grupo-específico">¿Cómo miramos un grupo específico?</a></li>
+  <li><a href="#cómo-comparamos-grupos" id="toc-cómo-comparamos-grupos" class="nav-link" data-scroll-target="#cómo-comparamos-grupos">¿Cómo comparamos grupos?</a></li>
   </ul>
 </nav>
     </div>
@@ -188,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tercer paso. Manipulación de datasets</h1>
+<h1 class="title">Tercer paso. Ordenar, filtrar y transformar datos</h1>
 </div>
 
 
@@ -207,17 +205,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>En este tutorial vamos a aprender a manipular una tabla de datos con algunos verbos básicos de <code>dplyr</code>. Para el final, vas a poder ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.</p>
-<p>La idea es avanzar desde una primera exploración de la base hacia operaciones que nos permitan preparar los datos para responder preguntas de investigación.</p>
+<p>En este tutorial vamos a empezar a manipular nuestra tabla. Ya vimos cómo cargarla, mirar sus dimensiones, inspeccionar sus primeras filas y hacer conteos básicos. Ahora vamos a avanzar un paso más: ordenar resultados, calcular porcentajes, seleccionar columnas, filtrar casos y crear nuevas variables.</p>
+<p>La idea no es aprender funciones de memoria, sino empezar a traducir preguntas simples en operaciones sobre una tabla.</p>
 </section>
 <section id="cargamos-paquetes-y-datos" class="level2">
 <h2 class="anchored" data-anchor-id="cargamos-paquetes-y-datos">Cargamos paquetes y datos</h2>
-<p>Como siempre, empezamos cargando los paquetes que vamos a usar:</p>
+<p>Como en el paso anterior, primero cargamos los paquetes que vamos a usar.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Luego cargamos nuevamente la base de datos:</p>
+<p>Y volvemos a cargar la base.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/gastonbecerra/primeros-pasos-r/refs/heads/main/data/encuesta_ia_subset.csv"</span>,</span>
@@ -225,10 +223,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ordenar-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="ordenar-resultados">Ordenar resultados</h2>
-<p>En el tutorial anterior usamos <code>count()</code> para contar cuántos casos hay en cada categoría.</p>
-<p>Por ejemplo:</p>
+<section id="cómo-encadenamos-operaciones" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-encadenamos-operaciones">¿Cómo encadenamos operaciones?</h2>
+<p>En el paso anterior usamos funciones sueltas. Por ejemplo, usamos <code>count()</code> para contar cuántos casos había en cada categoría:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -240,28 +237,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 Salud y servicios sociales               50</code></pre>
 </div>
 </div>
-<p>Muchas veces conviene ordenar los resultados de mayor a menor. Para eso agregamos <code>arrange()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  area_trabajo_grupo                        n
-  &lt;chr&gt;                                 &lt;int&gt;
-1 Educación                                50
-2 Salud y servicios sociales               50
-3 Consultoría / servicios profesionales    39</code></pre>
-</div>
-</div>
-<p>Acá aparece un operador nuevo: <code>%&gt;%</code>.</p>
-<p>Este operador se llama <strong>pipe</strong> y permite encadenar operaciones. Podemos leerlo como “después”. Entonces, el código anterior puede leerse así:</p>
+<p>A medida que el análisis avanza, muchas veces necesitamos hacer varias operaciones seguidas: contar, ordenar, calcular porcentajes, filtrar, seleccionar columnas, etc.</p>
+<p>Para eso vamos a usar el operador <code>%&gt;%</code>, que se llama <strong>pipe</strong>.</p>
+<p>El pipe nos permite escribir el código de izquierda a derecha, empezando por la tabla y agregando operaciones una detrás de otra.</p>
+<p>La estructura general es:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tabla <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcion_1</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcion_2</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcion_3</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Podemos leerlo como:</p>
 <blockquote class="blockquote">
-<p>contá los casos por área de trabajo y después ordená el resultado de mayor a menor.</p>
+<p>tomá esta tabla, después aplicá esta función, después aplicá esta otra.</p>
 </blockquote>
-<p>También podemos ordenar de menor a mayor:</p>
+<p>Por ejemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(n)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   area_trabajo_grupo                        n
@@ -271,13 +262,144 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 Salud y servicios sociales               50</code></pre>
 </div>
 </div>
-</section>
-<section id="calcular-porcentajes" class="level2">
-<h2 class="anchored" data-anchor-id="calcular-porcentajes">Calcular porcentajes</h2>
-<p>También podemos calcular porcentajes. Para eso, después de contar, creamos una nueva columna con <code>mutate()</code>:</p>
+<p>Este código hace lo mismo que:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, area_trabajo_grupo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  area_trabajo_grupo                        n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Consultoría / servicios profesionales    39
+2 Educación                                50
+3 Salud y servicios sociales               50</code></pre>
+</div>
+</div>
+<p>Pero la escritura con pipe tiene una ventaja: nos permite seguir agregando pasos sin reescribir toda la operación.</p>
+<p>Por ejemplo, después de contar las áreas de trabajo, podemos ordenar el resultado de mayor a menor con <code>arrange()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  area_trabajo_grupo                        n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Educación                                50
+2 Salud y servicios sociales               50
+3 Consultoría / servicios profesionales    39</code></pre>
+</div>
+</div>
+<p>Leído paso a paso:</p>
+<ol type="1">
+<li>tomamos la tabla <code>encuesta_ia</code>;</li>
+<li>contamos los casos por área de trabajo;</li>
+<li>ordenamos el resultado de mayor a menor.</li>
+</ol>
+</section>
+<section id="cómo-hacemos-transformaciones" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-hacemos-transformaciones">¿Cómo hacemos transformaciones?</h2>
+<p>Hasta ahora venimos contamos casos y ordenamos resultados. Pero para responder preguntas más interesantes vamos a tener que transformar nuestra tabla, agregando columnas nuevas que resulten de alguna operación.</p>
+<p>Para eso usamos <code>mutate()</code>.</p>
+<p>La idea general es:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tabla <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nueva_columna =</span> operacion</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mayor_45 =</span> edad <span class="sc">&gt;=</span> <span class="dv">45</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_caso, edad, grupo_edad, mayor_45) <span class="co"># vamos a quedarnos con solo unas columnas</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 139 × 4
+   id_caso  edad grupo_edad mayor_45
+     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;lgl&gt;   
+ 1       1    45 45-59      TRUE    
+ 2       2    57 45-59      TRUE    
+ 3       3    45 45-59      TRUE    
+ 4       4    60 60+        TRUE    
+ 5       5    55 45-59      TRUE    
+ 6       6    30 30-44      FALSE   
+ 7       7    65 60+        TRUE    
+ 8       8    68 60+        TRUE    
+ 9       9    59 45-59      TRUE    
+10      10    19 18-29      FALSE   
+# ℹ 129 more rows</code></pre>
+</div>
+</div>
+<p>La nueva columna <code>mayor_45</code> toma dos valores:</p>
+<ul>
+<li><code>TRUE</code>: la condición se cumple;</li>
+<li><code>FALSE</code>: la condición no se cumple.</li>
+</ul>
+<p>Si queremos guardar esa nueva columna dentro de nuestra tabla, tenemos que volver a asignar el resultado al objeto <code>encuesta_ia</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mayor_45 =</span> edad <span class="sc">&gt;=</span> <span class="dv">45</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora podemos contar la nueva variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(mayor_45)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  mayor_45     n
+  &lt;lgl&gt;    &lt;int&gt;
+1 FALSE       69
+2 TRUE        70</code></pre>
+</div>
+</div>
+</section>
+<section id="cómo-agrupamos-datos" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-agrupamos-datos">¿Cómo agrupamos datos?</h2>
+<p>Por ejemplo, si queremos saber la distribución de personas según su frecuencia de uso de IA, necesitamos agrupar la tabla por esa variable y contar cuántos casos hay en cada grupo.</p>
+<p>Para eso podemos usar <code>group_by()</code> y <code>summarise()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  frecuencia_uso_ia     n
+  &lt;chr&gt;             &lt;int&gt;
+1 esporadicamente      25
+2 frecuente            54
+3 nunca                 6
+4 ocasional            54</code></pre>
+</div>
+</div>
+<p>Leído paso a paso:</p>
+<ol type="1">
+<li>tomamos la tabla <code>encuesta_ia</code>;</li>
+<li>agrupamos los casos según <code>frecuencia_uso_ia</code>;</li>
+<li>resumimos cada grupo contando cuántos casos tiene.</li>
+</ol>
+<p>La función <code>n()</code> cuenta la cantidad de filas dentro de cada grupo.</p>
+<p>Esta operación es tan común que <code>dplyr</code> tiene una forma abreviada: <code>count()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  frecuencia_uso_ia     n
+  &lt;chr&gt;             &lt;int&gt;
+1 esporadicamente      25
+2 frecuente            54
+3 nunca                 6
+4 ocasional            54</code></pre>
+</div>
+</div>
+<p>Si, además quisiéramos incluir los porcentajes, podríamos hacer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">porcentaje =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   frecuencia_uso_ia     n porcentaje
@@ -288,172 +410,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 ocasional            54      38.8 </code></pre>
 </div>
 </div>
-<p>Con esta tabla ya no vemos solamente cuántas personas hay en cada categoría, sino también qué porcentaje representa cada una sobre el total.</p>
-<p>Si queremos redondear el porcentaje, podemos usar <code>round()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
-  frecuencia_uso_ia     n porcentaje
-  &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
-1 esporadicamente      25       18  
-2 frecuente            54       38.8
-3 nunca                 6        4.3
-4 ocasional            54       38.8</code></pre>
-</div>
-</div>
+<p>donde:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>divide cada frecuencia por el total de casos y multiplicamos por 100.</p>
 </section>
-<section id="primera-lectura-descriptiva" class="level2">
-<h2 class="anchored" data-anchor-id="primera-lectura-descriptiva">Primera lectura descriptiva</h2>
-<p>Con estas operaciones podemos empezar a responder algunas preguntas básicas:</p>
-<ul>
-<li>¿cuántas personas hay en cada grupo de edad?</li>
-<li>¿cómo se distribuyen las áreas de trabajo?</li>
-<li>¿con qué frecuencia usan IA las personas encuestadas?</li>
-<li>¿qué categorías tienen más casos?</li>
-<li>¿qué categorías tienen pocos casos y conviene interpretar con cuidado?</li>
-</ul>
-<p>Este tipo de exploración no es un trámite previo al análisis. Es parte del análisis.</p>
-<p>Antes de comparar grupos, calcular indicadores o hacer gráficos, necesitamos saber cómo está compuesta la base. Si un grupo tiene muy pocos casos, por ejemplo, sus resultados pueden ser poco estables. Si una categoría concentra la mayoría de las respuestas, eso también condiciona la interpretación.</p>
-</section>
-<section id="seleccionar-columnas" class="level2">
-<h2 class="anchored" data-anchor-id="seleccionar-columnas">Seleccionar columnas</h2>
-<p>Una operación muy común es quedarnos solamente con algunas columnas de la base. Para eso usamos <code>select()</code>.</p>
-<p>Por ejemplo, podemos seleccionar las variables sociodemográficas y de uso:</p>
+<section id="cómo-miramos-un-grupo-específico" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-miramos-un-grupo-específico">¿Cómo miramos un grupo específico?</h2>
+<p>A veces lo que nos interesa no refiere a toda la base, sino a un grupo particular. Por ejemplo:</p>
+<blockquote class="blockquote">
+<p>¿Cómo se distribuye la frecuencia de uso de IA entre quienes trabajan en educación?</p>
+</blockquote>
+<p>Para responder eso, primero filtramos la base, trabajando solamente con las filas donde <code>area_trabajo_grupo</code> es igual a <code>"Educación"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 139 × 4
-    edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
-   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
- 1    45 45-59      Educación          ocasional        
- 2    57 45-59      Educación          frecuente        
- 3    45 45-59      Educación          esporadicamente  
- 4    60 60+        Educación          frecuente        
- 5    55 45-59      Educación          frecuente        
- 6    30 30-44      Educación          ocasional        
- 7    65 60+        Educación          ocasional        
- 8    68 60+        Educación          frecuente        
- 9    59 45-59      Educación          frecuente        
-10    19 18-29      Educación          ocasional        
-# ℹ 129 more rows</code></pre>
+<pre><code># A tibble: 4 × 2
+  frecuencia_uso_ia     n
+  &lt;chr&gt;             &lt;int&gt;
+1 esporadicamente       7
+2 frecuente            22
+3 nunca                 1
+4 ocasional            20</code></pre>
 </div>
 </div>
-<p>También podemos seleccionar todas las variables que empiezan con una palabra. Por ejemplo, las variables de actitud:</p>
+<p>También podemos combinar condiciones:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"actitud_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 139 × 4
-   actitud_positiva actitud_trabajo_estudio actitud_vida_cotidiana
-              &lt;dbl&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;
- 1                3                       3                      4
- 2                4                       5                      5
- 3                3                       4                      4
- 4                3                       1                      1
- 5                3                       4                      4
- 6                4                       4                      5
- 7                1                       4                      4
- 8                5                       5                      5
- 9                5                       5                      5
-10                4                       4                      4
-# ℹ 129 more rows
-# ℹ 1 more variable: actitud_aprender_ia &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>Y las variables de creencias:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"creencia_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 139 × 6
-   creencia_decisiones_justas creencia_respuestas_certe…¹ creencia_orientacion…²
-                        &lt;dbl&gt;                       &lt;dbl&gt;                  &lt;dbl&gt;
- 1                          1                           2                      1
- 2                          3                           2                      2
- 3                          3                           3                      1
- 4                          2                           3                      2
- 5                          2                           2                      1
- 6                          3                           4                      3
- 7                          4                           5                      4
- 8                          5                           5                      3
- 9                          1                           2                      1
-10                          3                           4                      1
-# ℹ 129 more rows
-# ℹ abbreviated names: ¹​creencia_respuestas_certeras,
-#   ²​creencia_orientacion_psicologica
-# ℹ 3 more variables: creencia_compania &lt;dbl&gt;, creencia_investigacion &lt;dbl&gt;,
-#   creencia_ensenanza &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>Esto es útil porque nuestro dataset tiene grupos de variables que comparten un prefijo. Más adelante vamos a usar esta organización para construir indicadores.</p>
-</section>
-<section id="filtrar-casos" class="level2">
-<h2 class="anchored" data-anchor-id="filtrar-casos">Filtrar casos</h2>
-<p>Otra operación básica es filtrar filas. Para eso usamos <code>filter()</code>.</p>
-<p>Por ejemplo, podemos quedarnos solamente con las personas que trabajan en educación:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 50 × 15
-   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
-     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
- 1       1    45 45-59      Educación          ocasional        
- 2       2    57 45-59      Educación          frecuente        
- 3       3    45 45-59      Educación          esporadicamente  
- 4       4    60 60+        Educación          frecuente        
- 5       5    55 45-59      Educación          frecuente        
- 6       6    30 30-44      Educación          ocasional        
- 7       7    65 60+        Educación          ocasional        
- 8       8    68 60+        Educación          frecuente        
- 9       9    59 45-59      Educación          frecuente        
-10      10    19 18-29      Educación          ocasional        
-# ℹ 40 more rows
-# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
-#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
-#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
-#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
-#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>También podemos quedarnos con quienes usan IA frecuentemente:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 54 × 15
-   id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
-     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
- 1       2    57 45-59      Educación          frecuente        
- 2       4    60 60+        Educación          frecuente        
- 3       5    55 45-59      Educación          frecuente        
- 4       8    68 60+        Educación          frecuente        
- 5       9    59 45-59      Educación          frecuente        
- 6      11    45 45-59      Educación          frecuente        
- 7      13    43 30-44      Educación          frecuente        
- 8      17    39 30-44      Educación          frecuente        
- 9      18    61 60+        Educación          frecuente        
-10      19    65 60+        Educación          frecuente        
-# ℹ 44 more rows
-# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
-#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
-#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
-#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
-#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>Y podemos combinar condiciones. Por ejemplo: personas del área de educación que usan IA frecuentemente.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 22 × 15
+<pre><code># A tibble: 22 × 16
    id_caso  edad grupo_edad area_trabajo_grupo frecuencia_uso_ia
      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;            
  1       2    57 45-59      Educación          frecuente        
@@ -467,239 +457,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  9      18    61 60+        Educación          frecuente        
 10      19    65 60+        Educación          frecuente        
 # ℹ 12 more rows
-# ℹ 10 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
+# ℹ 11 more variables: actitud_positiva &lt;dbl&gt;, actitud_trabajo_estudio &lt;dbl&gt;,
 #   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
 #   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
 #   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
-#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;</code></pre>
+#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, mayor_45 &lt;lgl&gt;</code></pre>
 </div>
 </div>
-<p>En <code>filter()</code>, la coma funciona como un <strong>y</strong> lógico: se conservan los casos que cumplen todas las condiciones.</p>
-</section>
-<section id="contar-después-de-filtrar" class="level2">
-<h2 class="anchored" data-anchor-id="contar-después-de-filtrar">Contar después de filtrar</h2>
-<p>Filtrar no es solo “recortar” la base. Muchas veces filtramos para responder preguntas más específicas.</p>
-<p>Por ejemplo:</p>
-<blockquote class="blockquote">
-<p>Entre quienes trabajan en educación, ¿con qué frecuencia se usa IA?</p>
-</blockquote>
+<p>En <code>filter()</code>, la coma funciona como un <strong>y</strong>: conserva los casos que cumplen todas las condiciones.</p>
+<p>También podemos usar condiciones numéricas. Por ejemplo, quedarnos con personas de 45 años o más:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area_trabajo_grupo <span class="sc">==</span> <span class="st">"Educación"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(edad <span class="sc">&gt;=</span> <span class="dv">45</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   frecuencia_uso_ia     n porcentaje
   &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
-1 esporadicamente       7         14
-2 frecuente            22         44
-3 nunca                 1          2
-4 ocasional            20         40</code></pre>
+1 esporadicamente      10       14.3
+2 frecuente            29       41.4
+3 nunca                 4        5.7
+4 ocasional            27       38.6</code></pre>
 </div>
 </div>
-<p>Leído paso a paso:</p>
-<ol type="1">
-<li>tomamos la base <code>encuesta_ia</code>;</li>
-<li>filtramos los casos del área de educación;</li>
-<li>contamos la frecuencia de uso de IA;</li>
-<li>calculamos el porcentaje.</li>
-</ol>
-<p>Esta forma de escribir código nos permite transformar una pregunta en una secuencia ordenada de operaciones.</p>
 </section>
-<section id="crear-nuevas-variables" class="level2">
-<h2 class="anchored" data-anchor-id="crear-nuevas-variables">Crear nuevas variables</h2>
-<p>Para crear nuevas columnas usamos <code>mutate()</code>.</p>
-<p>Por ejemplo, podemos crear una variable que indique si la persona tiene 45 años o más:</p>
+<section id="cómo-comparamos-grupos" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-comparamos-grupos">¿Cómo comparamos grupos?</h2>
+<p>Muchas veces no queremos describir la base completa, sino comparar grupos.</p>
+<p>Por ejemplo, podemos preguntarnos:</p>
+<blockquote class="blockquote">
+<p>¿La frecuencia de uso de IA cambia según el área de trabajo?</p>
+</blockquote>
+<p>Primero podemos contar los casos cruzando dos variables:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mayor_45 =</span> edad <span class="sc">&gt;=</span> <span class="dv">45</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Ahora podemos contar esta nueva variable:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, mayor_45)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo, frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  mayor_45     n
-  &lt;lgl&gt;    &lt;int&gt;
-1 FALSE       69
-2 TRUE        70</code></pre>
+<pre><code># A tibble: 12 × 3
+   area_trabajo_grupo                    frecuencia_uso_ia     n
+   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;
+ 1 Consultoría / servicios profesionales esporadicamente       7
+ 2 Consultoría / servicios profesionales frecuente            16
+ 3 Consultoría / servicios profesionales nunca                 2
+ 4 Consultoría / servicios profesionales ocasional            14
+ 5 Educación                             esporadicamente       7
+ 6 Educación                             frecuente            22
+ 7 Educación                             nunca                 1
+ 8 Educación                             ocasional            20
+ 9 Salud y servicios sociales            esporadicamente      11
+10 Salud y servicios sociales            frecuente            16
+11 Salud y servicios sociales            nunca                 3
+12 Salud y servicios sociales            ocasional            20</code></pre>
 </div>
 </div>
-<p>La nueva columna <code>mayor_45</code> toma valores <code>TRUE</code> o <code>FALSE</code>.</p>
-<ul>
-<li><code>TRUE</code>: la condición se cumple;</li>
-<li><code>FALSE</code>: la condición no se cumple.</li>
-</ul>
-<p>También podemos crear una variable con categorías de texto usando <code>case_when()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensidad_uso =</span> <span class="fu">case_when</span>(</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"nunca"</span>, <span class="st">"esporadicamente"</span>) <span class="sc">~</span> <span class="st">"baja"</span>,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">==</span> <span class="st">"ocasional"</span> <span class="sc">~</span> <span class="st">"media"</span>,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span> <span class="sc">~</span> <span class="st">"alta"</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Y luego contarla:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(encuesta_ia, intensidad_uso)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  intensidad_uso     n
-  &lt;chr&gt;          &lt;int&gt;
-1 alta              54
-2 baja              31
-3 media             54</code></pre>
-</div>
-</div>
-<p>Esta operación muestra algo importante: muchas veces las variables que usamos en el análisis no vienen directamente en la base, sino que las construimos a partir de decisiones analíticas.</p>
-</section>
-<section id="renombrar-variables" class="level2">
-<h2 class="anchored" data-anchor-id="renombrar-variables">Renombrar variables</h2>
-<p>A veces queremos cambiar el nombre de una variable para que sea más corto o más claro. Para eso usamos <code>rename()</code>.</p>
+<p>Esta tabla nos muestra cuántas personas hay en cada combinación de área de trabajo y frecuencia de uso de IA. Pero, como los grupos no tienen exactamente la misma cantidad de casos, conviene calcular porcentajes dentro de cada área. Para eso usamos <code>group_by()</code> y <code>mutate()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> area_trabajo_grupo,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frecuencia =</span> frecuencia_uso_ia</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 139 × 17
-   id_caso  edad grupo_edad area      frecuencia      actitud_positiva
-     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;
- 1       1    45 45-59      Educación ocasional                      3
- 2       2    57 45-59      Educación frecuente                      4
- 3       3    45 45-59      Educación esporadicamente                3
- 4       4    60 60+        Educación frecuente                      3
- 5       5    55 45-59      Educación frecuente                      3
- 6       6    30 30-44      Educación ocasional                      4
- 7       7    65 60+        Educación ocasional                      1
- 8       8    68 60+        Educación frecuente                      5
- 9       9    59 45-59      Educación frecuente                      5
-10      10    19 18-29      Educación ocasional                      4
-# ℹ 129 more rows
-# ℹ 11 more variables: actitud_trabajo_estudio &lt;dbl&gt;,
-#   actitud_vida_cotidiana &lt;dbl&gt;, actitud_aprender_ia &lt;dbl&gt;,
-#   creencia_decisiones_justas &lt;dbl&gt;, creencia_respuestas_certeras &lt;dbl&gt;,
-#   creencia_orientacion_psicologica &lt;dbl&gt;, creencia_compania &lt;dbl&gt;,
-#   creencia_investigacion &lt;dbl&gt;, creencia_ensenanza &lt;dbl&gt;, mayor_45 &lt;lgl&gt;,
-#   intensidad_uso &lt;chr&gt;</code></pre>
-</div>
-</div>
-<p>En este caso, el cambio se ve en la salida, pero no queda guardado en el objeto original porque no usamos asignación.</p>
-<p>Si quisiéramos guardar esos cambios, tendríamos que hacer:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia_renombrada <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> area_trabajo_grupo,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frecuencia =</span> frecuencia_uso_ia</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="seleccionar-filtrar-y-ordenar" class="level2">
-<h2 class="anchored" data-anchor-id="seleccionar-filtrar-y-ordenar">Seleccionar, filtrar y ordenar</h2>
-<p>Podemos combinar varios verbos en una misma secuencia.</p>
-<p>Por ejemplo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, grupo_edad, area_trabajo_grupo, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(edad)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 54 × 4
-    edad grupo_edad area_trabajo_grupo                    frecuencia_uso_ia
-   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                                 &lt;chr&gt;            
- 1    25 18-29      Educación                             frecuente        
- 2    25 18-29      Consultoría / servicios profesionales frecuente        
- 3    26 18-29      Consultoría / servicios profesionales frecuente        
- 4    27 18-29      Salud y servicios sociales            frecuente        
- 5    28 18-29      Consultoría / servicios profesionales frecuente        
- 6    30 30-44      Consultoría / servicios profesionales frecuente        
- 7    31 30-44      Educación                             frecuente        
- 8    31 30-44      Salud y servicios sociales            frecuente        
- 9    33 30-44      Consultoría / servicios profesionales frecuente        
-10    33 30-44      Consultoría / servicios profesionales frecuente        
-# ℹ 44 more rows</code></pre>
+<pre><code># A tibble: 12 × 4
+# Groups:   area_trabajo_grupo [3]
+   area_trabajo_grupo                    frecuencia_uso_ia     n porcentaje
+   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+ 1 Consultoría / servicios profesionales esporadicamente       7       17.9
+ 2 Consultoría / servicios profesionales frecuente            16       41  
+ 3 Consultoría / servicios profesionales nunca                 2        5.1
+ 4 Consultoría / servicios profesionales ocasional            14       35.9
+ 5 Educación                             esporadicamente       7       14  
+ 6 Educación                             frecuente            22       44  
+ 7 Educación                             nunca                 1        2  
+ 8 Educación                             ocasional            20       40  
+ 9 Salud y servicios sociales            esporadicamente      11       22  
+10 Salud y servicios sociales            frecuente            16       32  
+11 Salud y servicios sociales            nunca                 3        6  
+12 Salud y servicios sociales            ocasional            20       40  </code></pre>
 </div>
 </div>
 <p>Leído paso a paso:</p>
 <ol type="1">
-<li>tomamos la base;</li>
-<li>filtramos a quienes usan IA frecuentemente;</li>
-<li>seleccionamos algunas columnas;</li>
-<li>ordenamos por edad.</li>
+<li>contamos casos por área de trabajo y frecuencia de uso;</li>
+<li>agrupamos la tabla resultante por área de trabajo;</li>
+<li>calculamos qué porcentaje representa cada frecuencia dentro de cada área.</li>
 </ol>
-<p>El orden de las operaciones importa. No es lo mismo seleccionar primero, filtrar después, o crear una variable antes de hacer un conteo.</p>
-</section>
-<section id="mini-ejercicios" class="level2">
-<h2 class="anchored" data-anchor-id="mini-ejercicios">Mini-ejercicios</h2>
-<p>Probá responder estas preguntas con código:</p>
-<ol type="1">
-<li>¿Cuántas personas de cada área usan IA frecuentemente?</li>
-<li>¿Cuál es la distribución de grupos de edad entre quienes usan IA ocasionalmente?</li>
-<li>¿Qué porcentaje de la base tiene 45 años o más?</li>
-<li>¿Cómo cambia la frecuencia de uso si miramos solo el área de salud y servicios sociales?</li>
-</ol>
-<p>Una posible respuesta para la primera pregunta:</p>
+<p>Esto es importante: el <code>group_by(area_trabajo_grupo)</code> hace que <code>sum(n)</code> se calcule dentro de cada área, no sobre toda la tabla.</p>
+<p>Podemos ordenar un poco la salida:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(frecuencia_uso_ia <span class="sc">==</span> <span class="st">"frecuente"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(area_trabajo_grupo, frecuencia_uso_ia) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(area_trabajo_grupo) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(area_trabajo_grupo, frecuencia_uso_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-  area_trabajo_grupo                        n porcentaje
-  &lt;chr&gt;                                 &lt;int&gt;      &lt;dbl&gt;
-1 Educación                                22       40.7
-2 Consultoría / servicios profesionales    16       29.6
-3 Salud y servicios sociales               16       29.6</code></pre>
+<pre><code># A tibble: 12 × 4
+# Groups:   area_trabajo_grupo [3]
+   area_trabajo_grupo                    frecuencia_uso_ia     n porcentaje
+   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+ 1 Consultoría / servicios profesionales esporadicamente       7       17.9
+ 2 Consultoría / servicios profesionales frecuente            16       41  
+ 3 Consultoría / servicios profesionales nunca                 2        5.1
+ 4 Consultoría / servicios profesionales ocasional            14       35.9
+ 5 Educación                             esporadicamente       7       14  
+ 6 Educación                             frecuente            22       44  
+ 7 Educación                             nunca                 1        2  
+ 8 Educación                             ocasional            20       40  
+ 9 Salud y servicios sociales            esporadicamente      11       22  
+10 Salud y servicios sociales            frecuente            16       32  
+11 Salud y servicios sociales            nunca                 3        6  
+12 Salud y servicios sociales            ocasional            20       40  </code></pre>
 </div>
 </div>
-</section>
-<section id="cierre" class="level2">
-<h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
-<p>En este tutorial aprendimos a manipular una tabla con operaciones básicas:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Función</th>
-<th>Para qué sirve</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>count()</code></td>
-<td>contar casos por categoría</td>
-</tr>
-<tr class="even">
-<td><code>arrange()</code></td>
-<td>ordenar resultados</td>
-</tr>
-<tr class="odd">
-<td><code>mutate()</code></td>
-<td>crear nuevas variables</td>
-</tr>
-<tr class="even">
-<td><code>select()</code></td>
-<td>seleccionar columnas</td>
-</tr>
-<tr class="odd">
-<td><code>filter()</code></td>
-<td>filtrar filas</td>
-</tr>
-<tr class="even">
-<td><code>rename()</code></td>
-<td>cambiar nombres de variables</td>
-</tr>
-</tbody>
-</table>
-<p>Estas funciones son herramientas básicas para empezar a construir un análisis. Pero todavía estamos trabajando con variables tomadas de manera separada.</p>
-<p>En el próximo tutorial vamos a avanzar un paso más: construiremos indicadores a partir de varias columnas para responder una pregunta de investigación sobre actitudes y creencias hacia la inteligencia artificial.</p>
+<p>En educación, la mayor parte de los casos se concentra entre quienes declaran un uso <code>frecuente</code> u <code>ocasional</code> de IA: 44% y 40%, respectivamente. En consultoría y servicios profesionales también predominan las categorías <code>frecuente</code> y <code>ocasional</code>, aunque con una distribución levemente distinta: 41% declara un uso frecuente y 35,9% un uso ocasional. Pero en salud y servicios sociales, en cambio, el porcentaje de uso frecuente que se observa en la tabla es menor: 32%.</p>
 
 
 </section>
