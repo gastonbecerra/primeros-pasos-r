@@ -16,7 +16,6 @@ Antes de empezar a trabajar, cargamos los paquetes que vamos a usar:
 #| message: false
 #| warning: false
 library(tidyverse)
-library(janitor)
 ```
 
 Para cargar los datos vamos a usar la función `read_csv()`. En R, una **función** es una instrucción que realiza una tarea específica: recibe cierta información entre paréntesis, la procesa y devuelve un resultado. La función `read_csv()`, por ejemplo, sirve para leer archivos `.csv` y viene incluida en el paquete `readr`, que forma parte del `tidyverse`.
@@ -147,9 +146,7 @@ summary(encuesta_ia)
 
 Con esto podemos empezar a decir algo sobre nuestros datos. Sobre la variable `edad` podemos decir que la persona más joven tiene 19 años, la mayor tiene 74, y la edad promedio es aproximadamente 45 años. También podemos mirar los ítems de actitud y creencias. Como están medidos en una escala de 1 a 5, sus medias nos dan una primera orientación. En esta salida se observa que algunas variables de actitud tienen promedios relativamente altos, como `actitud_vida_cotidiana`, mientras que algunas creencias específicas tienen promedios más bajos, como `creencia_orientacion_psicologica`.
 
-En cambio, para variables guardadas como texto, como `grupo_edad`, `area_trabajo_grupo` o `frecuencia_uso_ia`, `summary()` no podemos usar la estadística, asi que vamos a recurrir a algo más básico: vamos a asumir que los textos son categorías y vamos, simplemente, a contarlas.
-
-Para eso usamos la función `count()`, que nos pide como primer argumento que le indiquemos un objeto, y luego que indiquemos qué variable (columna) queremos contar.
+En cambio, para variables guardadas como texto, como `grupo_edad`, `area_trabajo_grupo` o `frecuencia_uso_ia`, `summary()` no nos da una distribución útil. Para esas variables conviene contar cuántos casos hay en cada categoría. Para eso usamos la función `count()`, que nos pide como primer argumento que le indiquemos un objeto, y luego que indiquemos qué variable (columna) queremos contar.
 
 ```{r}
 count(encuesta_ia, grupo_edad)

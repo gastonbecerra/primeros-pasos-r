@@ -4,7 +4,7 @@ title: "Primer paso. Preparar el entorno de trabajo"
 
 ## Objetivo
 
-En este primer paso vamos a preparar el entorno de trabajo, familiarizarnos con R y Posit.Cloud, y cargar nuestro primer dataset.
+En este primer paso vamos a preparar el entorno de trabajo y familiarizarnos con R y Posit.Cloud. 
 
 Puntualmente, vamos a ver:
 
@@ -132,24 +132,12 @@ Para instalarlo, ejecutamos:
 install.packages("tidyverse")
 ```
 
-También vamos a instalar `janitor`, que sirve para algunas tareas simples de limpieza de datos:
-
-``` r
-install.packages("janitor")
-```
-
 La instalación se hace una sola vez en cada entorno de trabajo.
 
 Después de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.
 
 ``` r
 library(tidyverse)
-library(janitor)
 ```
 
-Esta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. Una forma práctica de organizar el script es empezar siempre cargando los paquetes que vamos a usar:
-
-``` r
-library(tidyverse)
-library(janitor)
-```
+Esta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto. 
