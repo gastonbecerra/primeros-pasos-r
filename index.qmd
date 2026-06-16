@@ -13,7 +13,7 @@ Vamos a trabajar sobre cuatro pasos:
 - **Primero**, cómo preparar un entorno para usar R.
 - **Segundo**, cómo cargar y explorar un dataset.
 - **Tercero**, cómo manipular y transformar una tabla para crear nuevas variables y grupos de datos.
-- **Cuarto**, cómo responder preguntas de investigación con datos.
+- **Cuarto**, cómo responder preguntas de investigación con gráficos.
 
 ## ¿Cómo vamos a trabajar?
 
