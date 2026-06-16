@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -171,10 +136,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contenidos</h2>
    
   <ul>
-  <li><a href="#qué-conviene-repasar" id="toc-qué-conviene-repasar" class="nav-link active" data-scroll-target="#qué-conviene-repasar">¿Qué conviene repasar?</a></li>
-  <li><a href="#qué-puedo-practicar-con-esta-misma-base" id="toc-qué-puedo-practicar-con-esta-misma-base" class="nav-link" data-scroll-target="#qué-puedo-practicar-con-esta-misma-base">¿Qué puedo practicar con esta misma base?</a></li>
-  <li><a href="#qué-tema-sigue-después" id="toc-qué-tema-sigue-después" class="nav-link" data-scroll-target="#qué-tema-sigue-después">¿Qué tema sigue después?</a></li>
-  <li><a href="#otros-recursos-para-seguir" id="toc-otros-recursos-para-seguir" class="nav-link" data-scroll-target="#otros-recursos-para-seguir">Otros recursos para seguir</a></li>
+  <li><a href="#qué-tema-sigue-después" id="toc-qué-tema-sigue-después" class="nav-link active" data-scroll-target="#qué-tema-sigue-después">¿Qué tema sigue después?</a></li>
+  <li><a href="#dónde-seguir-practicando" id="toc-dónde-seguir-practicando" class="nav-link" data-scroll-target="#dónde-seguir-practicando">¿Dónde seguir practicando?</a></li>
   </ul>
 </nav>
     </div>
@@ -200,96 +163,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Este taller fue una primera entrada al análisis de datos con R. Vimos cómo cargar una base, explorarla, manipularla, construir variables simples y responder algunas preguntas descriptivas.</p>
-<p>Pero esto es apenas el comienzo.</p>
-<p>En esta última página dejamos algunas pistas para seguir practicando.</p>
-<section id="qué-conviene-repasar" class="level2">
-<h2 class="anchored" data-anchor-id="qué-conviene-repasar">¿Qué conviene repasar?</h2>
-<p>Antes de avanzar hacia temas más complejos, conviene volver sobre algunas operaciones básicas:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Operación</th>
-<th>Para qué sirve</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>read_csv()</code></td>
-<td>cargar archivos <code>.csv</code></td>
-</tr>
-<tr class="even">
-<td><code>glimpse()</code></td>
-<td>mirar la estructura de una base</td>
-</tr>
-<tr class="odd">
-<td><code>summary()</code></td>
-<td>obtener resúmenes generales</td>
-</tr>
-<tr class="even">
-<td><code>count()</code></td>
-<td>contar casos por categoría</td>
-</tr>
-<tr class="odd">
-<td><code>%&gt;%</code></td>
-<td>encadenar operaciones</td>
-</tr>
-<tr class="even">
-<td><code>mutate()</code></td>
-<td>crear nuevas columnas</td>
-</tr>
-<tr class="odd">
-<td><code>group_by()</code></td>
-<td>agrupar datos</td>
-</tr>
-<tr class="even">
-<td><code>summarise()</code></td>
-<td>resumir grupos</td>
-</tr>
-<tr class="odd">
-<td><code>filter()</code></td>
-<td>seleccionar filas</td>
-</tr>
-<tr class="even">
-<td><code>select()</code></td>
-<td>seleccionar columnas</td>
-</tr>
-<tr class="odd">
-<td><code>pivot_longer()</code></td>
-<td>cambiar la estructura de una tabla</td>
-</tr>
-</tbody>
-</table>
-<p>Una buena forma de practicar es tomar una pregunta simple e intentar responderla con una secuencia de operaciones.</p>
-<p>Por ejemplo:</p>
-<blockquote class="blockquote">
-<p>¿Cómo cambia una variable según grupos de edad, área de trabajo o frecuencia de uso?</p>
-</blockquote>
-</section>
-<section id="qué-puedo-practicar-con-esta-misma-base" class="level2">
-<h2 class="anchored" data-anchor-id="qué-puedo-practicar-con-esta-misma-base">¿Qué puedo practicar con esta misma base?</h2>
-<p>Con la base de la encuesta sobre IA se pueden seguir explorando otras preguntas.</p>
-<p>Por ejemplo:</p>
-<ul>
-<li>¿la actitud hacia la IA cambia según el área de trabajo?</li>
-<li>¿qué grupos muestran mayor frecuencia de uso?</li>
-<li>¿qué creencias específicas tienen promedios más altos?</li>
-<li>¿qué creencias quedan por debajo del punto medio de la escala?</li>
-<li>¿la brecha entre actitud general y creencias específicas cambia entre áreas?</li>
-</ul>
-<p>Una posible práctica es elegir una pregunta y resolverla con esta estructura:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable_de_grupo) <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">promedio =</span> <span class="fu">mean</span>(variable_numerica)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
+<p>Este taller fue una primera entrada al análisis de datos con R.</p>
+<p>Vimos cómo cargar una base, explorarla, manipularla, construir variables simples, hacer gráficos y responder algunas preguntas descriptivas. Pero esto es apenas el comienzo.</p>
 <section id="qué-tema-sigue-después" class="level2">
 <h2 class="anchored" data-anchor-id="qué-tema-sigue-después">¿Qué tema sigue después?</h2>
 <p>Después de estos primeros pasos, hay varios caminos posibles.</p>
-<p>Uno es avanzar en <strong>visualización de datos</strong>. En este taller usamos algunos gráficos básicos de R, pero una herramienta muy utilizada para hacer gráficos más flexibles y prolijos es <code>ggplot2</code>.</p>
-<p>Otro camino es avanzar en <strong>limpieza y transformación de datos</strong>: recodificar categorías, ordenar variables, trabajar con valores perdidos, unir bases o cambiar formatos de tabla.</p>
+<p>Uno es avanzar en <strong>visualización de datos</strong>. Ahí conviene profundizar en <code>ggplot2</code>: tipos de gráficos, escalas, etiquetas, colores, temas y formas de guardar gráficos.</p>
+<p>Otro camino es avanzar en <strong>limpieza y transformación de datos</strong>: recodificar categorías, trabajar con valores perdidos, unir bases, ordenar factores o pasar datos de formato ancho a formato largo.</p>
 <p>También se puede avanzar hacia <strong>análisis estadístico</strong>, por ejemplo:</p>
 <ul>
 <li>comparar medias entre grupos;</li>
@@ -298,10 +178,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>trabajar con correlaciones;</li>
 <li>estimar modelos simples.</li>
 </ul>
-<p>Pero todos esos pasos se apoyan en lo mismo que vimos acá: cargar datos, entender la estructura de la base, manipular variables y formular preguntas claras.</p>
+<p>Pero todos esos pasos se apoyan en lo mismo que vimos acá: cargar datos, entender la estructura de la base, manipular variables, producir tablas y formular preguntas claras.</p>
 </section>
-<section id="otros-recursos-para-seguir" class="level2">
-<h2 class="anchored" data-anchor-id="otros-recursos-para-seguir">Otros recursos para seguir</h2>
+<section id="dónde-seguir-practicando" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-seguir-practicando">¿Dónde seguir practicando?</h2>
 <p>Para seguir practicando con R, pueden revisar este curso introductorio:</p>
 <p><a href="https://bookdown.org/gaston_becerra/curso-intro-r/index.html">Introducción a R para ciencias sociales</a></p>
 <p>Ahí se desarrollan otros temas y ejemplos, también orientados al trabajo con datos en ciencias sociales.</p>

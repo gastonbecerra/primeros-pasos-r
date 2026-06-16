@@ -2,66 +2,17 @@
 title: "Próximos pasos"
 ---
 
-Este taller fue una primera entrada al análisis de datos con R. Vimos cómo cargar una base, explorarla, manipularla, construir variables simples y responder algunas preguntas descriptivas.
+Este taller fue una primera entrada al análisis de datos con R.
 
-Pero esto es apenas el comienzo.
-
-En esta última página dejamos algunas pistas para seguir practicando.
-
-## ¿Qué conviene repasar?
-
-Antes de avanzar hacia temas más complejos, conviene volver sobre algunas operaciones básicas:
-
-| Operación | Para qué sirve |
-|---|---|
-| `read_csv()` | cargar archivos `.csv` |
-| `glimpse()` | mirar la estructura de una base |
-| `summary()` | obtener resúmenes generales |
-| `count()` | contar casos por categoría |
-| `%>%` | encadenar operaciones |
-| `mutate()` | crear nuevas columnas |
-| `group_by()` | agrupar datos |
-| `summarise()` | resumir grupos |
-| `filter()` | seleccionar filas |
-| `select()` | seleccionar columnas |
-| `pivot_longer()` | cambiar la estructura de una tabla |
-
-Una buena forma de practicar es tomar una pregunta simple e intentar responderla con una secuencia de operaciones.
-
-Por ejemplo:
-
-> ¿Cómo cambia una variable según grupos de edad, área de trabajo o frecuencia de uso?
-
-## ¿Qué puedo practicar con esta misma base?
-
-Con la base de la encuesta sobre IA se pueden seguir explorando otras preguntas.
-
-Por ejemplo:
-
-- ¿la actitud hacia la IA cambia según el área de trabajo?
-- ¿qué grupos muestran mayor frecuencia de uso?
-- ¿qué creencias específicas tienen promedios más altos?
-- ¿qué creencias quedan por debajo del punto medio de la escala?
-- ¿la brecha entre actitud general y creencias específicas cambia entre áreas?
-
-Una posible práctica es elegir una pregunta y resolverla con esta estructura:
-
-```r
-encuesta_ia %>%
-  group_by(variable_de_grupo) %>%
-  summarise(
-    n = n(),
-    promedio = mean(variable_numerica)
-  )
-```
+Vimos cómo cargar una base, explorarla, manipularla, construir variables simples, hacer gráficos y responder algunas preguntas descriptivas. Pero esto es apenas el comienzo.
 
 ## ¿Qué tema sigue después?
 
 Después de estos primeros pasos, hay varios caminos posibles.
 
-Uno es avanzar en **visualización de datos**. En este taller usamos algunos gráficos básicos de R, pero una herramienta muy utilizada para hacer gráficos más flexibles y prolijos es `ggplot2`.
+Uno es avanzar en **visualización de datos**. Ahí conviene profundizar en `ggplot2`: tipos de gráficos, escalas, etiquetas, colores, temas y formas de guardar gráficos.
 
-Otro camino es avanzar en **limpieza y transformación de datos**: recodificar categorías, ordenar variables, trabajar con valores perdidos, unir bases o cambiar formatos de tabla.
+Otro camino es avanzar en **limpieza y transformación de datos**: recodificar categorías, trabajar con valores perdidos, unir bases, ordenar factores o pasar datos de formato ancho a formato largo.
 
 También se puede avanzar hacia **análisis estadístico**, por ejemplo:
 
@@ -71,9 +22,9 @@ También se puede avanzar hacia **análisis estadístico**, por ejemplo:
 - trabajar con correlaciones;
 - estimar modelos simples.
 
-Pero todos esos pasos se apoyan en lo mismo que vimos acá: cargar datos, entender la estructura de la base, manipular variables y formular preguntas claras.
+Pero todos esos pasos se apoyan en lo mismo que vimos acá: cargar datos, entender la estructura de la base, manipular variables, producir tablas y formular preguntas claras.
 
-## Otros recursos para seguir
+## ¿Dónde seguir practicando?
 
 Para seguir practicando con R, pueden revisar este curso introductorio:
 

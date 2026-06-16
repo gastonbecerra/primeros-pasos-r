@@ -463,60 +463,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>¿En qué capacidades de la IA se confía más y en cuáles se confía menos?</p>
 </blockquote>
 <p>Para responderla, necesitamos calcular el promedio de <em>cada creencia</em>… y son 6 creencias disintas: que la IA es capaz de enseñar, de dar respuestas corectas, de dar respuestas justas, de ofrecer compañía, y brindar apoyo psicológico. Entonces, si quisiéramos calcular cada promedio debería hacerlo sobre cada columna distinta…</p>
-<p>Aquí es cuando un nuevo formato de tabla, un nuevo modo de ordenar la información, puede sernos útil. ¿Que tal si hacemos una tabla donde haya una columna que indique <strong>cuál es la creencia</strong> y otra columna que tenga el <strong>valor de la respuesta</strong>? Es decir, queremos pasar de esto:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>id_caso</th>
-<th style="text-align: right;">creencia_decisiones_justas</th>
-<th style="text-align: right;">creencia_respuestas_certeras</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
-</tr>
-</tbody>
-</table>
-<p>A esto:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>id_caso</th>
-<th>creencia</th>
-<th style="text-align: right;">valor</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>creencia_decisiones_justas</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>creencia_respuestas_certeras</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>creencia_decisiones_justas</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>creencia_respuestas_certeras</td>
-<td style="text-align: right;">5</td>
-</tr>
-</tbody>
-</table>
+<p>Aquí es cuando un nuevo formato de tabla, un nuevo modo de ordenar la información, puede sernos útil. ¿Que tal si hacemos una tabla donde haya una columna que indique <strong>cuál es la creencia</strong> y otra columna que tenga el <strong>valor de la respuesta</strong>? Es decir, queremos hacer esto:</p>
+<p><img src="images/long.png" class="img-fluid"></p>
 <p>A este cambio se lo suele llamar pasar de formato <strong>ancho</strong> a formato <strong>largo</strong>. En el formato ancho, las creencias están en los nombres de las columnas. Pero en el formato largo, las creencias pasan a estar dentro de la misma variable. Eso nos permite agrupar por creencia y calcular un promedio para cada una.</p>
 <p>Para hacer ese cambio vamos a hacer dos cosas: primero vamos a quedarnos con las variables que remiten a creencias (de hecho, las vamos a seleccionar por su nombre), y luego usamos <code>pivot_longer()</code> para transponerla y dividir sus valores en 2 columnas (creencia/valor):</p>
 <div class="cell">
