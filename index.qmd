@@ -17,13 +17,15 @@ Vamos a trabajar sobre cuatro pasos:
 
 ## ¿Cómo vamos a trabajar?
 
-El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.
+El taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Meet/Zoom.
 
 Los materiales quedan disponibles para que puedas recorrerlos a tu ritmo, repetir los ejercicios y volver al código cuando lo necesites.
 
 En los encuentros vamos a retomar dudas, revisar ejemplos y acompañar el trabajo práctico.
 
 ## ¿Con qué vamos a trabajar?
+
+Técnicamente, vamos a trabajar con una instalación de R que corre en la nube, llamado **Posit Cloud**.
 
 Para ejercitarnos, vamos a usar un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.
 
@@ -37,4 +39,4 @@ A partir de esa pregunta vamos a explorar una idea central: la aceptación de la
 
 No hace falta experiencia previa en programación. Sí hace falta cierta disposición a probar, equivocarse, leer errores y volver a intentar. El objetivo es empezar a pensar de esta manera:
 
-> tengo una pregunta, tengo una tabla, ¿qué operaciones necesito hacer para construir una respuesta?
+> tengo una pregunta, tengo un dataset, ¿qué operaciones necesito hacer para construir una respuesta?
