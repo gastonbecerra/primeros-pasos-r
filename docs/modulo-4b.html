@@ -173,7 +173,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
   <li><a href="#cargamos-paquetes-y-datos" id="toc-cargamos-paquetes-y-datos" class="nav-link" data-scroll-target="#cargamos-paquetes-y-datos">Cargamos paquetes y datos</a></li>
-  <li><a href="#cómo-se-construye-un-gráfico-con-ggplot" id="toc-cómo-se-construye-un-gráfico-con-ggplot" class="nav-link" data-scroll-target="#cómo-se-construye-un-gráfico-con-ggplot">¿Cómo se construye un gráfico con <code>ggplot</code>?</a></li>
   <li><a href="#pregunta-1-qué-tan-favorable-es-la-actitud-general-hacia-la-ia" id="toc-pregunta-1-qué-tan-favorable-es-la-actitud-general-hacia-la-ia" class="nav-link" data-scroll-target="#pregunta-1-qué-tan-favorable-es-la-actitud-general-hacia-la-ia">Pregunta 1: ¿qué tan favorable es la actitud general hacia la IA?</a></li>
   <li><a href="#pregunta-2-la-actitud-cambia-según-la-frecuencia-de-uso" id="toc-pregunta-2-la-actitud-cambia-según-la-frecuencia-de-uso" class="nav-link" data-scroll-target="#pregunta-2-la-actitud-cambia-según-la-frecuencia-de-uso">Pregunta 2: ¿la actitud cambia según la frecuencia de uso?</a></li>
   <li><a href="#pregunta-3-en-qué-capacidades-de-la-ia-se-confía-más-y-menos" id="toc-pregunta-3-en-qué-capacidades-de-la-ia-se-confía-más-y-menos" class="nav-link" data-scroll-target="#pregunta-3-en-qué-capacidades-de-la-ia-se-confía-más-y-menos">Pregunta 3: ¿en qué capacidades de la IA se confía más y menos?</a></li>
@@ -210,7 +209,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?</p>
 </blockquote>
-<p>Además, vamos a introducir una herramienta nueva: <code>ggplot2</code>, un paquete para hacer gráficos en R.</p>
 </section>
 <section id="cargamos-paquetes-y-datos" class="level2">
 <h2 class="anchored" data-anchor-id="cargamos-paquetes-y-datos">Cargamos paquetes y datos</h2>
@@ -224,108 +222,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="cómo-se-construye-un-gráfico-con-ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-se-construye-un-gráfico-con-ggplot">¿Cómo se construye un gráfico con <code>ggplot</code>?</h2>
-<p>Un gráfico con <code>ggplot</code> se construye por <strong>capas</strong>. La estructura mínima suele ser esta:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x =</span> variable_x, <span class="at">y =</span> variable_y)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tipo_de_grafico</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Hay tres partes importantes:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Parte</th>
-<th>Qué indica</th>
-<th>Ejemplo</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>datos</code></td>
-<td>la tabla que vamos a graficar</td>
-<td><code>encuesta_ia</code></td>
-</tr>
-<tr class="even">
-<td><code>aes()</code></td>
-<td>las variables que vamos a ubicar en el gráfico</td>
-<td><code>aes(x = actitud_ia)</code></td>
-</tr>
-<tr class="odd">
-<td><code>geom_*()</code></td>
-<td>el tipo de gráfico o capa visual</td>
-<td><code>geom_histogram()</code></td>
-</tr>
-</tbody>
-</table>
-<p>La palabra <code>aes</code> viene de <strong>aesthetics</strong>. En <code>ggplot</code>, una estética es una relación entre una variable y un elemento visual del gráfico: eje x, eje y, color, tamaño, forma, etc.</p>
-<p>Por ejemplo:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(<span class="at">x =</span> frecuencia_uso_ia, <span class="at">y =</span> actitud_media)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>quiere decir:</p>
-<blockquote class="blockquote">
-<p>poné <code>frecuencia_uso_ia</code> en el eje x y <code>actitud_media</code> en el eje y.</p>
-</blockquote>
-<p>Después agregamos una geometría, es decir, el tipo de elemento visual que queremos usar.</p>
-<p>Algunas geometrías frecuentes son:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Geometría</th>
-<th>Para qué sirve</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>geom_histogram()</code></td>
-<td>calcular y dibujar la distribución de una variable numérica</td>
-</tr>
-<tr class="even">
-<td><code>geom_bar()</code></td>
-<td>contar casos y dibujar barras</td>
-</tr>
-<tr class="odd">
-<td><code>geom_col()</code></td>
-<td>dibujar barras con valores ya calculados</td>
-</tr>
-<tr class="even">
-<td><code>geom_point()</code></td>
-<td>hacer gráficos de puntos</td>
-</tr>
-<tr class="odd">
-<td><code>geom_line()</code></td>
-<td>unir puntos con líneas</td>
-</tr>
-<tr class="even">
-<td><code>geom_text()</code></td>
-<td>agregar etiquetas de texto</td>
-</tr>
-<tr class="odd">
-<td><code>geom_hline()</code></td>
-<td>agregar una línea horizontal</td>
-</tr>
-<tr class="even">
-<td><code>geom_vline()</code></td>
-<td>agregar una línea vertical</td>
-</tr>
-</tbody>
-</table>
-<p>Un detalle importante: no todas las geometrías esperan los datos de la misma manera.</p>
-<p>Algunas geometrías hacen cálculos por nosotros. Por ejemplo, <code>geom_histogram()</code> solo necesita que le indiquemos una variable numérica. Después, R agrupa los valores en intervalos y cuenta cuántos casos hay en cada uno. Algo parecido pasa con <code>geom_bar()</code>: si le damos una variable categórica, cuenta cuántos casos hay en cada categoría y dibuja las barras. En cambio, <code>geom_col()</code> espera que el cálculo ya esté hecho, de modo que le vamos a pasar una tabla donde una columna indique las categorías y otra columna indique los valores que queremos graficar. Por eso, si ya calculamos una tabla resumen con <code>group_by()</code> y <code>summarise()</code>, seguramente usemos <code>geom_col()</code>.</p>
-<p>Un detalle importante: <code>ggplot</code> usa <code>+</code> para sumar capas. No es el pipe <code>%&gt;%</code>. El pipe encadena operaciones sobre tablas; el <code>+</code> agrega capas a un gráfico.</p>
-</section>
 <section id="pregunta-1-qué-tan-favorable-es-la-actitud-general-hacia-la-ia" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-1-qué-tan-favorable-es-la-actitud-general-hacia-la-ia">Pregunta 1: ¿qué tan favorable es la actitud general hacia la IA?</h2>
 <p>En la base tenemos varias variables que miden actitudes hacia la IA. De hecho, las podemos seleccionar por su nombre para chusmear solo ese pedazo de nuestra tabla.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"actitud_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"actitud_"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 139 × 4
    actitud_positiva actitud_trabajo_estudio actitud_vida_cotidiana
@@ -348,44 +250,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Pero nuestra pregunta no refiere a cada ítem por separado, sino a una medida general de actitud. Para eso vamos a construir un <strong>indicador</strong>, es decir, un valor que sintetice la actitud de cada persona encuestada.</p>
 <p>Particularmente, para esta escala de actitudes podemos usar el promedio de los 4 items:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> (</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      actitud_positiva <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      actitud_trabajo_estudio <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      actitud_vida_cotidiana <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      actitud_aprender_ia</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">/</span> <span class="dv">4</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>encuesta_ia <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_ia =</span> (</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      actitud_positiva <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      actitud_trabajo_estudio <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      actitud_vida_cotidiana <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      actitud_aprender_ia</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Como usamos <code>&lt;-</code>, el resultado queda guardado en memoria dentro del objeto <code>encuesta_ia</code>. Esto es importante porque vamos a usar esta nueva variable en las preguntas siguientes.</p>
 <p>Ahora podemos calcular un resumen de la actitud general hacia la IA. Como eventualmente nos interesa sólo un número, luego de calcularlo vamos a tomar ese número sólo y guardarlo en una variable (<code>pull()</code>), perdiendo la estructura de tabla.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>actitud_global_media <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">actitud_global_media =</span> <span class="fu">mean</span>(actitud_ia)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(actitud_global_media)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>actitud_global_media</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>actitud_global_media <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">actitud_global_media =</span> <span class="fu">mean</span>(actitud_ia)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(actitud_global_media)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>actitud_global_media</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.773381</code></pre>
 </div>
 </div>
 <p>Mejor lo redondeamos….</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>actitud_global_media <span class="ot">&lt;-</span> <span class="fu">round</span>(actitud_global_media, <span class="dv">2</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>actitud_global_media </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>actitud_global_media <span class="ot">&lt;-</span> <span class="fu">round</span>(actitud_global_media, <span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>actitud_global_media </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.77</code></pre>
 </div>
 </div>
 <p>Grafiquemos! En este caso usamos <code>geom_histogram()</code> porque queremos observar la distribución de las actitudes globales de cada encuestado hacia la IA (<code>actitud_ia</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(encuesta_ia, <span class="fu">aes</span>(<span class="at">x =</span> actitud_ia)) <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># dibujamos 1 barra por cada punto de la encuesta 1-5</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="co"># Agregamos títulos y nombres de ejes</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la actitud general hacia la IA"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actitud general hacia la IA"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Cantidad de casos"</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="co"># sin fondo</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(encuesta_ia, <span class="fu">aes</span>(<span class="at">x =</span> actitud_ia)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># dibujamos 1 barra por cada punto de la encuesta 1-5</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="co"># Agregamos títulos y nombres de ejes</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la actitud general hacia la IA"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actitud general hacia la IA"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Cantidad de casos"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="co"># sin fondo</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -405,22 +307,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <p>La frecuencia de uso tiene 4 categorías posibles. Podemos calcular el promedio de actitudes en esos 4 grupos. Guardemos esto así en un objeto para que sea más fácil graficarlo. Además, vamos a hacer un paso más para que nuestros gráficos se vean mejor: vamos a indicarle que nuestras categorías tienen un orden y vamos a corregir sus mayúsculas y acentos, para que quede así: Nunca -&gt; Esporádico -&gt; Ocasional -&gt; Frecuente. Para ello vamos a convertir nuestra variable en un factor.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>actitud_por_uso <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">frecuencia_uso_ia =</span> <span class="fu">factor</span>( <span class="co"># convertirmos en un factor y cambiamos etiquetas</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      frecuencia_uso_ia,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"nunca"</span>, <span class="st">"esporadicamente"</span>, <span class="st">"ocasional"</span>, <span class="st">"frecuente"</span>),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Nunca"</span>, <span class="st">"Esporádico"</span>, <span class="st">"Ocasional"</span>, <span class="st">"Frecuente"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span> <span class="co"># ahora hacemos los cálculos por cada grupo</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(actitud_ia), <span class="dv">2</span>),</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>actitud_por_uso</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>actitud_por_uso <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span>  <span class="co">#dentro de nuestra base de datos</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="co">#vamos a transformar</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">frecuencia_uso_ia =</span> <span class="fu">factor</span>( <span class="co"># convertirmos en un factor y cambiamos etiquetas </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    frecuencia_uso_ia, <span class="co"># tomamos la variable que existe en la base</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"nunca"</span>, <span class="st">"esporadicamente"</span>, <span class="st">"ocasional"</span>, <span class="st">"frecuente"</span>), <span class="co"># le decimos que las cateorías de la variable original tienen este orden de jerarquía: “nunca” es menos que “esporádicamente”, y “esporádicamente” es menos que “ocasional”, etc.</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Nunca"</span>, <span class="st">"Esporádico"</span>, <span class="st">"Ocasional"</span>, <span class="st">"Frecuente"</span>) ) ) <span class="sc">%&gt;%</span>  <span class="co"># cambiamos las etiquetas para ser aptas para publicar, con mayúsculas y tildes</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(frecuencia_uso_ia) <span class="sc">%&gt;%</span> <span class="co"># ahora hacemos los cálculos por cada grupo </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>( </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">actitud_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(actitud_ia), <span class="dv">2</span>), </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> ) </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>actitud_por_uso</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   frecuencia_uso_ia     n actitud_media
@@ -433,19 +332,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Ahora hacemos un gráfico con <code>ggplot</code>. Acá usamos puntos, y no barras, porque estamos comparando promedios en una escala que va de 1 a 5. Las barras suelen funcionar mejor cuando la escala empieza en 0, como conteos o porcentajes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(actitud_por_uso, <span class="fu">aes</span>(<span class="at">x =</span> frecuencia_uso_ia, <span class="at">y =</span> actitud_media)) <span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> actitud_media), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Actitud hacia la IA según frecuencia de uso"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frecuencia de uso de IA"</span>,</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Actitud media"</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( actitud_por_uso, <span class="co">#graficamos nuestra nueva creación</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> frecuencia_uso_ia, <span class="at">y =</span> actitud_media)) <span class="sc">+</span> <span class="co">#le decimos qué va en x y qué en y</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># vamos a darle un tamaño 3 a los puntos del gráfico</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> actitud_media), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.8</span>) <span class="sc">+</span> <span class="co">#queremos que el gráfico tenga las etiquetas de actitud_media y le decimos en qué lugar del gráfico las ponemos</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>( <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> ) <span class="sc">+</span> <span class="co">#vamos a detallar la escala del eje y</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">"Actitud hacia la IA según frecuencia de uso"</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Frecuencia de uso de IA"</span>, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Actitud media"</span> ) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -468,18 +363,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A este cambio se lo suele llamar pasar de formato <strong>ancho</strong> a formato <strong>largo</strong>. En el formato ancho, las creencias están en los nombres de las columnas. Pero en el formato largo, las creencias pasan a estar dentro de la misma variable. Eso nos permite agrupar por creencia y calcular un promedio para cada una.</p>
 <p>Para hacer ese cambio vamos a hacer dos cosas: primero vamos a quedarnos con las variables que remiten a creencias (de hecho, las vamos a seleccionar por su nombre), y luego usamos <code>pivot_longer()</code> para transponerla y dividir sus valores en 2 columnas (creencia/valor):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_caso, <span class="fu">starts_with</span>(<span class="st">"creencia_"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"creencia_"</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"creencia"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valor"</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>creencias_largo <span class="ot">&lt;-</span> encuesta_ia <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_caso, <span class="fu">starts_with</span>(<span class="st">"creencia_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"creencia_"</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"creencia"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valor"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Guardamos el resultado en un nuevo objeto llamado <code>creencias_largo</code>. No reemplazamos <code>encuesta_ia</code>, porque la base original nos sigue sirviendo para otras preguntas.</p>
 <p>Veamos cómo quedó:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(creencias_largo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(creencias_largo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 834
 Columns: 3
@@ -490,26 +385,26 @@ $ valor    &lt;dbl&gt; 1, 2, 1, 3, 4, 4, 3, 2, 2, 2, 3, 5, 3, 3, 1, 1, 3, 4, 2, 
 </div>
 <p>Ahora cada fila representa una respuesta de una persona a una creencia específica. Notemos que ahora tenemos 6 veces más filas que antes!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(encuesta_ia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 139</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(creencias_largo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(creencias_largo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 834</code></pre>
 </div>
 </div>
 <p>Con esta estructura, la comparación es mucho más directa, ya que podemos agrupar por creencias y operar sobre valores.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>creencias_resumen <span class="ot">&lt;-</span> creencias_largo <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_creencia =</span> <span class="fu">round</span>(<span class="fu">mean</span>(valor), <span class="dv">2</span>),</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_creencia))</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>creencias_resumen</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>creencias_resumen <span class="ot">&lt;-</span> creencias_largo <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(creencia) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_creencia =</span> <span class="fu">round</span>(<span class="fu">mean</span>(valor), <span class="dv">2</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_creencia))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>creencias_resumen</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   creencia                         media_creencia
@@ -522,22 +417,22 @@ $ valor    &lt;dbl&gt; 1, 2, 1, 3, 4, 4, 3, 2, 2, 2, 3, 5, 3, 3, 1, 1, 3, 4, 2, 
 6 creencia_orientacion_psicologica           1.82</code></pre>
 </div>
 </div>
-<p>Ahora hacemos un gráfico de barras.</p>
+<p>Ahora hacemos un gráfico de puntos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(creencias_resumen, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(creencia, media_creencia), <span class="at">y =</span> media_creencia)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> media_creencia), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias sobre capacidades específicas de la IA"</span>,</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Promedio de acuerdo"</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(creencias_resumen, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(creencia, media_creencia), <span class="at">y =</span> media_creencia)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> media_creencia), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias sobre capacidades específicas de la IA"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Promedio de acuerdo"</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -557,21 +452,21 @@ $ valor    &lt;dbl&gt; 1, 2, 1, 3, 4, 4, 3, 2, 2, 2, 3, 5, 3, 3, 1, 1, 3, 4, 2, 
 </blockquote>
 <p>Para responderlo, vamos a usar el gráfico anterior, pero agregando una línea de referencia: la actitud general promedio hacia la IA que ya habíamos calculado en la primera pregunta (<code>actitud_global_media</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(creencias_resumen, <span class="fu">aes</span>(<span class="at">x =</span> media_creencia, <span class="at">y =</span> <span class="fu">reorder</span>(creencia, media_creencia))) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> actitud_global_media, <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> media_creencia), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias específicas y actitud general hacia la IA"</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Línea punteada: actitud general promedio ="</span>, actitud_global_media),</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Promedio de acuerdo"</span>,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(creencias_resumen, <span class="fu">aes</span>(<span class="at">x =</span> media_creencia, <span class="at">y =</span> <span class="fu">reorder</span>(creencia, media_creencia))) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> actitud_global_media, <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> media_creencia), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Creencias específicas y actitud general hacia la IA"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Línea punteada: actitud general promedio ="</span>, actitud_global_media),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Promedio de acuerdo"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

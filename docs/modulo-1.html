@@ -172,8 +172,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#qué-es-r" id="toc-qué-es-r" class="nav-link" data-scroll-target="#qué-es-r">¿Qué es R?</a></li>
-  <li><a href="#qué-es-un-ide-qué-es-rstudio" id="toc-qué-es-un-ide-qué-es-rstudio" class="nav-link" data-scroll-target="#qué-es-un-ide-qué-es-rstudio">¿Qué es un IDE? / ¿Qué es RStudio?</a></li>
+  <li><a href="#qué-es-r-qué-es-rstudio" id="toc-qué-es-r-qué-es-rstudio" class="nav-link" data-scroll-target="#qué-es-r-qué-es-rstudio">¿Qué es R? ¿Qué es RStudio?</a></li>
+  <li><a href="#cómo-organizo-mis-proyectos" id="toc-cómo-organizo-mis-proyectos" class="nav-link" data-scroll-target="#cómo-organizo-mis-proyectos">¿Cómo organizo mis proyectos?</a></li>
   <li><a href="#cómo-usar-rstudio" id="toc-cómo-usar-rstudio" class="nav-link" data-scroll-target="#cómo-usar-rstudio">¿Cómo usar RStudio?</a></li>
   <li><a href="#dónde-va-nuestro-código" id="toc-dónde-va-nuestro-código" class="nav-link" data-scroll-target="#dónde-va-nuestro-código">¿Dónde va nuestro código?</a></li>
   <li><a href="#qué-son-los-paquetes" id="toc-qué-son-los-paquetes" class="nav-link" data-scroll-target="#qué-son-los-paquetes">¿Qué son los paquetes?</a></li>
@@ -207,31 +207,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En este primer paso vamos a preparar el entorno de trabajo y familiarizarnos con R y Posit.Cloud.</p>
 <p>Puntualmente, vamos a ver:</p>
 <ul>
-<li>qué es R;</li>
-<li>cómo usarlo en la nube;</li>
+<li>qué es R y RStudio;</li>
+<li>organizar el trabajo en proyectos;</li>
 <li>cómo utilizar la interfaz de Rstudio;</li>
 <li>cómo cargar paquetes.</li>
 </ul>
 </section>
-<section id="qué-es-r" class="level2">
-<h2 class="anchored" data-anchor-id="qué-es-r">¿Qué es R?</h2>
-<p>R es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: <a href="#0">The R Project for Statistical Computing</a>.</p>
+<section id="qué-es-r-qué-es-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-r-qué-es-rstudio">¿Qué es R? ¿Qué es RStudio?</h2>
+<p>R es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: <a href="https://www.r-project.org/">The R Project for Statistical Computing</a>.</p>
 <p>Para usar R y RStudio hay dos caminos:</p>
 <ol type="1">
-<li>instalar R y RStudio en nuestra computadora;</li>
-<li>usar una versión en la nube desde el navegador.</li>
+<li>usar una versión en la nube (<strong>Posit Cloud</strong>) desde el navegador,</li>
+<li>instalar <strong>R</strong> y <strong>RStudio</strong> en nuestra computadora.</li>
 </ol>
-<p>En este taller vamos a ir por la segunda opción, y vamos a usar <a href="https://posit.cloud/plans/free">Posit.Cloud con plan gratuito</a>.</p>
-<p>Pero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargarte R e instalarla tu computadora, a través de <a href="https://cran.r-project.org/mirrors.html">CRAN: El archivo oficial de R</a>.</p>
+<p>En este taller vamos a ir por la primera opción, y vamos a usar <a href="https://posit.cloud/plans/free">Posit.Cloud con plan gratuito</a> que ya viene con un entorno listo para ejecutar R, y con RStudio versión web, que se ve y se usa igual que la versión desktop.</p>
+<p>Pero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargar e instalar 2 programas, en el siguiente orden:</p>
+<ol type="1">
+<li>R for Windows / macOS / Linux a través de <a href="http://mirror.fcaglp.unlp.edu.ar/CRAN/">CRAN: El archivo oficial de R</a>,</li>
+<li>RStudio desde la <a href="página de descargas de Posit">https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads</a>.</li>
+</ol>
+<p>El primer programa (R) es es el lenguaje, lo que tu computadora va a llamar para ejecutar los análisis que vos le indiques. R puede usarse directamente desde su consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código. Entre los posibles IDEs para R, recomendamos <strong>RStudio</strong>.</p>
 </section>
-<section id="qué-es-un-ide-qué-es-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="qué-es-un-ide-qué-es-rstudio">¿Qué es un IDE? / ¿Qué es RStudio?</h2>
-<p>R puede usarse directamente desde una consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código.</p>
-<p>Entre los posibles IDEs para R, vamos a usar <strong>RStudio</strong>, el cual se encuentra disponible en Posit.Cloud.</p>
-<p>Si estás trabajando en local, podés descargar gratuitamente <a href="https://posit.co/downloads/">RStudio versión escritorio</a>.</p>
-<p>En Posit.CLoud, un <strong>proyecto</strong> es la unidad de trabajo, donde se reúne código, datos, y archivos en un mismo espacio. Hay distintos tipo de Proyectos, pero aquí vamos a usar RStudio.</p>
+<section id="cómo-organizo-mis-proyectos" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-organizo-mis-proyectos">¿Cómo organizo mis proyectos?</h2>
+<p>En RStudio, conviene trabajar con <strong>proyectos</strong>: carpetas donde se reúnen los archivos de un análisis, los códigos para hacer el procesamiento, los archivos de datos, y otros documentos.</p>
+<p>Para crear un proyecto nuevo, entramos a Posit.Cloud y elegimos:</p>
+<pre class="text"><code>New Project &gt; New RStudio Project</code></pre>
 <p><img src="https://docs.posit.co/cloud/get_started/images/newProjectRStudio.webp" class="img-fluid"></p>
-<p>Guía oficial: <a href="https://docs.posit.co/cloud/get_started/">Get Started with Posit Cloud</a>.</p>
+<p>Una vez creado, Posit.Cloud abre RStudio en el navegador. Todo lo que hagamos dentro de ese espacio queda asociado a ese proyecto.</p>
+<p>En este taller vamos a leer una base directamente desde internet y guardarla en memoria, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de <code>Files</code> que está en el panel de Outputs (esto lo tenés más abajo en ¿Como usar RStudio?)</p>
+<p><img src="images/upload2.png" class="img-fluid"></p>
+<p>Allí, primero tenés que subirlo a al nuevo. Luego, vas a tener que importar el dataset, a través de:</p>
+<pre class="text"><code>File &gt; Import Dataset &gt; From ... y el formato de tu dataset</code></pre>
+<p><img src="images/upload3.png" class="img-fluid"></p>
+<p>El archivo más común de un proyecto en un <strong>R Script</strong>, que es un archivo de texto donde escribimos nuestro código para realizar los análisis. Este tipo de archivos es el más básico: sólo código e instrucciones. No vamos a guardar los resultados del análisis en nuestro documento. Resultados, gráficos y otros objetos los vamos a consultar directamente de RStudio.</p>
+<p>Para generar un nuevo archivo de R Script vamos a ir a:</p>
+<pre class="text"><code>File &gt; New File &gt; R Script </code></pre>
+<p><img src="images/script.png" class="img-fluid"></p>
 </section>
 <section id="cómo-usar-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="cómo-usar-rstudio">¿Cómo usar RStudio?</h2>
@@ -252,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><strong>Source</strong></td>
-<td>Escribir y guardar código en scripts (archivos de texto)</td>
+<td>Escribir y guardar código en scripts</td>
 </tr>
 <tr class="even">
 <td><strong>Console</strong></td>
@@ -269,8 +282,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Guía oficial: <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">RStudio User Guide - Pane Layout</a>.</p>
-<p>En este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de <code>Files</code> que está en el panel de Outputs:</p>
-<p><img src="images/upload.png" class="img-fluid"></p>
 </section>
 <section id="dónde-va-nuestro-código" class="level2">
 <h2 class="anchored" data-anchor-id="dónde-va-nuestro-código">¿Dónde va nuestro código?</h2>
@@ -281,38 +292,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>escribiendo en un <strong>script</strong> y ejecutando línea por línea.</li>
 </ol>
 <p>En este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.</p>
-<p>Para crear un script nuevo:</p>
-<pre class="text"><code>File &gt; New File &gt; R Script</code></pre>
-<p>También se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.</p>
-<p>Una vez abierto el script, escribimos:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Una vez creado el script, escribimos:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Para ejecutar esa línea, ubicamos el cursor sobre ella y usamos:</p>
 <pre class="text"><code>Ctrl + Enter</code></pre>
 <p>También podemos hacer clic en el botón <strong>Run</strong>. El resultado aparece en la <strong>Console</strong>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="images/codigo.png" class="img-fluid"></p>
 <p>R también nos permite guardar valores en objetos (variables), utilizando el operador de asignación <code>&lt;-</code> .</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mi_otro_numero <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mi_texto <span class="ot">&lt;-</span> <span class="st">"Hola, R"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mi_otro_numero <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mi_texto <span class="ot">&lt;-</span> <span class="st">"Hola, R"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Cuando ejecutamos este código, el objeto aparece en el panel <strong>Environment</strong>. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.</p>
-<p>Luego, podemos ver estos objetos, u operar sobre ellos.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="co"># si no hacemos nada, se muestra en pantalla</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mi_texto</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="sc">&gt;</span> mi_otro_numero <span class="co"># si hacemos una operacion muestra el resultado</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero <span class="ot">&lt;-</span> mi_numero <span class="sc">+</span> mi_otro_numero <span class="co"># o podemos guardar el resultado de una operación en una variable nueva</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="images/environment.png" class="img-fluid"></p>
+<p>Por cierto, ¿viste esa escobita en el panel de environment? Esto te permite borrar todo lo que tenés en memoria para empezar de nuevo.</p>
+<p>Para ver u operar estos objetos los vamos a llamar por su nombre en el código:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="co"># si escribimos el nombre del objeto, nos muestra su contenido o valores</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mi_texto</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>mi_numero <span class="sc">&gt;</span> mi_otro_numero <span class="co"># si hacemos una operacion muestra el resultado</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero <span class="ot">&lt;-</span> mi_numero <span class="sc">+</span> mi_otro_numero <span class="co"># o podemos guardar el resultado de una operación en una variable nueva</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mi_nuevo_numero</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(Habrán notado que el código de arriba tiene comentarios. Estos son pedacitos de textos que no se ejecutan y nos permiten aclarar qué decisión tomamos en ese punto, o narrar nuestro razonamiento en ese momento. Un comentario es lo que sigue al signo <code># texto del comentario</code>.)</p>
+<p>Así como podemos crear objetos en memoria, podemos reescribirlos o actualizarlos, y también borrarlos.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>numero_actualizar <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>numero_actualizar</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>numero_actualizar <span class="ot">&lt;-</span> numero_actualizar <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>numero_actualizar</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(numero_actualizar) <span class="co"># lo borra de memoria</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="qué-son-los-paquetes" class="level2">
 <h2 class="anchored" data-anchor-id="qué-son-los-paquetes">¿Qué son los paquetes?</h2>
 <p>R viene con muchas funciones básicas, pero para trabajar con datos solemos usar paquetes adicionales. Un <strong>paquete</strong> es un conjunto de funciones, datos y herramientas que amplían lo que podemos hacer con R.</p>
 <p>En este taller vamos a usar principalmente el paquete <code>tidyverse</code>, que reúne varias herramientas para leer, transformar, analizar y graficar datos.</p>
 <p>Para instalarlo, ejecutamos:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Cuando le damos Run o Control+Enter a las líneas donde pusimos la indicación de install.packeges (“tidyverse”) vamos a dejar que instale, esto puede demorar. Para saber que ha terminado de correr esperaremos que el botón rojo que aparece en la consola desaparezca.</p>
+<p><img src="images/paquetes.png" class="img-fluid"></p>
 <p>La instalación se hace una sola vez en cada entorno de trabajo.</p>
 <p>Después de instalar un paquete, hay que cargarlo en la sesión de R para poder usarlo.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Esta operación sí hay que repetirla cada vez que iniciamos una nueva sesión o abrimos nuevamente el proyecto.</p>
 
 

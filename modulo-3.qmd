@@ -128,7 +128,7 @@ encuesta_ia %>%
   count(mayor_45)
 ```
 
-
+Como resultado descubrimos que nuestros encuestados se dividen en dos grupos parejos: de nuestras 139 personas encuestadas, 70 tienen más de 45 años.
 
 ## ¿Cómo agrupamos datos?
 
@@ -144,13 +144,15 @@ encuesta_ia %>%
 
 Leído paso a paso:
 
-1. tomamos la tabla `encuesta_ia`;
-2. agrupamos los casos según `frecuencia_uso_ia`;
-3. resumimos cada grupo contando cuántos casos tiene.
+1. tomamos la tabla encuesta_ia;
+2. contamos los casos según frecuencia_uso_ia, lo que veremos como una columna;
+3. creamos una segunda columna de porcentajes (recuento de casos sobre total de casos por cien) para cada tipo de frecuencia de uso con ia.
 
 La función `n()` cuenta la cantidad de filas dentro de cada grupo.
 
 Esta operación es tan común que `dplyr` tiene una forma abreviada: `count()`. 
+
+
 Si, además quisiéramos incluir los porcentajes, podríamos hacer: 
 
 ```{r}
@@ -207,6 +209,15 @@ encuesta_ia %>%
   )
 ```
 
+Leído paso a paso:
+
+1. tomamos la tabla encuesta_ia;
+2. filtramos los casos que tienen 45 años o más;
+3. contamos estos casos de 45 años y más según frecuencia_uso_ia;
+4. calculamos los porcentajes de frecuencia_uso_ia para los casos de 45 años y más, con un solo decimal.
+
+Encontramos que de las personas de 45 años y más que encuestamos el 41,4% tiene un uso frecuente de la ia.
+
 
 ## ¿Cómo comparamos grupos?
 
@@ -244,5 +255,78 @@ Leído paso a paso:
 
 Esto es importante: el `group_by(area_trabajo_grupo)` hace que `sum(n)` se calcule dentro de cada área, no sobre toda la tabla.
 
-
 Ahora podemos ver que en educación la mayor parte de los casos se concentra entre quienes declaran un uso `frecuente` u `ocasional` de IA: 44% y 40%, respectivamente. En consultoría y servicios profesionales también predominan las categorías `frecuente` y `ocasional`, aunque con una distribución levemente distinta: 41% declara un uso frecuente y 35,9% un uso ocasional. Pero en salud y servicios sociales, en cambio, el porcentaje de uso frecuente que se observa en la tabla es menor: 32%. 
+
+
+## ¿Cómo se construye un gráfico con `ggplot`?
+
+Para hacer gráficos en R, vamos a introducir una herramienta nueva: `ggplot2`, que se encuentra incluida en `tidyverse`.
+
+Un gráfico con `ggplot` se construye por **capas**. La estructura mínima suele ser esta:
+
+``` r
+ggplot(datos, aes(x = variable_x, y = variable_y)) +
+  geom_tipo_de_grafico()
+```
+
+Hay tres partes importantes:
+
+| Parte | Qué indica | Ejemplo |
+|------------------------|------------------------|------------------------|
+| `datos` | la tabla que vamos a graficar | `encuesta_ia` |
+| `aes()` | las variables que vamos a ubicar en el gráfico | `aes(x = actitud_ia)` |
+| `geom_*()` | el tipo de gráfico o capa visual | `geom_histogram()` |
+
+La palabra `aes` viene de **aesthetics**. En `ggplot`, una estética es una relación entre una variable y un elemento visual del gráfico: eje x, eje y, color, tamaño, forma, etc.
+
+Por ejemplo:
+
+``` r
+aes(x = frecuencia_uso_ia, y = actitud_media)
+```
+
+quiere decir:
+
+> poné `frecuencia_uso_ia` en el eje x y `actitud_media` en el eje y.
+
+Después agregamos una geometría, es decir, el tipo de elemento visual que queremos usar.
+
+Algunas geometrías frecuentes son:
+
+| Geometría | Para qué sirve |
+|------------------------------------|------------------------------------|
+| `geom_histogram()` | calcular y dibujar la distribución de una variable numérica |
+| `geom_bar()` | contar casos y dibujar barras |
+| `geom_col()` | dibujar barras con valores ya calculados |
+| `geom_point()` | hacer gráficos de puntos |
+| `geom_line()` | unir puntos con líneas |
+| `geom_text()` | agregar etiquetas de texto |
+| `geom_hline()` | agregar una línea horizontal |
+| `geom_vline()` | agregar una línea vertical |
+
+Un detalle importante: no todas las geometrías esperan los datos de la misma manera.
+
+Algunas geometrías hacen cálculos por nosotros. Por ejemplo, `geom_histogram()` solo necesita que le indiquemos una variable numérica. Después, R agrupa los valores en intervalos y cuenta cuántos casos hay en cada uno. Algo parecido pasa con `geom_bar()`: si le damos una variable categórica, cuenta cuántos casos hay en cada categoría y dibuja las barras. 
+
+En cambio, `geom_col()` espera que el cálculo ya esté hecho, de modo que le vamos a pasar una tabla donde una columna indique las categorías y otra columna indique los valores que queremos graficar. Por eso, si ya calculamos una tabla resumen con `group_by()` y `summarise()`, seguramente usemos `geom_col()`.
+
+Un detalle importante: `ggplot` usa `+` para sumar capas. No es el pipe `%>%`. El pipe encadena operaciones sobre tablas; el `+` agrega capas a un gráfico.
+
+Veamos un ejemplo:
+
+```{r}
+glimpse(encuesta_ia)
+
+encuesta_ia %>%
+  ggplot(aes(x=grupo_edad)) + 
+  geom_bar() + 
+  theme_minimal() # esto es sólo para sacarle fondos y estilos
+
+encuesta_ia %>%
+  filter(mayor_45 == TRUE) %>%
+  count(area_trabajo_grupo) %>% # al hacer un count generamos una columna n
+  ggplot(aes(x=area_trabajo_grupo, y=n)) + 
+  geom_col() + 
+  labs( title = "Áreas de trabajo de las personas de 45 años o más" ) + # agregamos un titulo
+  theme_minimal() # esto es sólo para sacarle fondos y estilos
+```

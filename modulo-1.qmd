@@ -8,37 +8,64 @@ En este primer paso vamos a preparar el entorno de trabajo y familiarizarnos con
 
 Puntualmente, vamos a ver:
 
-- qué es R;
-- cómo usarlo en la nube;
+- qué es R y RStudio;
+- organizar el trabajo en proyectos;
 - cómo utilizar la interfaz de Rstudio;
 - cómo cargar paquetes.
 
-## ¿Qué es R?
+## ¿Qué es R? ¿Qué es RStudio?
 
-R es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: [The R Project for Statistical Computing](#0).
+R es un lenguaje de programación para análisis de datos y computación científica. Es una herramienta libre, gratuita y multiplataforma. Podés acceder a la página del proyecto por acá: [The R Project for Statistical Computing](https://www.r-project.org/).
 
 Para usar R y RStudio hay dos caminos:
 
-1.  instalar R y RStudio en nuestra computadora;
-2.  usar una versión en la nube desde el navegador.
+1.  usar una versión en la nube (**Posit Cloud**) desde el navegador,
+2.  instalar **R** y **RStudio** en nuestra computadora.
 
-En este taller vamos a ir por la segunda opción, y vamos a usar [Posit.Cloud con plan gratuito](https://posit.cloud/plans/free).
+En este taller vamos a ir por la primera opción, y vamos a usar [Posit.Cloud con plan gratuito](https://posit.cloud/plans/free) que ya viene con un entorno listo para ejecutar R, y con RStudio versión web, que se ve y se usa igual que la versión desktop.
 
-Pero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargarte R e instalarla tu computadora, a través de [CRAN: El archivo oficial de R](https://cran.r-project.org/mirrors.html).
+Pero, si te interesa usar R para proyecto más grandes o con datos que no querés subir a una nube, tenés que descargar e instalar 2 programas, en el siguiente orden:
 
-## ¿Qué es un IDE? / ¿Qué es RStudio?
+1. R for Windows / macOS / Linux a través de [CRAN: El archivo oficial de R](http://mirror.fcaglp.unlp.edu.ar/CRAN/),
+2. RStudio desde la [https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads](página de descargas de Posit).
 
-R puede usarse directamente desde una consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código.
+El primer programa (R) es es el lenguaje, lo que tu computadora va a llamar para ejecutar los análisis que vos le indiques. R puede usarse directamente desde su consola. Sin embargo, para trabajar de manera más cómoda solemos usar un programa adicional: un entorno integrado de desarrollo (IDE, en inglés) que nos ofrece una interfaz visual y herramientas para facilitar la escritura y ejecución del código. Entre los posibles IDEs para R, recomendamos **RStudio**.
 
-Entre los posibles IDEs para R, vamos a usar **RStudio**, el cual se encuentra disponible en Posit.Cloud.
+## ¿Cómo organizo mis proyectos?
 
-Si estás trabajando en local, podés descargar gratuitamente [RStudio versión escritorio](https://posit.co/downloads/).
+En RStudio, conviene trabajar con **proyectos**: carpetas donde se reúnen los archivos de un análisis, los códigos para hacer el procesamiento, los archivos de datos, y otros documentos. 
 
-En Posit.CLoud, un **proyecto** es la unidad de trabajo, donde se reúne código, datos, y archivos en un mismo espacio. Hay distintos tipo de Proyectos, pero aquí vamos a usar RStudio.
+Para crear un proyecto nuevo, entramos a Posit.Cloud y elegimos:
+
+```text
+New Project > New RStudio Project
+```
 
 ![](https://docs.posit.co/cloud/get_started/images/newProjectRStudio.webp)
 
-Guía oficial: [Get Started with Posit Cloud](https://docs.posit.co/cloud/get_started/).
+Una vez creado, Posit.Cloud abre RStudio en el navegador. Todo lo que hagamos dentro de ese espacio queda asociado a ese proyecto.
+
+En este taller vamos a leer una base directamente desde internet y guardarla en memoria, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de `Files` que está en el panel de Outputs (esto lo tenés más abajo en ¿Como usar RStudio?)
+
+![](images/upload2.png)
+
+Allí, primero tenés que subirlo a al nuevo. Luego, vas a tener que importar el dataset, a través de:
+
+```text
+File > Import Dataset > From ... y el formato de tu dataset
+```
+
+![](images/upload3.png)
+
+El archivo más común de un proyecto en un **R Script**, que es un archivo de texto donde escribimos nuestro código para realizar los análisis. Este tipo de archivos es el más básico: sólo código e instrucciones. No vamos a guardar los resultados del análisis en nuestro documento. Resultados, gráficos y otros objetos los vamos a consultar directamente de RStudio. 
+
+Para generar un nuevo archivo de R Script vamos a ir a: 
+
+```text
+File > New File > R Script 
+```
+
+![](images/script.png)
 
 ## ¿Cómo usar RStudio?
 
@@ -50,16 +77,13 @@ Los cuatro paneles principales son:
 
 | Panel           | Para qué sirve                                            |
 |------------------|------------------------------------------------------|
-| **Source**      | Escribir y guardar código en scripts (archivos de texto)  |
+| **Source**      | Escribir y guardar código en scripts                      |
 | **Console**     | Ejecutar comandos de R y mostrar resultados / respuestas  |
 | **Environment** | Ver objetos cargados en memoria                           |
 | **Output**      | Ver archivos, gráficos, paquetes, ayuda y visualizaciones |
 
 Guía oficial: [RStudio User Guide - Pane Layout](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).
 
-En este proyecto vamos a leer una base directamente desde internet, de modo que no necesitamos subir archivos al proyecto. Pero, si querés trabajar con una planilla o dataset que tenés en local, la podes importar desde la tab de `Files` que está en el panel de Outputs:
-
-![](images/upload.png)
 
 ## ¿Dónde va nuestro código?
 
@@ -72,15 +96,7 @@ En RStudio podemos ejecutar código de dos maneras:
 
 En este taller vamos a usar scripts, porque nos permiten guardar el código, corregirlo y volver a ejecutarlo más adelante.
 
-Para crear un script nuevo:
-
-``` text
-File > New File > R Script
-```
-
-También se puede usar el botón de archivo nuevo en la parte superior izquierda de RStudio.
-
-Una vez abierto el script, escribimos:
+Una vez creado el script, escribimos:
 
 ``` r
 2 + 2
@@ -98,6 +114,9 @@ También podemos hacer clic en el botón **Run**. El resultado aparece en la **C
 [1] 4
 ```
 
+![](images/codigo.png)
+
+
 R también nos permite guardar valores en objetos (variables), utilizando el operador de asignación `<-` .
 
 ``` r
@@ -108,16 +127,32 @@ mi_texto <- "Hola, R"
 
 Cuando ejecutamos este código, el objeto aparece en el panel **Environment**. Ese panel muestra los objetos que tenemos cargados en memoria durante la sesión de trabajo.
 
-Luego, podemos ver estos objetos, u operar sobre ellos.
+![](images/environment.png)
+
+Por cierto, ¿viste esa escobita en el panel de environment? Esto te permite borrar todo lo que tenés en memoria para empezar de nuevo.  
+
+Para ver u operar estos objetos los vamos a llamar por su nombre en el código:
 
 ``` r
-mi_numero # si no hacemos nada, se muestra en pantalla
+mi_numero # si escribimos el nombre del objeto, nos muestra su contenido o valores
 mi_texto
 
 mi_numero > mi_otro_numero # si hacemos una operacion muestra el resultado
 
 mi_nuevo_numero <- mi_numero + mi_otro_numero # o podemos guardar el resultado de una operación en una variable nueva
 mi_nuevo_numero
+```
+
+(Habrán notado que el código de arriba tiene comentarios. Estos son pedacitos de textos que no se ejecutan y nos permiten aclarar qué decisión tomamos en ese punto, o narrar nuestro razonamiento en ese momento. Un comentario es lo que sigue al signo `# texto del comentario`.)
+
+Así como podemos crear objetos en memoria, podemos reescribirlos o actualizarlos, y también borrarlos.
+
+``` r
+numero_actualizar <- 5
+numero_actualizar
+numero_actualizar <- numero_actualizar + 5
+numero_actualizar
+rm(numero_actualizar) # lo borra de memoria
 ```
 
 ## ¿Qué son los paquetes?
@@ -131,6 +166,10 @@ Para instalarlo, ejecutamos:
 ``` r
 install.packages("tidyverse")
 ```
+
+Cuando le damos Run o Control+Enter a las líneas donde pusimos la indicación de install.packeges (“tidyverse”) vamos a dejar que instale, esto puede demorar. Para saber que ha terminado de correr esperaremos que el botón rojo que aparece en la consola desaparezca.
+
+![](images/paquetes.png)
 
 La instalación se hace una sola vez en cada entorno de trabajo.
 

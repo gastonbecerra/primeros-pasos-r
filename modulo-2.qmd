@@ -27,6 +27,8 @@ encuesta_ia <- read_csv(
 )
 ```
 
+(Recordá que podés copiar este código de este tutorial con el botón de portapapeles, y que para correrlo tenés que pegarlo en tu Script y correrlo con Run o Control+Enter)
+
 Con esta línea hacemos tres cosas:
 
 1.  leemos un archivo `.csv` alojado en internet;
@@ -34,6 +36,8 @@ Con esta línea hacemos tres cosas:
 3.  lo guardamos en un objeto llamado `encuesta_ia`.
 
 Podemos ver que el objeto `encuesta_ia` aparece en el panel **Environment**. Ese panel nos muestra qué objetos tenemos disponibles durante la sesión de trabajo.
+
+![](images/encuesta.png)
 
 En R, un **objeto** es un nombre que usamos para guardar información en la memoria de trabajo. En este caso, `encuesta_ia` es un objeto que contiene una tabla de datos.
 
@@ -61,11 +65,8 @@ dim(encuesta_ia)
 
 Esta función devuelve dos números:
 
-- el primero indica la cantidad de filas;
-- el segundo indica la cantidad de columnas.
-
-Las filas corresponden a los casos.\
-Las columnas corresponden a las variables.
+- el primero indica la cantidad de filas o casos, en nuestra tabla son 139;
+- el segundo indica la cantidad de columnas o variables, que en nuestra tabla son 15.
 
 También podemos consultar cada dimensión por separado con las funciones `nrow()` y `ncol()`.
 
@@ -106,11 +107,13 @@ También podemos abrir la tabla en una vista similar a una planilla con `View()`
 View(encuesta_ia)
 ```
 
-Esto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente.
+(Importante: R distingue mayúsculas y minúsculas. La función correcta es `View()` con **V mayúscula**.)
 
-Esta función es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.
+Esto abre una pestaña en RStudio donde podemos recorrer filas y columnas visualmente. Esto es útil para inspeccionar los datos, pero no reemplaza el código. Mirar la tabla ayuda a orientarnos; escribir código nos permite repetir, documentar y compartir el análisis.
 
-Importante: R distingue mayúsculas y minúsculas. La función correcta es `View()` con **V mayúscula**.
+
+![](images/view.png)
+
 
 ## ¿Qué tipos de datos tenemos?
 

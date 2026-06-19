@@ -10,7 +10,6 @@ La pregunta general que nos va a orientar es:
 
 > ¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?
 
-Además, vamos a introducir una herramienta nueva: `ggplot2`, un paquete para hacer gráficos en R.
 
 ## Cargamos paquetes y datos
 
@@ -26,56 +25,6 @@ encuesta_ia <- read_csv(
   show_col_types = FALSE
 )
 ```
-
-## ¿Cómo se construye un gráfico con `ggplot`?
-
-Un gráfico con `ggplot` se construye por **capas**. La estructura mínima suele ser esta:
-
-``` r
-ggplot(datos, aes(x = variable_x, y = variable_y)) +
-  geom_tipo_de_grafico()
-```
-
-Hay tres partes importantes:
-
-| Parte | Qué indica | Ejemplo |
-|------------------------|------------------------|------------------------|
-| `datos` | la tabla que vamos a graficar | `encuesta_ia` |
-| `aes()` | las variables que vamos a ubicar en el gráfico | `aes(x = actitud_ia)` |
-| `geom_*()` | el tipo de gráfico o capa visual | `geom_histogram()` |
-
-La palabra `aes` viene de **aesthetics**. En `ggplot`, una estética es una relación entre una variable y un elemento visual del gráfico: eje x, eje y, color, tamaño, forma, etc.
-
-Por ejemplo:
-
-``` r
-aes(x = frecuencia_uso_ia, y = actitud_media)
-```
-
-quiere decir:
-
-> poné `frecuencia_uso_ia` en el eje x y `actitud_media` en el eje y.
-
-Después agregamos una geometría, es decir, el tipo de elemento visual que queremos usar.
-
-Algunas geometrías frecuentes son:
-
-| Geometría | Para qué sirve |
-|------------------------------------|------------------------------------|
-| `geom_histogram()` | calcular y dibujar la distribución de una variable numérica |
-| `geom_bar()` | contar casos y dibujar barras |
-| `geom_col()` | dibujar barras con valores ya calculados |
-| `geom_point()` | hacer gráficos de puntos |
-| `geom_line()` | unir puntos con líneas |
-| `geom_text()` | agregar etiquetas de texto |
-| `geom_hline()` | agregar una línea horizontal |
-| `geom_vline()` | agregar una línea vertical |
-
-Un detalle importante: no todas las geometrías esperan los datos de la misma manera.
-
-Algunas geometrías hacen cálculos por nosotros. Por ejemplo, `geom_histogram()` solo necesita que le indiquemos una variable numérica. Después, R agrupa los valores en intervalos y cuenta cuántos casos hay en cada uno. Algo parecido pasa con `geom_bar()`: si le damos una variable categórica, cuenta cuántos casos hay en cada categoría y dibuja las barras. En cambio, `geom_col()` espera que el cálculo ya esté hecho, de modo que le vamos a pasar una tabla donde una columna indique las categorías y otra columna indique los valores que queremos graficar. Por eso, si ya calculamos una tabla resumen con `group_by()` y `summarise()`, seguramente usemos `geom_col()`.
-
-Un detalle importante: `ggplot` usa `+` para sumar capas. No es el pipe `%>%`. El pipe encadena operaciones sobre tablas; el `+` agrega capas a un gráfico.
 
 ## Pregunta 1: ¿qué tan favorable es la actitud general hacia la IA?
 
@@ -147,20 +96,17 @@ La pregunta es:
 La frecuencia de uso tiene 4 categorías posibles. Podemos calcular el promedio de actitudes en esos 4 grupos. Guardemos esto así en un objeto para que sea más fácil graficarlo. Además, vamos a hacer un paso más para que nuestros gráficos se vean mejor: vamos a indicarle que nuestras categorías tienen un orden y vamos a corregir sus mayúsculas y acentos, para que quede así: Nunca -\> Esporádico -\> Ocasional -\> Frecuente. Para ello vamos a convertir nuestra variable en un factor.
 
 ```{r}
-actitud_por_uso <- encuesta_ia %>%
-  mutate(
-    frecuencia_uso_ia = factor( # convertirmos en un factor y cambiamos etiquetas
-      frecuencia_uso_ia,
-      levels = c("nunca", "esporadicamente", "ocasional", "frecuente"),
-      labels = c("Nunca", "Esporádico", "Ocasional", "Frecuente")
-    )
-  ) %>%
-  group_by(frecuencia_uso_ia) %>% # ahora hacemos los cálculos por cada grupo
-  summarise(
-    n = n(),
-    actitud_media = round(mean(actitud_ia), 2),
-    .groups = "drop"
-  )
+actitud_por_uso <- encuesta_ia %>%  #dentro de nuestra base de datos
+  mutate( #vamos a transformar
+  frecuencia_uso_ia = factor( # convertirmos en un factor y cambiamos etiquetas 
+    frecuencia_uso_ia, # tomamos la variable que existe en la base
+    levels = c("nunca", "esporadicamente", "ocasional", "frecuente"), # le decimos que las cateorías de la variable original tienen este orden de jerarquía: “nunca” es menos que “esporádicamente”, y “esporádicamente” es menos que “ocasional”, etc.
+    labels = c("Nunca", "Esporádico", "Ocasional", "Frecuente") ) ) %>%  # cambiamos las etiquetas para ser aptas para publicar, con mayúsculas y tildes
+  group_by(frecuencia_uso_ia) %>% # ahora hacemos los cálculos por cada grupo 
+  summarise( 
+    n = n(), 
+    actitud_media = round(mean(actitud_ia), 2), 
+    .groups = "drop" ) 
 
 actitud_por_uso
 ```
@@ -168,18 +114,14 @@ actitud_por_uso
 Ahora hacemos un gráfico con `ggplot`. Acá usamos puntos, y no barras, porque estamos comparando promedios en una escala que va de 1 a 5. Las barras suelen funcionar mejor cuando la escala empieza en 0, como conteos o porcentajes.
 
 ```{r}
-ggplot(actitud_por_uso, aes(x = frecuencia_uso_ia, y = actitud_media)) +
-  geom_point(size = 3) +
-  geom_text(aes(label = actitud_media), vjust = -0.8) +
-  scale_y_continuous(
-    limits = c(1, 5),
-    breaks = 1:5
-  ) +
-  labs(
-    title = "Actitud hacia la IA según frecuencia de uso",
-    x = "Frecuencia de uso de IA",
-    y = "Actitud media"
-  ) +
+ggplot( actitud_por_uso, #graficamos nuestra nueva creación
+  aes(x = frecuencia_uso_ia, y = actitud_media)) + #le decimos qué va en x y qué en y
+  geom_point(size = 3) + # vamos a darle un tamaño 3 a los puntos del gráfico
+  geom_text(aes(label = actitud_media), vjust = -0.8) + #queremos que el gráfico tenga las etiquetas de actitud_media y le decimos en qué lugar del gráfico las ponemos
+  scale_y_continuous( limits = c(1, 5), breaks = 1:5 ) + #vamos a detallar la escala del eje y
+  labs( title = "Actitud hacia la IA según frecuencia de uso", 
+  x = "Frecuencia de uso de IA", 
+  y = "Actitud media" ) +
   theme_minimal()
 ```
 
@@ -240,7 +182,7 @@ creencias_resumen <- creencias_largo %>%
 creencias_resumen
 ```
 
-Ahora hacemos un gráfico de barras.
+Ahora hacemos un gráfico de puntos.
 
 ```{r}
 ggplot(creencias_resumen, aes(x = reorder(creencia, media_creencia), y = media_creencia)) +
