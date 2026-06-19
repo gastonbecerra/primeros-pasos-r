@@ -137,21 +137,21 @@
     "href": "index.html#cómo-vamos-a-trabajar",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
     "section": "¿Cómo vamos a trabajar?",
-    "text": "¿Cómo vamos a trabajar?\nEl taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Zoom.\nLos materiales quedan disponibles para que puedas recorrerlos a tu ritmo, repetir los ejercicios y volver al código cuando lo necesites.\nEn los encuentros vamos a retomar dudas, revisar ejemplos y acompañar el trabajo práctico."
+    "text": "¿Cómo vamos a trabajar?\nEl taller combina materiales asincrónicos y encuentros sincrónicos de apoyo por Meet/Zoom.\nLos materiales quedan disponibles para que puedas recorrerlos a tu ritmo, repetir los ejercicios y volver al código cuando lo necesites.\nEn los encuentros vamos a retomar dudas, revisar ejemplos y acompañar el trabajo práctico."
   },
   {
     "objectID": "index.html#con-qué-vamos-a-trabajar",
     "href": "index.html#con-qué-vamos-a-trabajar",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
     "section": "¿Con qué vamos a trabajar?",
-    "text": "¿Con qué vamos a trabajar?\nPara ejercitarnos, vamos a usar un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.\nLa pregunta que nos va a guiar es:\n\n¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\n\nA partir de esa pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos."
+    "text": "¿Con qué vamos a trabajar?\nTécnicamente, vamos a trabajar con una instalación de R que corre en la nube, llamado Posit Cloud.\nPara ejercitarnos, vamos a usar un subconjunto anonimizado de una encuesta sobre actitudes, creencias y usos de inteligencia artificial en población adulta de Argentina.\nLa pregunta que nos va a guiar es:\n\n¿Una actitud favorable hacia la inteligencia artificial implica confianza en sus capacidades concretas?\n\nA partir de esa pregunta vamos a explorar una idea central: la aceptación de la IA no es homogénea, sino situada. Puede haber una valoración general positiva y, al mismo tiempo, dudas o rechazos frente a usos específicos."
   },
   {
     "objectID": "index.html#qué-necesitás-saber-antes",
     "href": "index.html#qué-necesitás-saber-antes",
     "title": "Primeros pasos en análisis de datos para ciencias sociales con R",
     "section": "¿Qué necesitás saber antes?",
-    "text": "¿Qué necesitás saber antes?\nNo hace falta experiencia previa en programación. Sí hace falta cierta disposición a probar, equivocarse, leer errores y volver a intentar. El objetivo es empezar a pensar de esta manera:\n\ntengo una pregunta, tengo una tabla, ¿qué operaciones necesito hacer para construir una respuesta?"
+    "text": "¿Qué necesitás saber antes?\nNo hace falta experiencia previa en programación. Sí hace falta cierta disposición a probar, equivocarse, leer errores y volver a intentar. El objetivo es empezar a pensar de esta manera:\n\ntengo una pregunta, tengo un dataset, ¿qué operaciones necesito hacer para construir una respuesta?"
   },
   {
     "objectID": "modulo-1.html",
