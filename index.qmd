@@ -12,8 +12,8 @@ Vamos a trabajar sobre cuatro pasos:
 
 - **Primero**, cómo preparar un entorno para usar R.
 - **Segundo**, cómo cargar y explorar un dataset.
-- **Tercero**, cómo manipular y transformar una tabla para crear nuevas variables y grupos de datos.
-- **Cuarto**, cómo responder preguntas de investigación con gráficos.
+- **Tercero**, cómo manipular y transformar una tabla para crear nuevas variables y grupos de datos, y visualizarlo con gráficos.
+- **Cuarto**, cómo responder preguntas de investigación
 
 ## ¿Cómo vamos a trabajar?
 
@@ -40,3 +40,21 @@ A partir de esa pregunta vamos a explorar una idea central: la aceptación de la
 No hace falta experiencia previa en programación. Sí hace falta cierta disposición a probar, equivocarse, leer errores y volver a intentar. El objetivo es empezar a pensar de esta manera:
 
 > tengo una pregunta, tengo un dataset, ¿qué operaciones necesito hacer para construir una respuesta?
+
+## ¿Dé donde viene todo esto?
+
+Estos materiales forman parte de una línea de trabajo orientada a acompañar la enseñanza y el aprendizaje de las ciencias sociales computacionales.
+
+Los desarrollamos a partir de experiencias docentes en la [Licenciatura en Sociología de UFLO](https://www.uflouniversidad.edu.ar/carrera/sociologia/) y en la [Diplomatura en Ciencias Sociales Computacionales de UFLO y UCA](https://uca.edu.ar/es/cursos-de-educacion-continua/facultad-de-ciencias-sociales/diplomatura/diplomatura-en-ciencias-sociales-computacionales-nivel-introductorio).
+
+La idea de fondo es simple: acercar herramientas computacionales al trabajo de las ciencias sociales sin perder de vista las preguntas, los problemas y las formas de interpretación propias de nuestras disciplinas. De hecho, creemos que las Ciencias Sociales Computacionales son un espacio ideal para la reflexión epistemológica y la mirada crítica de la Sociología, y por eso los invitamos a aprender análisis de datos o programar.
+
+Otros materiales abiertos, elaborados en estos espacios se encuentran disponibles en nuestro sitio web **[Recursos Sociológicos](https://www.recursossociologicos.ar/)**. 
+
+Allí vas a encontrar:
+
+- 📚 **tutoriales y guías** para seguir practicando con R, datos y herramientas digitales;
+- 🎥 **clases abiertas, conversatorios y podcasts** sobre sociología, IA y ciencias sociales computacionales;
+- 🧪 **proyectos de investigación** desarrollados en nuestros espacios de trabajo;
+- 🛠️ **herramientas y desarrollos abiertos** para apoyar distintas tareas de investigación social;
+- 📰 **publicaciones y materiales de divulgación** vinculados con sociología, tecnología e inteligencia artificial.

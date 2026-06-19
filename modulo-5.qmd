@@ -31,7 +31,3 @@ Para seguir practicando con R, pueden revisar este curso introductorio:
 [Introducción a R para ciencias sociales](https://bookdown.org/gaston_becerra/curso-intro-r/index.html)
 
 Ahí se desarrollan otros temas y ejemplos, también orientados al trabajo con datos en ciencias sociales.
-
-También pueden recorrer otros materiales disponibles en:
-
-[Recursos Sociológicos](https://www.recursossociologicos.ar/)
