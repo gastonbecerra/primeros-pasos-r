@@ -1,6 +1,9 @@
 ---
 title: "Primeros pasos en análisis de datos para ciencias sociales con R"
+image: images/portada.png
 ---
+
+![](images/portada.png)
 
 Este taller busca acompañarnos en los primeros pasos —pero primeros en serio— del análisis de datos con R.
 
